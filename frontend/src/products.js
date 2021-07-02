@@ -8,7 +8,7 @@ const products = [
         category: 'Shoes',
         price: 200,
         countInstock: 5,
-        rating: 5,
+        rating: 3.5,
         numReviews: 5, 
         
     },
@@ -33,7 +33,7 @@ const products = [
         category: 'Shoes',
         price: 259,
         countInstock: 10,
-        rating: 4.9,
+        rating: 5,
         numReviews: 32,
     },
     {
@@ -45,7 +45,7 @@ const products = [
         category: 'Shoes',
         price: 270,
         countInstock: 8,
-        rating: 4.5,
+        rating: 4,
         numReviews: 9,
     },
     {
@@ -69,7 +69,7 @@ const products = [
         category: 'Shoes',
         price: 270,
         countInstock: 8,
-        rating: 4.5,
+        rating: 3,
         numReviews: 9,
     },
     {
@@ -81,7 +81,7 @@ const products = [
         category: 'Shoes',
         price: 270,
         countInstock: 8,
-        rating: 4.5,
+        rating: 4.9,
         numReviews: 9,
     },
     {
@@ -93,7 +93,7 @@ const products = [
         category: 'Shoes',
         price: 270,
         countInstock: 8,
-        rating: 4.5,
+        rating: 5,
         numReviews: 9,
     },
 

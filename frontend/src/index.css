@@ -1,3 +1,8 @@
-main{
-  min-height: 90vh;
+main {
+	min-height: 90vh;
+}
+
+.rating i {
+	color: #ff9900;
+	padding: 2px;
 }
