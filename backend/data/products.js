@@ -1,6 +1,5 @@
 const products = [
     {
-        _id: '1',
         name: 'Nike Air Huarache',
         image: '/images/air-huarache.jfif',
         description: 'High Quality Shoes in your Area.',
@@ -13,7 +12,6 @@ const products = [
         
     },
     {
-        _id: '2',
         name: 'Nike Jordan Air',
         image: '/images/jordan-air.jfif',
         description: 'High Quality Shoes in your Area.',
@@ -25,7 +23,6 @@ const products = [
         numReviews: 9,
     },
     {
-        _id: '3',
         name: 'Nike Blazer Low',
         image: '/images/nikeblazer-low.jfif',
         description: 'High Quality Shoes in your Area.',
@@ -37,7 +34,6 @@ const products = [
         numReviews: 32,
     },
     {
-        _id: '4',
         name: 'Nike Blazer Low 77',
         image: '/images/nikeblazer-low-77.jfif',
         description: 'High Quality Shoes in your Area.',
@@ -49,7 +45,6 @@ const products = [
         numReviews: 9,
     },
     {
-        _id: '5',
         name: 'Nike Court Legacy',
         image: '/images/nikecourt-legacy.jfif',
         description: 'High Quality Shoes in your Area.',
@@ -61,7 +56,6 @@ const products = [
         numReviews: 9,
     },
     {
-        _id: '6',
         name: 'Nike Waffle One',
         image: '/images/nikewaffle-one.jfif',
         description: 'High Quality Shoes in your Area.',
@@ -73,7 +67,6 @@ const products = [
         numReviews: 9,
     },
     {
-        _id: '7',
         name: 'Nike Winflo 8',
         image: '/images/nike-winflo.jfif',
         description: 'High Quality Shoes in your Area.',
@@ -85,7 +78,6 @@ const products = [
         numReviews: 9,
     },
     {
-        _id: '8',
         name: 'Nike Air Zoom',
         image: '/images/nikeair-zoom.jfif',
         description: 'High Quality Shoes in your Area.',
