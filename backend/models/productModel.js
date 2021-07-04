@@ -8,6 +8,14 @@ const reviewSchema = mongoose.Schema({
     timestamps:true
 })
 
+const variationSchema = mongoose.Schema({
+    size:{type: String, required: true},
+    price:{type: Number, required: true, default: 0},
+    countInStock:{type: Number, required: true, default:0},
+}, { 
+    timestamps:true
+})
+
 const productSchema = mongoose.Schema({
 
     user:{
@@ -35,6 +43,7 @@ const productSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    variations: [variationSchema],
     review: [reviewSchema],
     rating: {
         type: Number,
@@ -46,7 +55,7 @@ const productSchema = mongoose.Schema({
         required: true,
         default: 0
     },
-    price: {
+  /*  price: {
         type: Number,
         required: true,
         default: 0
@@ -55,7 +64,7 @@ const productSchema = mongoose.Schema({
         type: Number,
         required: true,
         default: 0
-    },
+    },*/
     
 }, {
     timestamps: true

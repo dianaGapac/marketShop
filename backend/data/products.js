@@ -5,11 +5,12 @@ const products = [
         description: 'High Quality Shoes in your Area.',
         brand: 'Nike',
         category: 'Shoes',
-        price: 200,
-        countInstock: 5,
         rating: 3.5,
         numReviews: 5, 
-        
+        variations: [
+             { size: 'US 7',price: 200,countInStock: 10},
+             { size: 'US 8',price: 250,countInStock: 10},
+             { size: 'US 9',price: 300,countInStock: 10}]
     },
     {
         name: 'Nike Jordan Air',
@@ -17,10 +18,12 @@ const products = [
         description: 'High Quality Shoes in your Area.',
         brand: 'Nike',
         category: 'Shoes',
-        price: 250,
-        countInstock: 8,
         rating: 4.5,
         numReviews: 9,
+        variations: [
+            { size: 'US 7',price: 200,countInStock: 10},
+            { size: 'US 8',price: 250,countInStock: 10},
+            { size: 'US 9',price: 300,countInStock: 10}]
     },
     {
         name: 'Nike Blazer Low',
@@ -28,10 +31,12 @@ const products = [
         description: 'High Quality Shoes in your Area.',
         brand: 'Nike',
         category: 'Shoes',
-        price: 259,
-        countInstock: 10,
         rating: 5,
         numReviews: 32,
+        variations: [
+            { size: 'US 7',price: 200,countInStock: 10},
+            { size: 'US 8',price: 250,countInStock: 10},
+            { size: 'US 9',price: 300,countInStock: 10}]
     },
     {
         name: 'Nike Blazer Low 77',
@@ -39,10 +44,12 @@ const products = [
         description: 'High Quality Shoes in your Area.',
         brand: 'Nike',
         category: 'Shoes',
-        price: 270,
-        countInstock: 8,
         rating: 4,
         numReviews: 9,
+        variations: [
+            { size: 'US 7',price: 200,countInStock: 10},
+            { size: 'US 8',price: 250,countInStock: 10},
+            { size: 'US 9',price: 300,countInStock: 10}]
     },
     {
         name: 'Nike Court Legacy',
@@ -50,10 +57,12 @@ const products = [
         description: 'High Quality Shoes in your Area.',
         brand: 'Nike',
         category: 'Shoes',
-        price: 280,
-        countInstock: 8,
         rating: 4.5,
         numReviews: 9,
+        variations: [
+            { size: 'US 7',price: 200,countInStock: 10},
+            { size: 'US 8',price: 250,countInStock: 10},
+            { size: 'US 9',price: 300,countInStock: 10}]
     },
     {
         name: 'Nike Waffle One',
@@ -61,10 +70,12 @@ const products = [
         description: 'High Quality Shoes in your Area.',
         brand: 'Nike',
         category: 'Shoes',
-        price: 270,
-        countInstock: 8,
         rating: 3,
         numReviews: 9,
+        variations: [
+            { size: 'US 7',price: 200,countInStock: 10},
+            { size: 'US 8',price: 250,countInStock: 10},
+            { size: 'US 9',price: 300,countInStock: 10}]
     },
     {
         name: 'Nike Winflo 8',
@@ -72,10 +83,12 @@ const products = [
         description: 'High Quality Shoes in your Area.',
         brand: 'Nike',
         category: 'Shoes',
-        price: 270,
-        countInstock: 8,
         rating: 4.9,
         numReviews: 9,
+        variations: [
+            { size: 'US 7',price: 200,countInStock: 10},
+            { size: 'US 8',price: 250,countInStock: 10},
+            { size: 'US 9',price: 300,countInStock: 10}]
     },
     {
         name: 'Nike Air Zoom',
@@ -83,10 +96,12 @@ const products = [
         description: 'High Quality Shoes in your Area.',
         brand: 'Nike',
         category: 'Shoes',
-        price: 270,
-        countInstock: 8,
         rating: 5,
         numReviews: 9,
+        variations: [
+            { size: 'US 7',price: 200,countInStock: 10},
+            { size: 'US 8',price: 250,countInStock: 10},
+            { size: 'US 9',price: 300,countInStock: 10}]
     },
 
     
