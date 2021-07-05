@@ -9,7 +9,7 @@ const products = [
         numReviews: 5, 
         variations: [
              { size: 'US 7',price: 200,countInStock: 10},
-             { size: 'US 8',price: 250,countInStock: 10},
+             { size: 'US 8',price: 350,countInStock: 10},
              { size: 'US 9',price: 300,countInStock: 10}]
     },
     {

@@ -8,6 +8,7 @@ import axios from 'axios';
 const ProductScreen = (props) => {
     //product state
     const [product,setProduct] = useState({})
+    const variations = product.variations
 
     //fetch data from api in backend
     useEffect(() =>{
@@ -16,7 +17,7 @@ const ProductScreen = (props) => {
             setProduct(data);
         }
         fetchProduct();
-    })
+    },[props.match])
     
     return (
         <div>
@@ -38,11 +39,13 @@ const ProductScreen = (props) => {
                             Description: {product.description}
                         </ListGroup.Item>
                     </ListGroup>
+                      
                 </Col>
                 <Col md={3}>
                    
                         <ListGroup variant='flush'>
                             <Card>
+                            
                             <ListGroup.Item>
                                 <Row>
                                     <Col>Price: </Col>
@@ -64,13 +67,25 @@ const ProductScreen = (props) => {
                                     ADD TO CART
                                 </Button>
                                 </Row>
-
                             </ListGroup.Item>
                             </Card>
+                            <ListGroup.Item>
+                          {/*  { product.variations.map( variation => (
+                                   
+                                   <Button key = {variation.size} className= 'mx-1 px-3'> {variation.size} </Button>
+                                       
+                                   ))
+                                   }*/}  
+                           
+                        
+                               
+                           </ListGroup.Item> 
+                           
                         </ListGroup>
                    
                 </Col>
             </Row>
+            
         </div>
     )
 }
