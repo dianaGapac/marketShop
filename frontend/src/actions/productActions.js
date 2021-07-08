@@ -1,4 +1,4 @@
-impoet axios from 'axios'
+
 import axios from 'axios'
 import { PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS,PRODUCT_LIST_FAILED } from '../constants/productConstants'
 
