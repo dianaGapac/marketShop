@@ -7,18 +7,11 @@ import Rating from './Rating';
 const Product = ({product}) => {
     //temporary Sorted Price
     var sortedPrice= product.variations
-    sortedPrice[1].price = 350
 
-    
     sortedPrice.sort((a, b) => a.price - b.price);
-    console.log('SORTED')
-    console.log(sortedPrice)
 
     const minPrice = sortedPrice[0].price
     const maxPrice = sortedPrice[2].price
-
-
- 
 
      return (
         <Card className='my-3 p-3 rounded ' variant='primary'>

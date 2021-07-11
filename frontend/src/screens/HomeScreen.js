@@ -13,6 +13,7 @@ const HomeScreen = () => {
     const dispatch   = useDispatch()
     const productList = useSelector(state => state.productList)
     const {loading, error, products } = productList
+
     //fetch data from api in backend
     useEffect(()=>{
         dispatch(listProducts())
@@ -21,16 +22,18 @@ const HomeScreen = () => {
     
     return (
         <div>
-            <h4 className='my-3'>LATEST PRODUCTS</h4>
             { loading? <Loader/> : error ? <Message variant = 'danger'> {error} </Message> :
-            
-            <Row>
-            {products.map(product =>(
-                   <Col key={product._id} sm={12} md={6} lg={4} xl={3}> 
-                    <Product product = {product}/>
-                   </Col>
-               ))}
-            </Row>
+            <div>
+                 <h4 className='my-3'>LATEST PRODUCTS</h4>
+                <Row>
+                {products.map(product =>(
+                    <Col key={product._id} sm={12} md={6} lg={4} xl={3}> 
+                        <Product product = {product}/>
+                    </Col>
+                ))}
+                </Row>
+             </div>
+           
             }
         
         </div>
