@@ -1,27 +1,28 @@
 import React,{ useEffect } from 'react';
 import {Link} from 'react-router-dom';
-import {Row,Col,Image,ListGroup,Button,Card} from 'react-bootstrap';
+import {Row,Col,Image,ListGroup,Button} from 'react-bootstrap';
 import Rating from '../components/Rating';
 import { useDispatch,useSelector} from 'react-redux'
 import {listProductDetails} from '../actions/productActions'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
+import Variations from '../components/Variations'
 
 const ProductScreen = (props) => {
     //product state
     const dispatch = useDispatch()
     const productDetails = useSelector(state => state.productDetails)
     const {loading, error, product } = productDetails    
-
-    \
-
     //fetch data from api in backend
     useEffect(() =>{
-      dispatch( listProductDetails (props.match.params.id)) 
-    },[dispatch, props.match])
-\
 
+      dispatch( listProductDetails (props.match.params.id)) 
+
+    },[dispatch,props.match])  
     
+    
+    console.log(product)
+
     
 
     return (
@@ -30,58 +31,43 @@ const ProductScreen = (props) => {
             { loading? <Loader/> : error ? <Message variant = 'danger'> {error} </Message> : (
                 <Row>
                     <Col md={6} >
-                    <Image src={product.image} alt={product.name} fluid/>
+                        <Image src={product.image} alt={product.name} fluid/>
                      </Col>
-                     <Col md={3}>
+
+                     <Col md={6}>
                         <ListGroup variant='flush'>
                             <ListGroup.Item> <h4> <strong> {product.name} </strong>  </h4></ListGroup.Item>
-                           
-                            <ListGroup.Item>
-                                Description: {product.description}
-                            </ListGroup.Item>
-
+                        
                             <ListGroup.Item> 
                                 <Rating rating={product.rating} numReviews={product.numReviews}/>
                             </ListGroup.Item>
                            
                         </ListGroup>
-                        
-                     </Col>
-                     <Col md={3}>
-                    
+
                         <ListGroup variant='flush'>
-                            <Card>
-                            <ListGroup.Item>
-                                <Row>
-                                    <Col>Price: $  </Col>
-                                    <Col> <strong> </strong></Col>
-                                </Row>
-                            </ListGroup.Item>
-                            <ListGroup.Item>
-                                <Row>
-                                <Col> Status:</Col>
-                                <Col> {/* product.countInstock >0? 'In Stock' : 'Out of Stock' */} </Col>
-                                </Row>
-                            </ListGroup.Item>
-                            <ListGroup.Item>
-                                <Row>
+                           
+                           <ListGroup.Item>
+                           <Variations product = {product}>  </Variations>
+
+                           </ListGroup.Item>
+                           <ListGroup.Item>
+                               <Row>
                                 <Button 
                                 className='btn-block btn-success' 
                                 type='button' 
-                               /// disabled={product.countInstock === 0}
-                               >
+                                /// disabled={product.countInstock === 0}
+                                >
                                     ADD TO CART
                                 </Button>
-                                </Row>
-                            </ListGroup.Item>
-                            </Card>
+                               </Row>
+                           </ListGroup.Item>
 
-                            <ListGroup.Item>
-                           
-                            
-                            </ListGroup.Item> 
-                         </ListGroup>
-                    
+                           <ListGroup.Item>
+                                Description: {product.description}
+                            </ListGroup.Item>
+                        </ListGroup>
+                        
+                
                       </Col>
                 </Row>
             )}   

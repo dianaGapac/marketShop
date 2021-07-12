@@ -5,9 +5,8 @@ import Rating from './Rating';
 
 
 const Product = ({product}) => {
-    //temporary Sorted Price
-    var sortedPrice= product.variations
 
+    var sortedPrice= product.variations
     sortedPrice.sort((a, b) => a.price - b.price);
 
     const minPrice = sortedPrice[0].price

@@ -16,9 +16,10 @@ const HomeScreen = () => {
 
     //fetch data from api in backend
     useEffect(()=>{
-        dispatch(listProducts())
-    },[dispatch])
 
+        dispatch(listProducts())
+        
+    },[dispatch])
     
     return (
         <div>

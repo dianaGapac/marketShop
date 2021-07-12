@@ -12,7 +12,7 @@ const variationSchema = mongoose.Schema({
     size:{type: String, required: true},
     price:{type: Number, required: true, default: 0},
     countInStock:{type: Number, required: true, default:0},
-})
+} )
 
 const productSchema = mongoose.Schema({
 
