@@ -7,6 +7,8 @@ const products = [
         category: 'Shoes',
         rating: 3.5,
         numReviews: 5, 
+        price: 300,
+        countInStock: 10,
         variations: [
              { size: 'US 7',price: 200,countInStock: 10},
              { size: 'US 8',price: 350,countInStock: 10},
@@ -20,6 +22,8 @@ const products = [
         category: 'Shoes',
         rating: 4.5,
         numReviews: 9,
+        price: 300,
+        countInStock: 10,
         variations: [
             { size: 'US 7',price: 200,countInStock: 10},
             { size: 'US 8',price: 250,countInStock: 10},
@@ -33,6 +37,8 @@ const products = [
         category: 'Shoes',
         rating: 5,
         numReviews: 32,
+        price: 300,
+        countInStock: 10,
         variations: [
             { size: 'US 7',price: 200,countInStock: 10},
             { size: 'US 8',price: 250,countInStock: 10},
@@ -46,6 +52,8 @@ const products = [
         category: 'Shoes',
         rating: 4,
         numReviews: 9,
+        price: 300,
+        countInStock: 0,
         variations: [
             { size: 'US 7',price: 200,countInStock: 10},
             { size: 'US 8',price: 250,countInStock: 10},
@@ -59,6 +67,8 @@ const products = [
         category: 'Shoes',
         rating: 4.5,
         numReviews: 9,
+        price: 300,
+        countInStock: 10,
         variations: [
             { size: 'US 7',price: 200,countInStock: 10},
             { size: 'US 8',price: 250,countInStock: 10},
@@ -72,6 +82,8 @@ const products = [
         category: 'Shoes',
         rating: 3,
         numReviews: 9,
+        price: 300,
+        countInStock: 10,
         variations: [
             { size: 'US 7',price: 200,countInStock: 10},
             { size: 'US 8',price: 250,countInStock: 10},
@@ -85,6 +97,8 @@ const products = [
         category: 'Shoes',
         rating: 4.9,
         numReviews: 9,
+        price: 300,
+        countInStock: 10,
         variations: [
             { size: 'US 7',price: 200,countInStock: 10},
             { size: 'US 8',price: 250,countInStock: 10},
@@ -98,6 +112,8 @@ const products = [
         category: 'Shoes',
         rating: 5,
         numReviews: 9,
+        price: 300,
+        countInStock: 0,
         variations: [
             { size: 'US 7',price: 200,countInStock: 10},
             { size: 'US 8',price: 250,countInStock: 10},

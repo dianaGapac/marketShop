@@ -6,11 +6,11 @@ import Rating from './Rating';
 
 const Product = ({product}) => {
 
-    var sortedPrice= product.variations
+    {/*var sortedPrice= product.variations
     sortedPrice.sort((a, b) => a.price - b.price);
 
     const minPrice = sortedPrice[0].price
-    const maxPrice = sortedPrice[2].price
+    const maxPrice = sortedPrice[2].price */}
 
      return (
         <Card className='my-3 p-3 rounded ' variant='primary'>
@@ -24,13 +24,15 @@ const Product = ({product}) => {
                 </Link>
 
                 <Rating rating={product.rating} numReviews={product.numReviews}/>
+                <h4>  <strong> {`Price: ${product.price}`} </strong> </h4> 
 
-                <Card.Text as='h4' className='py-2'>
+
+              {/*  <Card.Text as='h4' className='py-2'>
                      <strong>  
                         {`$ ${minPrice}`} 
                         {maxPrice === minPrice?' ': `-${maxPrice}` }
                       
-                    </strong>  </Card.Text>
+     </strong>  </Card.Text> */}
 
             </Card.Body>
         </Card>

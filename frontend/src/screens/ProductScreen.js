@@ -6,7 +6,7 @@ import { useDispatch,useSelector} from 'react-redux'
 import {listProductDetails} from '../actions/productActions'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import Variations from '../components/Variations'
+//import Variations from '../components/Variations'
 
 const ProductScreen = (props) => {
     //product state
@@ -47,15 +47,20 @@ const ProductScreen = (props) => {
                         <ListGroup variant='flush'>
                            
                            <ListGroup.Item>
-                           <Variations product = {product}>  </Variations>
+                               <h4> {`Price: ${product.price}`} </h4> 
+                               
+                        {/* <Variations product = {product}>  </Variations> */} 
 
+                           </ListGroup.Item>
+                           <ListGroup.Item>
+                            <h5>Status: {product.countInStock>0 ? 'Available' : 'Unavailable' }</h5>
                            </ListGroup.Item>
                            <ListGroup.Item>
                                <Row>
                                 <Button 
                                 className='btn-block btn-success' 
                                 type='button' 
-                                /// disabled={product.countInstock === 0}
+                                 disabled={product.countInStock === 0}
                                 >
                                     ADD TO CART
                                 </Button>
