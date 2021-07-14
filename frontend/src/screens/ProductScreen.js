@@ -71,15 +71,17 @@ const ProductScreen = (props) => {
                                             onClick = {(e) => setQty(qty>0? qty-1 : qty)}> 
                                             <i className = 'fa fa-minus' > </i></Button>
                                             </Col>
-                                            <Col md={1}>
+                                            <Col md={2}>
                                             <Form.Control 
+                                            value={qty}
+                                            onChange ={(e) => setQty(parseInt(e.target.value,10))}
                                             className="border border-success mx-1"
-                                            style ={{width: '48px'}}
+                                            style ={{width: '80px'}}
                                             type="text" 
                                             placeholder={qty} />
                                             </Col>
                                             <Col > 
-                                            <Button className='btn-block btn-success mx-2'
+                                            <Button className='btn-block btn-success '
                                             onClick = {(e) => setQty(qty+1)}
                                             > 
                                             <i className = 'fa fa-plus'> </i></Button>
