@@ -8,7 +8,7 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 //import Variations from '../components/Variations'
 
-const ProductScreen = (props) => {
+const ProductScreen = ({match, history}) => {
 
     const [qty, setQty] = useState(0)
     //product state
@@ -18,13 +18,14 @@ const ProductScreen = (props) => {
     //fetch data from api in backend
     useEffect(() =>{
 
-      dispatch( listProductDetails (props.match.params.id)) 
+      dispatch( listProductDetails (match.params.id)) 
 
-    },[dispatch,props.match])  
+    },[dispatch,match])  
     
-    
-    console.log(product)
+    const addToCartHandler =()=>{
+        history.push(`/cart/${match.params.id}?qty=${qty}`)
 
+    } 
     
 
     return (
@@ -55,7 +56,7 @@ const ProductScreen = (props) => {
 
                            </ListGroup.Item>
                            <ListGroup.Item>
-                            <span>Status: {product.countInStock>0 ? 'Available' : 'Unavailable' }</span>
+                            <span> Stock: {product.countInStock>0 ? product.countInStock : 'Out of Stock' }</span>
                            </ListGroup.Item>
                            { product.countInStock > 0? (
                                     <ListGroup.Item>
@@ -67,24 +68,23 @@ const ProductScreen = (props) => {
                                         <Form.Group  >
                                         <Row >
                                             <Col md={1}>
-                                            <Button className='btn-block btn-success mx-1'
-                                            onClick = {(e) => setQty(qty>0? qty-1 : qty)}> 
-                                            <i className = 'fa fa-minus' > </i></Button>
+                                                <Button className='btn-block btn-success mx-1'
+                                                onClick = {(e) => setQty(qty>0? qty-1 : qty)}> 
+                                                <i className = 'fa fa-minus' > </i></Button>
                                             </Col>
                                             <Col md={2}>
-                                            <Form.Control 
-                                            value={qty}
-                                            onChange ={(e) => setQty(parseInt(e.target.value,10))}
-                                            className="border border-success mx-1"
-                                            style ={{width: '80px'}}
-                                            type="text" 
-                                            placeholder={qty} />
+                                                <Form.Control 
+                                                    value={qty}
+                                                    onChange ={(e) => setQty(parseInt(e.target.value,10))}
+                                                    className="border border-success mx-1"
+                                                    style ={{width: '80px'}}
+                                                    type="text" 
+                                                    placeholder={qty} />
                                             </Col>
                                             <Col > 
-                                            <Button className='btn-block btn-success '
-                                            onClick = {(e) => setQty(qty+1)}
-                                            > 
-                                            <i className = 'fa fa-plus'> </i></Button>
+                                                <Button className='btn-block btn-success '
+                                                onClick = {(e) =>  setQty( qty < product.countInStock? qty+1 : product.countInStock)}> 
+                                                <i className = 'fa fa-plus'> </i></Button>
                                             </Col>
 
                                           
@@ -103,10 +103,11 @@ const ProductScreen = (props) => {
                            <ListGroup.Item>
                                <Row>
                                 <Button 
-                                className='btn-block btn-success' 
-                                type='button' 
-                                 disabled={product.countInStock === 0}
-                                >
+                                    onClick = {addToCartHandler}
+                                    className=' btn-success text-center' 
+                                    type='button' 
+                                    disabled={product.countInStock === 0}
+                                    >
                                     ADD TO CART
                                 </Button>
                                </Row>
@@ -126,3 +127,6 @@ const ProductScreen = (props) => {
 }
 
 export default ProductScreen
+
+//todo limit plus button on coutInStock DONE
+/// Buy Now Button 
