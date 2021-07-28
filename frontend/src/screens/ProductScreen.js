@@ -58,7 +58,6 @@ const ProductScreen = ({match, history}) => {
                            <ListGroup.Item>
                             <span> Stock: {product.countInStock>0 ? product.countInStock : 'Out of Stock' }</span>
                            </ListGroup.Item>
-                           { product.countInStock > 0? (
                                     <ListGroup.Item>
                                        {/*  <Form>
                                             <Button className='btn-block btn-success'> <i className = 'fa fa-minus'> </i></Button>
@@ -95,10 +94,10 @@ const ProductScreen = ({match, history}) => {
                                         </Form.Group>
 
                                     </ListGroup.Item> 
-                           ) : '...'
+                        
                         
                       
-                           }
+                           
 
                            <ListGroup.Item>
                                <Row>
