@@ -8,16 +8,8 @@ export const cartReducer = (state ={cartItems: []},action) => {
             const item = action.payload
             const existItem = state.cartItems.find((x) => x.product === item.product)
 
-            console.log('initial cartItems')
-            console.log(state.cartItems)
-
-
             if(existItem)
             {
-                console.log('exists')
-                console.log(existItem)
-                console.log(state.cartItems)
-
                 return{
                     ...state,
                     cartItems: state.cartItems.map( (x) => x.product === existItem.product ?
@@ -27,7 +19,6 @@ export const cartReducer = (state ={cartItems: []},action) => {
                 }
 
             }else{
-                console.log('pushed to cartItems')
                 return {
                     
                     ...state,   

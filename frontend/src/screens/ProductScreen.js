@@ -27,6 +27,11 @@ const ProductScreen = ({match, history}) => {
 
     } 
     
+    const onChangeHandler =(value)=>{
+       value < product.countInStock ? setQty(value)
+         : setQty(product.countInStock)
+   }
+    
 
     return (
         <div>
@@ -67,37 +72,29 @@ const ProductScreen = ({match, history}) => {
                                         <Form.Group  >
                                         <Row >
                                             <Col md={1}>
-                                                <Button className='btn-block btn-success mx-1'
+                                                <Button className='btn-block btn-success '
                                                 onClick = {(e) => setQty(qty>0? qty-1 : qty)}> 
                                                 <i className = 'fa fa-minus' > </i></Button>
                                             </Col>
-                                            <Col md={2}>
+                                            <Col md={1}>
                                                 <Form.Control 
                                                     value={qty}
-                                                    onChange ={(e) => setQty(parseInt(e.target.value,10))}
+                                                    onChange ={(e) => onChangeHandler(Number(e.target.value))}
                                                     className="border border-success mx-1"
-                                                    style ={{width: '80px'}}
+                                                    style ={{width: '55px'}}
                                                     type="text" 
                                                     placeholder={qty} />
                                             </Col>
-                                            <Col > 
-                                                <Button className='btn-block btn-success '
+                                            <Col md={2}> 
+                                                <Button className='btn-block btn-success mx-4'
                                                 onClick = {(e) =>  setQty( qty < product.countInStock? qty+1 : product.countInStock)}> 
                                                 <i className = 'fa fa-plus'> </i></Button>
                                             </Col>
-
-                                          
-
                                         </Row>
-                                   
-
                                         </Form.Group>
 
                                     </ListGroup.Item> 
                         
-                        
-                      
-                           
 
                            <ListGroup.Item>
                                <Row>

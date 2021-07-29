@@ -11,7 +11,7 @@ const Header = () => {
                     </LinkContainer>
 
                     <Nav className="ml-auto">
-                        <LinkContainer to='/cart'>
+                        <LinkContainer to='/cart/:id'>
                             <Nav.Link>
                                 <i className='fa fa-shopping-cart px-2'></i>CART
                             </Nav.Link>
