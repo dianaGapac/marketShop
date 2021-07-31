@@ -10,7 +10,7 @@ import Loader from '../components/Loader'
 
 const ProductScreen = ({match, history}) => {
 
-    const [qty, setQty] = useState(0)
+    const [qty, setQty] = useState(1)
     //product state
     const dispatch = useDispatch()
     const productDetails = useSelector(state => state.productDetails)
@@ -73,7 +73,8 @@ const ProductScreen = ({match, history}) => {
                                         <Row >
                                             <Col md={1}>
                                                 <Button className='btn-block btn-success '
-                                                onClick = {(e) => setQty(qty>0? qty-1 : qty)}> 
+                                                disabled={qty===1}
+                                                onClick = {(e) => setQty(qty>1? qty-1 : qty)}> 
                                                 <i className = 'fa fa-minus' > </i></Button>
                                             </Col>
                                             <Col md={1}>
@@ -87,6 +88,7 @@ const ProductScreen = ({match, history}) => {
                                             </Col>
                                             <Col md={2}> 
                                                 <Button className='btn-block btn-success mx-4'
+                                                disabled={product.countInStock === qty}
                                                 onClick = {(e) =>  setQty( qty < product.countInStock? qty+1 : product.countInStock)}> 
                                                 <i className = 'fa fa-plus'> </i></Button>
                                             </Col>
