@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import {Link} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
-import {Row, Col, Card, ListGroup, Image, Form, Button, ListGroupItem} from 'react-bootstrap'
+import {Row, Col, Card, ListGroup, Image, Form, Button, ListGroupItem,InputGroup} from 'react-bootstrap'
 import Message from '../components/Message'
-import { addToCart} from '../actions/cartActions'
+import { addToCart, removeFromCart} from '../actions/cartActions'
 
 const CartScreen = ({match, location, history}) => {
     const productId = match.params.id
@@ -20,7 +20,8 @@ const CartScreen = ({match, location, history}) => {
     }
 
     const removeFromCartHandler = (id)=> {
-
+        console.log('REMOVE')
+         dispatch(removeFromCart(id))
     }
     const checkOutHandler =()=>{
         history.push('/login?redirect=shipping')
@@ -36,10 +37,10 @@ const CartScreen = ({match, location, history}) => {
 
     return (
         <Row className='my-3'>
-            <Col md={8}>
+            <Col md={9}>
                 <h4 className= 'my-3'> SHOPPING CART</h4>
-                {cartItems.length === 0? (<Message>
-                    Your Cart is EMPTY. Click <Link to='/'> here </Link> to GO BACk
+                {cartItems.length === 0? (<Message variant='primary'>
+                    Your Cart is EMPTY. Click <Link to='/'> here </Link> to SHOP
                 </Message>) : 
                 (
                 <div>
@@ -52,7 +53,7 @@ const CartScreen = ({match, location, history}) => {
                         <Col md={1}> 
                             Price
                         </Col>
-                        <Col md={2}> 
+                        <Col md={3}> 
                              Quantity
                         </Col>
                         <Col md={2}> 
@@ -63,11 +64,12 @@ const CartScreen = ({match, location, history}) => {
                         </Col>
                     </Row>
 
-                    <Row className='my-3'> 
+                    <Row className='my-3'>
+                    <Col>
                     <ListGroup variant = 'flush'>
                         {cartItems.map( item => (
                             <ListGroup.Item key ={item.product}> 
-                                <Row>
+                                <Row className='text-center'>
                                     <Col md={2}>
                                         <Image src={item.image} alt={item.name}  fluid rounded height={100}/>
                                     </Col>
@@ -79,59 +81,53 @@ const CartScreen = ({match, location, history}) => {
                                     </Col>
 
                                     <Col md={1}>
-                                       $ {item.price}
+                                     <strong> $ {item.price} </strong> 
                                     </Col>
                                     
-                                    <Col >
-                                      <Form.Group  >
-                                        <Row >
-                                            <Col md={1}>
-                                                <Button className='btn-block btn-success '
+                                    <Col md={3} >
+                                      <InputGroup  >   
+                                        <Row className='p-0 m-0 '>
+                                         
+                                        <Col className='p-0 m-0'>
+                                          <Button className='btn-block btn-success p-1 px-2 m-1'
                                                  onClick = {(e) => dispatch(addToCart(item.product, item.qty-1))}
                                                   disabled= {item.qty === 1}> 
-                                                
                                                 <i className = 'fa fa-minus' > </i></Button>
-                                            </Col>
-                                            <Col md={1}>
-                                                <Form.Control 
+                                         </Col>    
+                                         <Col className='p-0 m-0'>
+                                            <Form.Control 
                                                     value={item.qty}
                                                     onChange={(e) => onChangeHandler(item.product, Number(e.target.value),item.countInStock)}
-                                                    className="border border-success mx-2"
+                                                    className="border border-success p-1 px-2 m-1"
                                                     style ={{width: '50px'}}
                                                     type="text" 
                                                     placeholder={item.qty} />
-                                            </Col>
-                                            <Col md={2}> 
-                                                <Button className='btn-block btn-success mx-4 '
-                                                 onClick = {(e) => dispatch(addToCart(item.product, item.qty+1))}
-                                                 disabled = {item.countInStock === item.qty}> 
-                                                <i className = 'fa fa-plus'> </i></Button>
-                                            </Col>
-
-                                            <Col>
-                                             <strong className='mx-4'> $ { (item.price * item.qty).toFixed(2)} </strong>
-                                           </Col>
-
-                                            <Col >
-                                                <Button variant='light' type='button' className=' btn-block '
-                                                onClick = {()=> removeFromCartHandler(item.product)}
-                                                > 
-                                                <i class="far fa-trash-alt"> </i> </Button>
-                                           </Col>
-                                          
-                                          
-                                        </Row>
-                                        </Form.Group>
-
-                                    
+                                         </Col>  
+                                         <Col className='p-0 m-0'>
+                                                <Button className='btn-block btn-success p-1 px-2 m-1 '
+                                                    onClick = {(e) => dispatch(addToCart(item.product, item.qty+1))}
+                                                    disabled = {item.countInStock === item.qty}> 
+                                                    <i className = 'fa fa-plus'> </i></Button>
+                                         </Col>
+                                         </Row>
+                                        </InputGroup>
                                     </Col>
-  
-                                </Row>
 
+                                    <Col md={2}> 
+                                      <strong className=''> $ { (item.price * item.qty).toFixed(2)} </strong>
+                                    </Col>
+                                    
+                                    <Col md={2}>
+                                       <Button variant='light' type='button' className=' btn-block '
+                                         onClick = {()=> removeFromCartHandler(item.product)} > 
+                                         <i className="far fa-trash-alt"> </i> </Button>
+                                    </Col>         
+                               </Row>
                             </ListGroup.Item>
                        
                         ))}
                     </ListGroup>
+                    </Col>
                     </Row>
                     </div>
                 )
@@ -140,7 +136,7 @@ const CartScreen = ({match, location, history}) => {
             </Col>
          
 
-            < Col md={4} >
+            < Col md={3} >
                 <Row className='m-3'>
                 <Card className='position-sticky'> 
                     <ListGroup variant='flush' >
@@ -189,3 +185,4 @@ export default CartScreen
 
 //header title (Qunatity, Name etc)
 //SELECT ITEM BEFORE PLACING ORDER or CHECKOUT
+// cart notif (item count)

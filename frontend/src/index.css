@@ -12,3 +12,13 @@ main {
 .cartHeader {
 	background-color: #f0f0f0;
 }
+.no-gutters {
+	margin-right: 0;
+	margin-left: 0;
+
+	& > [class^="col-"],
+	& > [class*=" col-"] {
+		padding-right: 0;
+		padding-left: 0;
+	}
+}
