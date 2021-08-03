@@ -88,7 +88,7 @@ const ProductScreen = ({match, history}) => {
                                             </Col>
                                             <Col md={2}> 
                                                 <Button className='btn-block btn-success mx-4'
-                                                disabled={product.countInStock === qty}
+                                                disabled={product.countInStock === qty || product.countInStock === 0}
                                                 onClick = {(e) =>  setQty( qty < product.countInStock? qty+1 : product.countInStock)}> 
                                                 <i className = 'fa fa-plus'> </i></Button>
                                             </Col>
