@@ -42,7 +42,7 @@ const CartScreen = ({match, location, history}) => {
     }
     //deselect from selectedItems
     const removeSelected =(id)=> {
-        return(setSelectedItems( selectedItems.filter( x=> x.product != id) ))
+        return(setSelectedItems( selectedItems.filter( x=> x.product !== id) ))
     }
     //handle select and deselect
     const selectHandler =(id, qty,checked)=>{

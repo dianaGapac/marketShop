@@ -22,7 +22,7 @@ const LoginScreen = ({location, history}) => {
 
 
     
-    const redirect = location.search? location.search.split('=') [1]: '/' 
+    const redirect = location.search? location.search.split('=')[1]: '/' 
 
     const submitHandler =(e)=>{
         e.preventDefault()
@@ -41,8 +41,7 @@ const LoginScreen = ({location, history}) => {
         <FormContainer >
            
            <h4 > <strong> LOG IN </strong></h4>
-           {error && <Message variant='danger' > {error} </Message> }
-           {loading && <Loader/> }
+          
 
             <Form onSubmit={submitHandler}>
            
@@ -70,6 +69,8 @@ const LoginScreen = ({location, history}) => {
                 </Col>
 
             </Row>
+            {error && <Message variant='danger' > {error} </Message> }
+            {loading && <Loader/> }
             
         </FormContainer>
     )

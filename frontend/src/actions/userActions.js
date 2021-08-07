@@ -1,5 +1,6 @@
 import axios from 'axios'
-import { USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_FAILED, } from "../constants/userConstants"
+import { bindActionCreators } from 'redux'
+import { USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_FAILED,USER_LOGOUT } from "../constants/userConstants"
 
 export const logIn =(email,password) => async(dispatch) => {
     try {
@@ -29,3 +30,12 @@ export const logIn =(email,password) => async(dispatch) => {
          })
     }
 }   
+
+export const logOut = () => (dispatch) =>{
+    localStorage.removeItem('userInfo')
+    
+    dispatch({
+        type: USER_LOGOUT,
+    })
+}
+
