@@ -56,7 +56,7 @@ const Header = () => {
                     </Container>
              </Navbar>
 
-             {userLogin.message && <Message variant='success' > {userLogin.message} </Message> }
+       
          
 
 
