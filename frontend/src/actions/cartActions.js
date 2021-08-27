@@ -1,6 +1,6 @@
 import axios from 'axios'
 import expressAsyncHandler from 'express-async-handler'
-import {CART_ADD_ITEM,CART_REMOVE_ITEM,PASS_SELECTED_ITEM} from '../constants/cartConstants'
+import {CART_ADD_ITEM,CART_REMOVE_ITEM,CART_SAVE_SHIPPING_ADDRESS,PASS_SELECTED_ITEM} from '../constants/cartConstants'
 
 
 export const addToCart = (id,qty) => async(dispatch, getState) =>{
@@ -38,4 +38,12 @@ export const passSelectedItem = (selected) => async(dispatch) => {
 
 } 
 
+export const saveShippingAddress= (data) => async(dispatch) =>{
+    dispatch({
+        type: CART_SAVE_SHIPPING_ADDRESS,
+        payload: data
+    })
+
+    localStorage.setItem('shippingAddress', JSON.stringify(data))
+}
 

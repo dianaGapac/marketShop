@@ -1,8 +1,8 @@
 import { selectItem } from '../actions/cartActions'
-import {CART_ADD_ITEM, CART_REMOVE_ITEM, PASS_SELECTED_ITEM,} from '../constants/cartConstants'
+import {CART_ADD_ITEM, CART_REMOVE_ITEM, PASS_SELECTED_ITEM, CART_SAVE_SHIPPING_ADDRESS} from '../constants/cartConstants'
 
 
-export const cartReducer = (state ={cartItems: [], selectedItemsState:[]},action) => {
+export const cartReducer = (state ={cartItems: [], selectedItemsState:[], shippingAddress:{}},action) => {
     switch(action.type){
         case CART_ADD_ITEM:
 
@@ -38,6 +38,11 @@ export const cartReducer = (state ={cartItems: [], selectedItemsState:[]},action
                 ...state,
                 selectedItemsState: action.payload.selected
             }
+        case CART_SAVE_SHIPPING_ADDRESS: 
+            return{
+                ...state,
+                shippingAddress: action.payload
+            }            
 
         default:
             return state
