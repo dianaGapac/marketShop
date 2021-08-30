@@ -64,9 +64,9 @@ const ProfileScreen = ({history, location}) => {
     , [dispatch, history,userInfo, user])
 
     return (
-        <Row>
+        <Row className= 'mt-5'> 
             <Col md={3}>
-            <h4 > <strong> MY PROFILE  </strong></h4>
+            <h4 > MY PROFILE  </h4>
 
             {message && <Message variant='danger' > {message} </Message> }
             {error && <Message variant='danger' > {error} </Message> }
@@ -107,7 +107,7 @@ const ProfileScreen = ({history, location}) => {
 
             </Col>
             <Col md={9}>
-                <h2>My ORDERS</h2>
+                <h4> MY ORDERS</h4>
             </Col>
         </Row>
     )
