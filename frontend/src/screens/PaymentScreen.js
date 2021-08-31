@@ -29,6 +29,7 @@ const PaymentScreen = ({history}) => {
 
 
     return (
+        <>
         <Row className='d-flex justify-content-center'>
         <FormContainer className='d-flex justify-content-center' > 
             <CheckoutSteps step1 step2 step3/>
@@ -73,6 +74,7 @@ const PaymentScreen = ({history}) => {
             </Form>
         </FormContainer>
         </Row>
+        </>
     )
 }
 

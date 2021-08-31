@@ -28,13 +28,13 @@ const PlaceOrderScreen = () => {
     }
      
     return (
-        <>
+        <div>
         <CheckoutSteps step1 step2 step3 step4/>
         <Row>
             <Col md={8}>
                 <ListGroup variant= 'flush'>
                     <ListGroup.Item>
-                        <h4> SHIPPING </h4>
+                        <h4> PLACE ORDER </h4>
                         <p> <strong> Address</strong></p>
                         {cart.shippingAddress.address}, {cart.shippingAddress.city}, {cart.shippingAddress.postalCode},
                         {cart.shippingAddress.country}
@@ -119,7 +119,7 @@ const PlaceOrderScreen = () => {
 
             </Col>
         </Row>
-        </>
+        </div>
     )
 }
 
