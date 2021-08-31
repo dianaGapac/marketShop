@@ -29,12 +29,14 @@ export const removeFromCart = (id) => async(dispatch,getState) =>{
 
     localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
 }
-export const passSelectedItem = (selected) => async(dispatch) => {
+export const passSelectedItem = (selected) => async(dispatch, getState) => {
     dispatch({
         type: PASS_SELECTED_ITEM,
         payload: {selected }
         
     })
+    
+    localStorage.setItem('selectedItems', JSON.stringify(getState().cart.selectedItems))
 
 } 
 
@@ -53,5 +55,5 @@ export const savePaymentMethod= (data) => async(dispatch) =>{
         payload: data
     })
 
-    localStorage.setItem('paymentmethod', JSON.stringify(data))
+    localStorage.setItem('paymentMethod', JSON.stringify(data))
 }

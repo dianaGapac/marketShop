@@ -2,7 +2,7 @@ import { selectItem } from '../actions/cartActions'
 import {CART_ADD_ITEM, CART_REMOVE_ITEM, PASS_SELECTED_ITEM, CART_SAVE_SHIPPING_ADDRESS, CART_SAVE_PAYMENT_METHOD} from '../constants/cartConstants'
 
 
-export const cartReducer = (state ={cartItems: [], selectedItemsState:[], shippingAddress:{}},action) => {
+export const cartReducer = (state ={cartItems: [], selectedItems:[], shippingAddress:{}},action) => {
     switch(action.type){
         case CART_ADD_ITEM:
 
@@ -36,7 +36,8 @@ export const cartReducer = (state ={cartItems: [], selectedItemsState:[], shippi
         case PASS_SELECTED_ITEM:
             return{
                 ...state,
-                selectedItemsState: action.payload.selected
+                selectedItems: action.payload.selected
+                
             }
         case CART_SAVE_SHIPPING_ADDRESS: 
             return{
@@ -46,7 +47,7 @@ export const cartReducer = (state ={cartItems: [], selectedItemsState:[], shippi
         case CART_SAVE_PAYMENT_METHOD: 
             return{
                 ...state,
-                paymentMehod: action.payload
+                paymentMethod: action.payload
             }                         
 
         default:

@@ -4,6 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import {productListReducer, productDetailsReducer } from './reducers/productReducers'
 import {cartReducer} from './reducers/cartReducers'
 import {userLoginReducer, userRegisterReducer,userDetailsReducer, userUpdateProfileReducer} from './reducers/userReducers'
+import {orderCreateReducer} from './reducers/orderReducers'
 
 
 const reducer = combineReducers({
@@ -14,6 +15,7 @@ const reducer = combineReducers({
     userRegister: userRegisterReducer,
     userDetails: userDetailsReducer,
     userUpdateProfile: userUpdateProfileReducer,
+    orderCreate: orderCreateReducer,
 })
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')
@@ -25,12 +27,19 @@ const userInfoFromStorage = localStorage.getItem('userInfo')
 const shippingAddressFromStorage = localStorage.getItem('shippingAddress') 
 ? JSON.parse(localStorage.getItem('shippingAddress')) : {}
 
+const selectedItemsFromStorage = localStorage.getItem('selectedItems') 
+? JSON.parse(localStorage.getItem('selectedItems')) : {}
 
-
+const paymentMethodFromStorage = localStorage.getItem('paymentMethod') 
+? JSON.parse(localStorage.getItem('paymentMethod')) : 'Paypal'
 
 const initialState = {
 
-    cart: {cartItems: cartItemsFromStorage, selectedItemsState: [], shippingAddress: shippingAddressFromStorage},
+    cart: {cartItems: cartItemsFromStorage,
+           selectedItems: selectedItemsFromStorage ,
+           shippingAddress: shippingAddressFromStorage,
+           paymentMethod: paymentMethodFromStorage,
+        },
     userLogin: {userInfo: userInfoFromStorage}
 }
 const middleware = [thunk]
