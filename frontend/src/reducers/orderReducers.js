@@ -9,6 +9,7 @@ import {
     ORDER_PAY_SUCCESS,
     ORDER_PAY_FAILED,
     ORDER_PAY_RESET,
+
 } from '../constants/orderConstants'
 
 export const orderCreateReducer = (state= {}, action ) => {
@@ -50,6 +51,8 @@ export const orderDetailsReducer = (state= {loading:true, orderItems:[], shippin
                 loading:false,
                 error: action.payload  
             }
+
+                   
         default:
             return state
     }
@@ -72,7 +75,7 @@ export const orderPayReducer = (state= {}, action ) => {
                 loading:false,  
                 error: action.payload  
             }
-        case ORDER_PAY_RESET: 
+        case ORDER_PAY_RESET:   
             return{}
 
         default:

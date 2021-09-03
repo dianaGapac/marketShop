@@ -6,7 +6,8 @@ import { ORDER_CREATE_REQUEST,
       ORDER_DETAILS_FAILED,
       ORDER_PAY_SUCCESS,
       ORDER_PAY_REQUEST,
-      ORDER_PAY_FAILED} from '../constants/orderConstants'
+      ORDER_PAY_FAILED,
+    } from '../constants/orderConstants'
 import axios from 'axios'
 
 
