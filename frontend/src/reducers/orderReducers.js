@@ -12,6 +12,7 @@ import {
     MY_ORDER_LIST_REQUEST,
     MY_ORDER_LIST_SUCCESS,
     MY_ORDER_LIST_FAILED,
+    MY_ORDER_LIST_RESET,
 
 } from '../constants/orderConstants'
 
@@ -102,6 +103,8 @@ export const myOrderListReducer = (state= {}, action ) => {
                 loading:false,  
                 error: action.payload  
             }
+        case MY_ORDER_LIST_RESET:
+            return{ orders:[] }
 
         default:
             return state

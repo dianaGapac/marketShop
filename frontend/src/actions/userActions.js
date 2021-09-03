@@ -1,6 +1,21 @@
 import axios from 'axios'
 import { bindActionCreators } from 'redux'
-import { USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_FAILED,USER_LOGOUT, USER_REGISTER_SUCCESS, USER_REGISTER_REQUEST, USER_REGISTER_FAILED, USER_DETAILS_REQUEST, USER_DETAILS_SUCCESS, USER_DETAILS_FAILED, USER_UPDATE_PROFILE_SUCCESS, USER_UPDATE_PROFILE_REQUEST, USER_UPDATE_PROFILE_FAILED } from "../constants/userConstants"
+import { USER_LOGIN_REQUEST,
+     USER_LOGIN_SUCCESS,
+      USER_LOGIN_FAILED,
+      USER_LOGOUT,
+       USER_REGISTER_SUCCESS,
+        USER_REGISTER_REQUEST, 
+        USER_REGISTER_FAILED,
+         USER_DETAILS_REQUEST, 
+         USER_DETAILS_SUCCESS, 
+         USER_DETAILS_FAILED, 
+         USER_UPDATE_PROFILE_SUCCESS,
+          USER_UPDATE_PROFILE_REQUEST,
+           USER_UPDATE_PROFILE_FAILED,
+           USER_DETAILS_RESET
+         } from "../constants/userConstants"
+import{ MY_ORDER_LIST_RESET } from '../constants/orderConstants'
 
 export const logIn =(email,password) => async(dispatch) => {
     try {
@@ -34,9 +49,10 @@ export const logIn =(email,password) => async(dispatch) => {
 export const logOut = () => (dispatch) =>{
     localStorage.removeItem('userInfo')
     
-    dispatch({
-        type: USER_LOGOUT,
-    })
+    dispatch({type: USER_LOGOUT})
+    dispatch({type: USER_DETAILS_RESET})
+    dispatch({type: MY_ORDER_LIST_RESET})
+    
 }
 
 
