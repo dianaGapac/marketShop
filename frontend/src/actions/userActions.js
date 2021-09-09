@@ -56,6 +56,7 @@ export const logOut = () => (dispatch) =>{
     dispatch({type: USER_DETAILS_RESET})
     dispatch({type: MY_ORDER_LIST_RESET})
     
+    
 }
 
 

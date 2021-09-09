@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import {Container, Navbar, Nav, NavDropdown} from 'react-bootstrap'
 import {LinkContainer } from 'react-router-bootstrap'
 import {useDispatch, useSelector} from 'react-redux'
@@ -7,18 +8,16 @@ import Message from './Message'
 import Loader from './Loader'
 
 
-const Header = () => {
+const Header = ({history}) => {
     const dispatch = useDispatch()
-
-
     const userLogin = useSelector(state=> state.userLogin)
     const { userInfo } = userLogin
 
     const logOutHandler =()=>{
         dispatch(logOut())
-      
-        
     }
+    
+
     return (
         <header>
             <Navbar bg="primary" variant="dark">
@@ -65,10 +64,12 @@ const Header = () => {
                                         Profile
                                     </NavDropdown.Item>
                                  </LinkContainer>
-
-                                 <NavDropdown.Item onClick={logOutHandler}> 
-                                     Log Out
+                              
+                                <NavDropdown.Item onClick={logOutHandler}> 
+                                <Link to='/login'>  Log Out </Link>
                                  </NavDropdown.Item>
+                                
+                               
                             </NavDropdown>
 
                         ): <LinkContainer to={'/login'} >
