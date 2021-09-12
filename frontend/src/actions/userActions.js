@@ -1,7 +1,5 @@
 import axios from 'axios'
-import { bindActionCreators } from 'redux'
-import { 
-     USER_LOGIN_REQUEST,
+import { USER_LOGIN_REQUEST,
      USER_LOGIN_SUCCESS,
      USER_LOGIN_FAILED,
      USER_LOGOUT,
@@ -211,7 +209,7 @@ export const deleteUser = (id) => async(dispatch, getState) => {
             }
          }
          
-         const {data} = await axios.delete(`/api/users/${id}`,config) 
+         await axios.delete(`/api/users/${id}`,config) 
       
          dispatch({
             type: USER_DELETE_SUCCESS,
