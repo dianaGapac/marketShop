@@ -5,13 +5,18 @@ import { useDispatch, useSelector} from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer  from '../components/FormContainer'
-import { getUserDetails} from '../actions/userActions' 
-import { userLoginReducer } from '../reducers/userReducers'
+import { getUserDetails, updateUser} from '../actions/userActions' 
+import {USER_UPDATE_RESET} from '../constants/userConstants'
 
-const UserEditScreen = ({match,history,location}) => {
+
+const UserEditScreen = ({match,history}) => {
     const userId = match.params.id
+    
     const userDetails = useSelector(state=> state.userDetails)
     const {loading, error, user} = userDetails
+
+    const userUpdate = useSelector(state=> state.userUpdate)
+    const {loading:loadingUpdate, error:errorUpdate, success:successUpdate} = userUpdate
 
       //local state
     const [name, setName] = useState('')
@@ -24,22 +29,35 @@ const UserEditScreen = ({match,history,location}) => {
     const submitHandler =(e)=>{
         e.preventDefault()
         console.log('isAdmin:', isAdmin)
+        dispatch(updateUser({_id: userId, name, email, isAdmin: isAdmin === true? 'true' : 'false'}))
     }
 
     useEffect (()=>{
-        if(!user.name || user._id !== userId){
-            dispatch(getUserDetails(userId))
-            setName(user.name)
-            setEmail(user.email)
-            setIsAdmin(user.isAdmin === 'true'? true: false)  
-        }
-    else{
-            setName(user.name)
-            setEmail(user.email)
-            setIsAdmin(user.isAdmin === 'true'? true: false) 
+
+        if(successUpdate){
+
+            dispatch({type: USER_UPDATE_RESET})
+            history.push('/admin/userList')
+
+        } 
+        else{
+            
+            if(!user.name || user._id !== userId){
+                dispatch(getUserDetails(userId))
+                setName(user.name)
+                setEmail(user.email)
+                setIsAdmin(user.isAdmin === 'true'? true: false)  
+                    }
+                else{
+                setName(user.name)
+                setEmail(user.email)
+                setIsAdmin(user.isAdmin === 'true'? true: false) 
+                }
+
         }
 
-    }, [user])
+
+    }, [user,userId, successUpdate,history])
 
     return (
         <>
@@ -47,6 +65,9 @@ const UserEditScreen = ({match,history,location}) => {
             
          <FormContainer >
            <h4 > <strong> EDIT USER </strong></h4>
+           {loadingUpdate && <Loader/>}
+           {errorUpdate && <Message variant='danger'> {errorUpdate} </Message>}
+           {}
 
            {loading? <Loader/> : error? <Message variant='danger'> {error} </Message> :
             (
