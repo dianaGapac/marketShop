@@ -28,7 +28,6 @@ const UserEditScreen = ({match,history}) => {
 
     const submitHandler =(e)=>{
         e.preventDefault()
-        console.log('isAdmin:', isAdmin)
         dispatch(updateUser({_id: userId, name, email, isAdmin: isAdmin === true? 'true' : 'false'}))
     }
 
