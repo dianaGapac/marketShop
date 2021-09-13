@@ -9,7 +9,11 @@ import Product from '../models/productModel.js'
 const getProducts = asyncHandler (async( req,res) =>{
     const products = await Product.find({})
     res.json(products)
-}) 
+})
+
+// @desc Get Product By ID
+// @route GET '/api/products/:id'
+// @access Public
 
 const getProductsById = asyncHandler (async( req,res) =>{
     const product= await Product.findById(req.params.id)
@@ -20,7 +24,25 @@ const getProductsById = asyncHandler (async( req,res) =>{
     }
 }) 
 
+
+// @desc Delete a product
+// @route DELETE '/api/products/:id
+// @access Private/Admin
+
+const deleteProduct = asyncHandler (async( req,res) =>{
+    const product= await Product.findById(req.params.id)
+
+    if(product){
+        await product.remove()
+        res.json({message: 'Product Removed'})
+    }else{
+        throw new Error('Product Not Found')
+    }
+}) 
+
+
 export{
     getProducts,
-    getProductsById
+    getProductsById,
+    deleteProduct,
 }
