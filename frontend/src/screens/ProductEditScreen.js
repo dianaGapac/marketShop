@@ -5,7 +5,8 @@ import { useDispatch, useSelector} from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer  from '../components/FormContainer'
-import {listProductDetails} from '../actions/productActions' 
+import {listProductDetails, updateProduct} from '../actions/productActions' 
+import { PRODUCT_UPDATE_RESET } from '../constants/productConstants'
 
 
 
@@ -26,8 +27,10 @@ const ProductEditScreen = ({match,history}) => {
     const productDetails = useSelector(state=> state.productDetails)
     const {loading, error, product} = productDetails
 
-   // const userUpdate = useSelector(state=> state.userUpdate)
-    //const {loading:loadingUpdate, error:errorUpdate, success:successUpdate} = userUpdate
+    const productUpdate = useSelector(state=> state.productUpdate)
+    const {loading: loadingUpdate, error: errorUpdate, success: successUpdate} = productUpdate
+
+   
 
 
 
@@ -35,32 +38,51 @@ const ProductEditScreen = ({match,history}) => {
 
     const submitHandler =(e)=>{
         e.preventDefault()
-        //upadteProduct
+        dispatch(updateProduct({
+            _id: productId,
+            name,
+            price,
+            image,
+            brand,
+            category,
+            countInStock,
+            description
+
+      }))
     }
 
     useEffect (()=>{
 
-            if(!product.name || product._id !== productId){
-                dispatch(listProductDetails(productId))
-                setName(product.name)
-                setPrice(product.price)
-                setImage(product.image)
-                setBrand(product.brand)
-                setCategory(product.category)
-                setCountInStock(product.countInStock)
-                setDescription(product.description)
+            if(successUpdate){
+                dispatch({type: PRODUCT_UPDATE_RESET})
+                history.push('/admin/productList')
             }
             else{
-                setName(product.name)
-                setPrice(product.price)
-                setImage(product.image)
-                setBrand(product.brand)
-                setCategory(product.category)
-                setCountInStock(product.countInStock)
-                setDescription(product.description)
+                if(!product.name || product._id !== productId){
+                    dispatch(listProductDetails(productId))
+                    setName(product.name)
+                    setPrice(product.price)
+                    setImage(product.image)
+                    setBrand(product.brand)
+                    setCategory(product.category)
+                    setCountInStock(product.countInStock)
+                    setDescription(product.description)
                 }
+                else{
+                    setName(product.name)
+                    setPrice(product.price)
+                    setImage(product.image)
+                    setBrand(product.brand)
+                    setCategory(product.category)
+                    setCountInStock(product.countInStock)
+                    setDescription(product.description)
+                    }
+    
 
-    }, [dispatch, product,productId,history])
+            }
+
+        
+    }, [dispatch, product,productId,history, successUpdate])
 
     return (
         <>
@@ -68,6 +90,8 @@ const ProductEditScreen = ({match,history}) => {
             
          <FormContainer >
            <h4 > <strong> EDIT PRODUCT </strong></h4>
+       
+           {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
 
            {loading? <Loader/> : error? <Message variant='danger'> {error} </Message> :
             (

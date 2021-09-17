@@ -4,7 +4,8 @@ import {Table, Button, Row, Col} from 'react-bootstrap'
 import { useDispatch, useSelector} from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { listProducts, deleteProduct} from '../actions/productActions'
+import { listProducts, deleteProduct, createProduct} from '../actions/productActions'
+import { PRODUCT_CREATE_RESET } from '../constants/productConstants'
 
 
 
@@ -17,6 +18,9 @@ const ProductListScreen = ({history}) => {
     const productList = useSelector(state => state.productList)
     const {loading, error, products} = productList
 
+    const productCreate = useSelector(state => state.productCreate)
+    const {loading: loadingCreate, error: errorCreate, success: successCreate, product} = productCreate
+
     
 
     const userLogin = useSelector(state=> state.userLogin)
@@ -28,18 +32,29 @@ const ProductListScreen = ({history}) => {
         if(window.confirm('Are you sure to delete this User?')){
             //delete product
             dispatch(deleteProduct(id))
+
         }
  
         
     }
 
-    const createProductHandler =(product)=>{
-        console.log('create product')
+    const createProductHandler =()=>{
+        dispatch(createProduct())
     }
 
     useEffect(()=>{
+
+
+
         if( userInfo && userInfo.isAdmin === 'true') {
             dispatch(listProducts())
+
+                if(product) {
+                    history.push(`/admin/product/${product._id}/edit`)
+
+                    if(successCreate){
+                    dispatch({type: PRODUCT_CREATE_RESET}) }
+                }
         }
         else{
             history.push('/login')
@@ -48,7 +63,7 @@ const ProductListScreen = ({history}) => {
 
        
 
-    }, [dispatch, history, userInfo, successDelete])
+    }, [dispatch, history, userInfo, successDelete, successCreate, product])
         return ( 
 
         <>
