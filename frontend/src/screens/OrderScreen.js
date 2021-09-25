@@ -8,6 +8,7 @@ import Loader from '../components/Loader'
 import Message from '../components/Message'
 import  {getOrderDetails, payOrder} from '../actions/orderActions'
 import {ORDER_PAY_RESET,} from '../constants/orderConstants'
+import { LinkContainer } from 'react-router-bootstrap'
 
 
 
@@ -17,6 +18,9 @@ const OrderScreen = ({match,history}) => {
     const [sdkReady,setSdkReady] = useState(false)
 
     const dispatch = useDispatch()
+
+    const userLogin = (useSelector((state) => state.userLogin))
+    const {userInfo} = userLogin
 
     const orderDetails = (useSelector((state) => state.orderDetails))
     const {order,loading, error} = orderDetails
@@ -168,7 +172,7 @@ const OrderScreen = ({match,history}) => {
                             <Col>${order.totalPrice} </Col>
                         </Row>
                     </ListGroup.Item>
-                    {!order.isPaid && (
+                    {!order.isPaid && userInfo.isAdmin === 'false' && (
                          <ListGroup.Item>
                             {loadingPay && <Loader/>}
                             {!sdkReady ? <Loader/> :
@@ -176,11 +180,23 @@ const OrderScreen = ({match,history}) => {
                                     amount={order.totalPrice} 
                                     onSuccess={successPaymentHandler} /> }
                          </ListGroup.Item> 
-                    )}
-                    {order.isPaid && 
+                    ) }
+
+                    { order.isPaid &&        
                     (<ListGroup.Item> 
                         <Button variant='success' type='submit' onClick={proceedHandler}> PROCEED </Button>
-                    </ListGroup.Item>)}
+                    </ListGroup.Item>) }
+                    
+                    
+                   { userInfo.isAdmin === 'true' && (
+                        (<ListGroup.Item> 
+                              <LinkContainer to='/admin/orderList'>
+                                    <Button>
+                                      GO BACK
+                                    </Button>
+                                 </LinkContainer>
+                        </ListGroup.Item>)
+                    )}
                   
                 </ListGroup>
 
