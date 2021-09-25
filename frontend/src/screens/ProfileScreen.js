@@ -5,7 +5,7 @@ import { useDispatch, useSelector} from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { getUserDetails, updateUserProfile } from '../actions/userActions'
-import {listMyOrders} from '../actions/orderActions'
+import {listMyOrders, getOrderDetails} from '../actions/orderActions'
 
 const ProfileScreen = ({history, location}) => {
 
@@ -46,8 +46,11 @@ const ProfileScreen = ({history, location}) => {
     
       }
         
-      
-
+    
+    }
+    const getOrderHandler =(id)=>{
+        dispatch(getOrderDetails(id))
+        history.push(`/orders/${id}`)
     }
 
     useEffect (()=>{
@@ -140,11 +143,10 @@ const ProfileScreen = ({history, location}) => {
                                         <i className='fas fa-times' style={{color:'red'}}></i>} 
                                    </td>
                                     <td> 
-                                        <LinkContainer to= {`/orders/${order._id}`}>
-                                            <Button variant='light'>
+                                        
+                                            <Button variant='light'  onClick={(e)=> getOrderHandler(order._id)}>
                                                 Details
                                             </Button>
-                                        </LinkContainer>
                     
                                         
                                     </td>

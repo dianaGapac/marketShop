@@ -6,8 +6,8 @@ import { Button, Row,Col, ListGroup, Image } from 'react-bootstrap'
 import { useDispatch, useSelector} from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import  {getOrderDetails, payOrder} from '../actions/orderActions'
-import {ORDER_PAY_RESET,} from '../constants/orderConstants'
+import  {getOrderDetails, payOrder, deliverOrder} from '../actions/orderActions'
+import {ORDER_PAY_RESET, ORDER_DELIVER_RESET, ORDER_DETAILS_RESET} from '../constants/orderConstants'
 import { LinkContainer } from 'react-router-bootstrap'
 
 
@@ -27,6 +27,11 @@ const OrderScreen = ({match,history}) => {
 
     const orderPay = (useSelector((state) => state.orderPay)) 
     const {loading: loadingPay, success:successPay } = orderPay
+
+    
+    const orderDeliver= (useSelector((state) => state.orderDeliver)) 
+    const {loading: loadingDeliver, success:successDeliver } = orderDeliver
+
 
     const addDecimal = (num) =>{
         return (Math.round(num*100/100)).toFixed(2)
@@ -48,10 +53,22 @@ const OrderScreen = ({match,history}) => {
         window.location.reload(false);
 
      }
+
+     const deliverHandler = ()=>{
+         dispatch(deliverOrder(orderId))
+     }
     
+     const goBackHandler = ()=>{
+         dispatch({ type: ORDER_DETAILS_RESET})
+     }
 
 
     useEffect(()=>{
+
+        if(!userInfo){
+            history.push('/login')
+        }
+
         const addPayPalScript= async() =>{
             const {data: clientId} = await axios.get('/api/config/paypal') 
             const script = document.createElement('script')
@@ -63,8 +80,9 @@ const OrderScreen = ({match,history}) => {
             }
             document.body.appendChild(script)
         }
-        if(!order || successPay){
+        if(!order || successPay || successDeliver){
             dispatch({type: ORDER_PAY_RESET})
+            dispatch({type: ORDER_DELIVER_RESET})
             dispatch(getOrderDetails(orderId))
         } else if(!order.isPaid){
             if(!window.paypal){
@@ -76,35 +94,42 @@ const OrderScreen = ({match,history}) => {
         }
    
 
+      
+   
+
        
-    },[dispatch, orderId, successPay, order, history])
+    },[dispatch, orderId, successPay,successDeliver,order, history, userInfo])
      
     return loading? <Loader/>:error? <Message variant='danger'> {error} </Message>:
     <>
-        <h4>ORDER {order._id} </h4>
+    { loading && <Loader/> }
+
+    <h4>ORDER {order._id} </h4>
+    { orderDetails && (   
+
+
         <div>
-    
         <Row>
             <Col md={8}>
                 <ListGroup variant= 'flush'>
                     <ListGroup.Item>
-                       <h5>SHIPPING</h5>
-                       <p> Name: {order.user.name} </p>
-                       <p> Email: <a href={`mailto:${order.user.email}`}>{order.user.email}</a> </p> 
+                    <h5>SHIPPING</h5>
+                    <p> Name: {order.user.name} </p>
+                    <p> Email: <a href={`mailto:${order.user.email}`}>{order.user.email}</a> </p> 
                         <p>Address:
                         {order.shippingAddress.address}, {order.shippingAddress.city}, {order.shippingAddress.postalCode},
                         {order.shippingAddress.country}  </p>
-                  
+                
                     </ListGroup.Item>
                     <ListGroup.Item>
                         <h5> PAYMENT METHOD</h5>
-                      <p>  Method:
+                    <p>  Method:
                         {order.paymentMethod} </p>
-                       <p>
+                    <p>
                     {order.isPaid? (<Message variant='success'> Paid on {order.paidAt}</Message>) :
                     (<Message variant='danger'> Not Paid</Message>)} </p> 
-                       <p>
-                    {order.isDelivered? (<Message variant='success'> Delivered on {order.delivereddAt}</Message>) :
+                    <p>
+                    {order.isDelivered? (<Message variant='success'> Delivered on {order.deliveredAt}</Message>) :
                     (<Message variant='danger'> Not Delivered</Message>)} </p> 
 
                     </ListGroup.Item>
@@ -114,24 +139,24 @@ const OrderScreen = ({match,history}) => {
                         {order.orderItems.length===0? <Message> Your Cart is Empty</Message> : 
                         (
                             <ListGroup variant='flush'>
-                                 {order.orderItems.map((item, index) => (
-                                     <ListGroup.Item key={index}> 
+                                {order.orderItems.map((item, index) => (
+                                    <ListGroup.Item key={index}> 
                                         <Row>
                                             <Col md={1}>
                                                 <Image src={item.image} alt={item.name} fluid rounded />
                                             </Col>
                                             <Col>
                                                 <Link to={`/product/${item.product}`} >
-                                                     {item.name}
-                                                 </Link>
+                                                    {item.name}
+                                                </Link>
                                             </Col>
                                             <Col md={4}>
-                                              ${addDecimal(item.price)} x  {item.qty} = ${addDecimal(item.qty*item.price)}
+                                            ${addDecimal(item.price)} x  {item.qty} = ${addDecimal(item.qty*item.price)}
                                             </Col>
                                         </Row>
 
-                                     </ListGroup.Item>
-                                 ))}
+                                    </ListGroup.Item>
+                                ))}
                             </ListGroup>
                         )}
                     </ListGroup.Item>
@@ -173,36 +198,60 @@ const OrderScreen = ({match,history}) => {
                         </Row>
                     </ListGroup.Item>
                     {!order.isPaid && userInfo.isAdmin === 'false' && (
-                         <ListGroup.Item>
+                        <ListGroup.Item>
                             {loadingPay && <Loader/>}
                             {!sdkReady ? <Loader/> :
                                 <PayPalButton  
                                     amount={order.totalPrice} 
                                     onSuccess={successPaymentHandler} /> }
-                         </ListGroup.Item> 
+                        </ListGroup.Item> 
                     ) }
 
-                    { order.isPaid &&        
+                    { order.isPaid &&  userInfo.isAdmin === 'false' &&    
                     (<ListGroup.Item> 
                         <Button variant='success' type='submit' onClick={proceedHandler}> PROCEED </Button>
                     </ListGroup.Item>) }
                     
                     
-                   { userInfo.isAdmin === 'true' && (
+                {userInfo && userInfo.isAdmin === 'true' && order.isPaid && !order.isDelivered &&  (
+
                         (<ListGroup.Item> 
-                              <LinkContainer to='/admin/orderList'>
-                                    <Button>
-                                      GO BACK
-                                    </Button>
-                                 </LinkContainer>
-                        </ListGroup.Item>)
+
+                            <Button type='button' className='btn-btn-block' onClick={(e)=> deliverHandler(orderId)}> 
+                            MARK AS DELIVERED
+                            </Button>
+                        </ListGroup.Item>
+                        
+                        )
                     )}
-                  
+
+                    { userInfo.isAdmin === 'true' && (
+
+                        (<ListGroup.Item> 
+
+                            <LinkContainer to='/admin/orderList'>
+                                    <Button onClick={goBackHandler}>
+                                    GO BACK
+                                    </Button>
+                                </LinkContainer>
+
+                                
+                        </ListGroup.Item>
+                        
+                        )
+                    )}
+                
                 </ListGroup>
 
             </Col>
         </Row>
         </div>
+
+        
+    )}
+        
+
+
     </>
 }
 

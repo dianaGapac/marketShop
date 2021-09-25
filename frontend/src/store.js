@@ -10,7 +10,7 @@ import {userLoginReducer,
         userListReducer,
         userDeleteReducer,
         userUpdateReducer,} from './reducers/userReducers'
-import {orderCreateReducer, orderDetailsReducer, orderPayReducer, myOrderListReducer, orderListReducer} from './reducers/orderReducers'
+import {orderCreateReducer, orderDetailsReducer, orderPayReducer, myOrderListReducer, orderListReducer, orderDeliverReducer} from './reducers/orderReducers'
 
 
 const reducer = combineReducers({
@@ -32,7 +32,9 @@ const reducer = combineReducers({
     productCreate: productCreateReducer,
     productUpdate: productUpdateReducer,
     orderList: orderListReducer,
+    orderDeliver: orderDeliverReducer,
     
+
 })
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')
