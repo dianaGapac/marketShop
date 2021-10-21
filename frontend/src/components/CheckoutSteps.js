@@ -4,57 +4,82 @@ import { LinkContainer } from 'react-router-bootstrap'
 
  
 const CheckoutSteps = ({step1, step2, step3, step4}) => {
+
+
     return (
         <Nav className='justify-content-center mv-4 '>
             <Nav.Item>
-                {step1? (
+                {  step1 && !step2? (
+                     <LinkContainer to='/login'>
+                     <Nav.Link>
+                       <h4> SIGN IN  </h4>  
+                     </Nav.Link> 
+                  </LinkContainer>
+                )
+                    : step1? (
                      <LinkContainer to='/login'>
                         <Nav.Link>
-                            Sign In
+                           SIGN IN  
                         </Nav.Link> 
                      </LinkContainer>
                      ): 
                      <Nav.Link disabled>
-                         Sign In
+                           SIGN IN
                      </Nav.Link>
                 }
             </Nav.Item>
             <Nav.Item>
-                {step2? (
-                     <LinkContainer to='/shipping'>
-                        <Nav.Link>
-                           Shipping
-                        </Nav.Link> 
-                     </LinkContainer>
-                     ): 
+                {
+                     step2 && !step3? (<LinkContainer to='/shipping'>
+                     <Nav.Link>
+                           <h4> SHIPPING </h4>
+                     </Nav.Link> 
+                  </LinkContainer> ) :
+
+                  step2? (
+                    <LinkContainer to='/shipping'>
+                       <Nav.Link>
+                             SHIPPING   
+                       </Nav.Link> 
+                    </LinkContainer>
+                    ) : 
+
                      <Nav.Link disabled>
-                         Shipping
+                         SHIPPING
                      </Nav.Link>
                 }
             </Nav.Item>
             <Nav.Item>
-                {step3? (
+                {  step3 && !step4? (
                      <LinkContainer to='/payment'>
                         <Nav.Link>
-                            Payment
+                           <h4>  PAYMENT </h4>
+                        </Nav.Link> 
+                     </LinkContainer>
+                     ):
+                step3? (
+                     <LinkContainer to='/payment'>
+                        <Nav.Link>
+                            PAYMENT
                         </Nav.Link> 
                      </LinkContainer>
                      ): 
                      <Nav.Link disabled>
-                        Payment
+                        PAYMENT
                      </Nav.Link>
                 }
             </Nav.Item>
             <Nav.Item>
-                {step4? (
+                {  
+                step4? (
                      <LinkContainer to='/placeorder'>
                         <Nav.Link>
-                            Place Order
+                           <h4>  PLACE ORDER </h4> 
                         </Nav.Link> 
                      </LinkContainer>
                      ):     
                      <Nav.Link disabled>
-                         Place Order
+                         PLACE ORDER
                      </Nav.Link>
                 }
             </Nav.Item>

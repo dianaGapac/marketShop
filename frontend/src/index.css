@@ -22,3 +22,29 @@ main {
 		padding-left: 0;
 	}
 }
+
+.item-center {
+	display: grid;
+	grid-auto-flow: column;
+	gap: 4px;
+	align-items: center;
+	justify-items: center;
+}
+
+.nav-border {
+	border-bottom-style: solid;
+	border-bottom-color: grey;
+	border-bottom-width: 1px;
+}
+
+.sticky-top {
+	position: fixed;
+	top: -5;
+	width: 100%;
+}
+
+.sticky-bot {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+}

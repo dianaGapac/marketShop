@@ -6,16 +6,26 @@ import { useDispatch,useSelector} from 'react-redux'
 import {listProductDetails} from '../actions/productActions'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-//import Variations from '../components/Variations'
+
+
+
+//TODO VARIATIONS SECTIONS (SIZE & Countinstock)
+// UI (dapat pantay pantya ung size ng card)
+//Phot Gallery
+
 
 const ProductScreen = ({match, history}) => {
 
-    const [qty, setQty] = useState(1)
-    //product state
+
     const dispatch = useDispatch()
     const productDetails = useSelector(state => state.productDetails)
     const {loading, error, product } = productDetails    
-    //fetch data from api in backend
+
+
+    const [qty, setQty] = useState(1)
+    const [size, setSize] = useState ('')
+
+
     useEffect(() =>{
 
       dispatch( listProductDetails (match.params.id)) 
@@ -23,7 +33,7 @@ const ProductScreen = ({match, history}) => {
     },[dispatch,match])  
     
     const addToCartHandler =()=>{
-        history.push(`/cart/${match.params.id}?qty=${qty}`)
+        history.push(`/cart/${match.params.id}?size-${size}-?qty=${qty}`)
 
     } 
     
@@ -35,14 +45,14 @@ const ProductScreen = ({match, history}) => {
 
     return (
         <div>
-            <Link className='btn btn-light my-3' to='/'> GO BACK </Link>
+            <Link className='btn btn-light my-3' to='/productlist'> GO BACK </Link>
             { loading? <Loader/> : error ? <Message variant = 'danger'> {error} </Message> : (
                 <Row>
-                    <Col md={6} >
+                    <Col lg={6}  md={12} >
                         <Image src={product.image} alt={product.name} fluid/>
                      </Col>
 
-                     <Col md={6}>
+                     <Col lg={6}  md={12}>
                         <ListGroup variant='flush'>
                             <ListGroup.Item> <h4> <strong> {product.name} </strong>  </h4></ListGroup.Item>
                         
@@ -55,39 +65,68 @@ const ProductScreen = ({match, history}) => {
                         <ListGroup variant='flush'>
                            
                            <ListGroup.Item>
-                               <h4> {`Price: $${product.price}`} </h4> 
-                               
-                        {/* <Variations product = {product}>  </Variations> */} 
+                               <h4> {`Price: $${product.price}`} </h4>  
+                           </ListGroup.Item>
 
-                           </ListGroup.Item>
                            <ListGroup.Item>
-                            <span> Stock: {product.countInStock>0 ? product.countInStock : 'Out of Stock' }</span>
+                                <Row>
+                                        <Col className='p-2' > CATEGORY: </Col>
+                                </Row>
+                                <Row>
+                                        <Col className='p-2' > BRAND: </Col>
+                                </Row>
+
+                                 <Row>
+                                     <Col className='p-2'> SIZE: </Col>
+                                </Row> 
+                                
+                                    <Row>
+                                    {product.variations.map( v => (
+                                        <Button 
+                                            onClick={e => setSize(v.size)}
+                                            key ={v.size} 
+                                            type = 'button' 
+                                            variant = 'outline-primary' 
+                                            className = 'my-2 mx-1' 
+                                            style = {{
+                                                width: '100px'
+                                            }}> 
+                                            {v.size}
+                                        </Button>
+                                        ))  }
+
+                                        {console.log(size)}
+                                    </Row>
+                               
                            </ListGroup.Item>
-                                    <ListGroup.Item>
-                                       {/*  <Form>
-                                            <Button className='btn-block btn-success'> <i className = 'fa fa-minus'> </i></Button>
-                                                <input type='number' className='p-3 border border-succes'> {qty} </input>
-                                            <Button className='btn-block btn-success'> <i className = 'fa fa-plus'> </i></Button>
-                                        </Form> */}
+
+                           <ListGroup.Item>
+                            STOCK: {product.countInStock>0 ? product.countInStock : 'Out of Stock' }
+                           </ListGroup.Item>
+                          
+
+                                    <ListGroup.Item style={{backgroundColor:''}}>
+                                       
                                         <Form.Group  >
-                                        <Row >
-                                            <Col md={1}>
-                                                <Button className='btn-block btn-success '
+                                        <Row>
+                                            <Col lg={2}  md={2} className='item-center' style={{backgroundColor:''}}>
+                                                <Button className='btn-block btn-primary' 
                                                 disabled={qty===1}
-                                                onClick = {(e) => setQty(qty>1? qty-1 : qty)}> 
+                                                onClick = {(e) => setQty(qty>1? qty-1 : qty)} > 
                                                 <i className = 'fa fa-minus' > </i></Button>
                                             </Col>
-                                            <Col md={1}>
-                                                <Form.Control 
+                                            <Col lg={3}  md={2} className='item-center'  style={{backgroundColor:''}}>
+                                                <Form.Control
+                                                    style={{width:'100px'}}
                                                     value={qty}
                                                     onChange ={(e) => onChangeHandler(Number(e.target.value))}
-                                                    className="border border-success mx-1"
-                                                    style ={{width: '55px'}}
+                                                    className="border border-primary"
+                                              
                                                     type="text" 
                                                     placeholder={qty} />
                                             </Col>
-                                            <Col md={2}> 
-                                                <Button className='btn-block btn-success mx-4'
+                                            <Col lg={2}  md={1} className='item-center' style={{backgroundColor:''}}> 
+                                                <Button className='btn-block btn-primary mx-4'
                                                 disabled={product.countInStock === qty || product.countInStock === 0}
                                                 onClick = {(e) =>  setQty( qty < product.countInStock? qty+1 : product.countInStock)}> 
                                                 <i className = 'fa fa-plus'> </i></Button>
@@ -102,9 +141,9 @@ const ProductScreen = ({match, history}) => {
                                <Row>
                                 <Button 
                                     onClick = {addToCartHandler}
-                                    className=' btn-success text-center' 
+                                    className=' btn-primary text-center' 
                                     type='button' 
-                                    disabled={product.countInStock === 0}
+                                    disabled={product.countInStock === 0|| qty === 0 || size === ''}
                                     >
                                     ADD TO CART
                                 </Button>
@@ -112,7 +151,7 @@ const ProductScreen = ({match, history}) => {
                            </ListGroup.Item>
 
                            <ListGroup.Item>
-                                Description: {product.description}
+                                DESCRIPTION: {product.description}
                             </ListGroup.Item>
                         </ListGroup>
                         

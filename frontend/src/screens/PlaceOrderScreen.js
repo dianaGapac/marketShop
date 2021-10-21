@@ -1,6 +1,6 @@
 import React, { useEffect} from 'react'
 import {Link} from 'react-router-dom'
-import { Button, Row,Col, ListGroup, Image } from 'react-bootstrap'
+import { Button, Row,Col, ListGroup, Image, Container } from 'react-bootstrap'
 import { useDispatch, useSelector} from 'react-redux'
 import CheckoutSteps from '../components/CheckoutSteps'
 import Message from '../components/Message'
@@ -49,41 +49,42 @@ const PlaceOrderScreen = ({history}) => {
     },[history,success])
      
     return (
-        <div>
+        <Container className='mt-5'>
+
         <CheckoutSteps step1 step2 step3 step4/>
+
+        <Container className='mt-4'>
         <Row>
-            <Col md={8}>
+            <Col md={8} lg={8}>
                 <ListGroup variant= 'flush'>
                     <ListGroup.Item>
-                        <h4> PLACE ORDER </h4>
-                        <p> <strong> ADDRESS</strong></p>
+                       <h5> ADDRESS  </h5>
                         {cart.shippingAddress.address}, {cart.shippingAddress.city}, {cart.shippingAddress.postalCode},
                         {cart.shippingAddress.country}
                     </ListGroup.Item>
 
                     <ListGroup.Item>
-                        <h6> PAYMEMT METHOD</h6>
-                        <strong> METHOD</strong>
+                        <h5> PAYMENT METHOD</h5>
                         {cart.paymentMethod}
                     </ListGroup.Item>
 
                     <ListGroup.Item>
-                        <h6>ORDER ITEMS</h6>
+                        <h5> ORDER ITEMS</h5>
                         {cart.cartItems.length===0? <Message> Your Cart is Empty</Message> : 
                         (
                             <ListGroup variant='flush'>
                                  {cart.selectedItems.map((item, index) => (
                                      <ListGroup.Item key={index}> 
                                         <Row>
-                                            <Col md={1}>
+                                            <Col md={1} lg={2}>
                                                 <Image src={item.image} alt={item.name} fluid rounded />
                                             </Col>
-                                            <Col>
+                                            <Col lg={4}>
                                                 <Link to={`/product/${item.product}`} >
                                                      {item.name}
                                                  </Link>
                                             </Col>
-                                            <Col md={4}>
+                                            <Col md={4} lg={6}>
                                               ${addDecimal(item.price)} x  {item.qty} = ${addDecimal(item.qty*item.price)}
                                             </Col>
                                         </Row>
@@ -97,10 +98,10 @@ const PlaceOrderScreen = ({history}) => {
                 </ListGroup>
             </Col>
 
-            <Col md={4}>
+            <Col md={4} lg={4}>
                 <ListGroup variant='flush'>
                     <ListGroup.Item>
-                        <h6> ORDER SUMMARY </h6>
+                        <h5> ORDER SUMMARY </h5>
                     </ListGroup.Item>
 
                     <ListGroup.Item>
@@ -130,9 +131,8 @@ const PlaceOrderScreen = ({history}) => {
                             <Col>${cart.totalPrice} </Col>
                         </Row>
                     </ListGroup.Item>
-                    <ListGroup.Item>
-                        {error && <Message variant='danger'> {error} </Message>}
-                    </ListGroup.Item>
+
+                
 
                     <ListGroup.Item>
                         <Button type='button' className='btn-block' disable = {cart.items ===0} onClick={placeOrderHandler}>
@@ -143,7 +143,10 @@ const PlaceOrderScreen = ({history}) => {
 
             </Col>
         </Row>
-        </div>
+
+      </Container>
+
+        </Container>
     )
 }
 

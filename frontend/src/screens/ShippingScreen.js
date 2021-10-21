@@ -1,5 +1,5 @@
 import React, {useState } from 'react'
-import {Form, Button, } from 'react-bootstrap'
+import {Form, Button, Container,Row,Col } from 'react-bootstrap'
 import { useDispatch, useSelector} from 'react-redux'
 import FormContainer  from '../components/FormContainer'
 import CheckoutSteps from '../components/CheckoutSteps'
@@ -28,40 +28,47 @@ const ShippingScreen = ({history}) => {
 
 
     return (
-        <FormContainer>
-            <CheckoutSteps step1 step2/>
-            <h4 className='text-center mt-3'> SHIPPING</h4>
-            <Form  onSubmit={submitHandler}> 
-              
-             <Form.Group controlId='address'>
-                    <Form.Label> Address </Form.Label>
-                    <Form.Control type='text' placeholder='Enter Address' value= {address} required onChange={(e) => setAddress(e.target.value)}>  
-                    </Form.Control>
-             </Form.Group>
+        <Container  className='mt-5' > 
+          
+            <CheckoutSteps  className='text-center' step1 step2/>
+            
+            <FormContainer >
+                   
+                        <Form  onSubmit={submitHandler}> 
+                            
+                            <Form.Group controlId='address'>
+                                    <Form.Label> Address </Form.Label>
+                                    <Form.Control type='text' placeholder='Enter Address' value= {address} required onChange={(e) => setAddress(e.target.value)}>  
+                                    </Form.Control>
+                            </Form.Group>
 
-             <Form.Group controlId='city'>
-                    <Form.Label> City </Form.Label>
-                    <Form.Control type='text' placeholder='Enter City' value= {city} required onChange={(e) => setCity(e.target.value)}>  
-                    </Form.Control>
-             </Form.Group>
+                            <Form.Group controlId='city'>
+                                    <Form.Label> City </Form.Label>
+                                    <Form.Control type='text' placeholder='Enter City' value= {city} required onChange={(e) => setCity(e.target.value)}>  
+                                    </Form.Control>
+                            </Form.Group>
 
-             <Form.Group controlId='postalCode'>
-                    <Form.Label> Postal Code </Form.Label>
-                    <Form.Control type='text' placeholder='Enter PostalCode' value= {postalCode} required onChange={(e) => setPostalCode(e.target.value)}>  
-                    </Form.Control>
-             </Form.Group>
+                            <Form.Group controlId='postalCode'>
+                                    <Form.Label> Postal Code </Form.Label>
+                                    <Form.Control type='text' placeholder='Enter PostalCode' value= {postalCode} required onChange={(e) => setPostalCode(e.target.value)}>  
+                                    </Form.Control>
+                            </Form.Group>
 
-             <Form.Group controlId='country'>
-                    <Form.Label> Country </Form.Label>
-                    <Form.Control type='text' placeholder='Enter Country' value= {country} required onChange={(e) => setCountry(e.target.value)}>  
-                    </Form.Control>
-             </Form.Group>
+                            <Form.Group controlId='country'>
+                                    <Form.Label> Country </Form.Label>
+                                    <Form.Control type='text' placeholder='Enter Country' value= {country} required onChange={(e) => setCountry(e.target.value)}>  
+                                    </Form.Control>
+                            </Form.Group>
 
-             <Button type= 'submit' variant='primary' className='my-3'>
-                 Continue
-             </Button>
-            </Form>
-        </FormContainer>
+                            <Button type= 'submit' variant='primary' className='my-3'>
+                                Continue
+                            </Button>
+                        </Form>
+                    
+            </FormContainer>
+
+        </Container>
+
     )
 }
 

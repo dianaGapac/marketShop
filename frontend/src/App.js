@@ -17,6 +17,7 @@ import UserEditScreen from'./screens/UserEditScreen'
 import ProductListScreen from './screens/ProductListScreen'
 import ProductEditScreen from './screens/ProductEditScreen'
 import OrderListScreen from './screens/OrderListScreen'
+import ProductsScreen from './screens/ProductsScreen'
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <main>
           <Container>
             <Route path='/' component={HomeScreen} exact/>
+            <Route path='/productlist' component={ProductsScreen}/>
             <Route path='/product/:id' component={ProductScreen}/>
             <Route path='/cart/:id' component= {CartScreen}/>
 

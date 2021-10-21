@@ -10,9 +10,9 @@ const products = [
         price: 300,
         countInStock: 10,
         variations: [
-             { size: 'US 7',price: 200,countInStock: 10},
-             { size: 'US 8',price: 350,countInStock: 10},
-             { size: 'US 9',price: 300,countInStock: 10}]
+             { size: 'US 7',countInStock: 10},
+             { size: 'US 8',countInStock: 20},
+             { size: 'US 9',countInStock: 30}]
     },
     {
         name: 'Nike Jordan Air',
@@ -25,9 +25,9 @@ const products = [
         price: 300,
         countInStock: 10,
         variations: [
-            { size: 'US 7',price: 200,countInStock: 10},
-            { size: 'US 8',price: 250,countInStock: 10},
-            { size: 'US 9',price: 300,countInStock: 10}]
+            { size: 'US 7',countInStock: 10},
+            { size: 'US 8',countInStock: 20},
+            { size: 'US 9',countInStock: 30}]
     },
     {
         name: 'Nike Blazer Low',

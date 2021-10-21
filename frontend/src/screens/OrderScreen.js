@@ -104,7 +104,8 @@ const OrderScreen = ({match,history}) => {
     <>
     { loading && <Loader/> }
 
-    <h4>ORDER {order._id} </h4>
+    <h5 className='mt-4'>ORDER ID: {order._id} </h5>
+
     { orderDetails && (   
 
 
@@ -112,18 +113,19 @@ const OrderScreen = ({match,history}) => {
         <Row>
             <Col md={8}>
                 <ListGroup variant= 'flush'>
+
                     <ListGroup.Item>
                     <h5>SHIPPING</h5>
-                    <p> Name: {order.user.name} </p>
-                    <p> Email: <a href={`mailto:${order.user.email}`}>{order.user.email}</a> </p> 
-                        <p>Address:
+                    <p> NAME: {order.user.name} </p>
+                    <p> EMAIL: <a href={`mailto:${order.user.email}`}>{order.user.email}</a> </p> 
+                        <p>ADDRESS: 
                         {order.shippingAddress.address}, {order.shippingAddress.city}, {order.shippingAddress.postalCode},
                         {order.shippingAddress.country}  </p>
                 
                     </ListGroup.Item>
                     <ListGroup.Item>
                         <h5> PAYMENT METHOD</h5>
-                    <p>  Method:
+                    <p>  METHOD:
                         {order.paymentMethod} </p>
                     <p>
                     {order.isPaid? (<Message variant='success'> Paid on {order.paidAt}</Message>) :
@@ -167,7 +169,7 @@ const OrderScreen = ({match,history}) => {
             <Col md={4}>
                 <ListGroup variant='flush'>
                     <ListGroup.Item>
-                        <h6> ORDER SUMMARY </h6>
+                        <h5> ORDER SUMMARY </h5>
                     </ListGroup.Item>
 
                     <ListGroup.Item>

@@ -1,5 +1,5 @@
 import React, {useState } from 'react'
-import {Form, Button, Col, Row } from 'react-bootstrap'
+import {Form, Button, Col, Row, Container} from 'react-bootstrap'
 import { useDispatch, useSelector} from 'react-redux'
 import FormContainer  from '../components/FormContainer'
 import CheckoutSteps from '../components/CheckoutSteps'
@@ -29,52 +29,56 @@ const PaymentScreen = ({history}) => {
 
 
     return (
-        <>
-        <Row className='d-flex justify-content-center'>
-        <FormContainer className='d-flex justify-content-center' > 
+
+        <Container className='mt-5' >
             <CheckoutSteps step1 step2 step3/>
-            <h4 className='text-center mt-3'>PAYMENT METHOD</h4>
-            <Form  onSubmit={submitHandler}> 
+           
+        <FormContainer > 
+        <Form  onSubmit={submitHandler}  > 
+   
               <Form.Group>
-                  <Form.Label as='legend' className='h5' >  Select Method</Form.Label>
+                  <Form.Label as='legend' className='h5 text-center' >  Select Payment Method</Form.Label>
 
-              <Col>
-                <Form.Check 
-                type='radio' 
-                label='PayPal or Credit Card'
-                id='PayPal'  
-                name='paymentMethod' 
-                value='PayPal' 
-                checked 
-                onChange={(e)=> setPaymentMethod(e.target.value)}
-                >    
-                </Form.Check>
-              </Col> 
+                <Row className='mt-10'> 
+         
+                        <Form.Check 
+                        type='radio' 
+                        label='PayPal or Credit Card'
+                        id='PayPal'  
+                        name='paymentMethod' 
+                        value='PayPal' 
+                        checked 
+                        onChange={(e)=> setPaymentMethod(e.target.value)}
+                        className='mt-3'>
+                        </Form.Check>
+                </Row>
+                <Row className='mt-10'> 
+                        <Form.Check 
+                        type='radio' 
+                        label='Stripe'
+                        id='Stripe'  
+                        name='paymentMethod' 
+                        value='Stripe' 
+                        className='mt-3'
+                        onChange={(e)=> setPaymentMethod(e.target.value)}
+                        >    
+                        </Form.Check>
+                </Row>
 
-              <Col>
-                <Form.Check 
-                type='radio' 
-                label='Stripe'
-                id='Stripe'  
-                name='paymentMethod' 
-                value='Stripe' 
-               
-                onChange={(e)=> setPaymentMethod(e.target.value)}
-                >    
-                </Form.Check>
-              </Col> 
-              </Form.Group>
-
-
-
-
-             <Button type= 'submit' variant='primary' className='my-3'>
+                <Button type= 'submit' variant='primary' className='my-3 mx-0'>
                  Continue
-             </Button>
-            </Form>
+                </Button>
+    
+              </Form.Group>
+        
+              </Form>
+
         </FormContainer>
-        </Row>
-        </>
+     
+       
+      
+
+        </Container>
     )
 }
 

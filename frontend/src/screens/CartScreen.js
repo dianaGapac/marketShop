@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import {Link} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
-import {Row, Col, Card, ListGroup, Image, Form, Button,InputGroup} from 'react-bootstrap'
+import {Row, Col, Card, ListGroup, Image, Form, Button,InputGroup, Table, Navbar, Nav} from 'react-bootstrap'
 import Message from '../components/Message'
 import { addToCart, removeFromCart ,passSelectedItem } from '../actions/cartActions'
+
+
+//TODO Gawing table ung cart screeen
 
 const CartScreen = ({match, location, history}) => {
 
     //to trigger addtocart dispatch
     var productId = match.params.id 
     var qty = location.search? Number(location.search.split('=')[1]) : 1 
+
+    var size= location.search? location.search.split('-')[1]: 1 
+
+
+    console.log( 'size:', size, 'qty:', qty)
+
 
     const dispatch = useDispatch()
 
@@ -35,7 +44,6 @@ const CartScreen = ({match, location, history}) => {
              )
 
         }else{
-            console.log('new select')
             return ( setSelectedItems( [...selectedItems, item]))
         }
 
@@ -50,7 +58,7 @@ const CartScreen = ({match, location, history}) => {
         if(checked){
             addSelected(id,qty) }
         else
-        {  console.log('deselect')
+        {
             removeSelected(id)
         }
 
@@ -72,17 +80,14 @@ const CartScreen = ({match, location, history}) => {
     const checkOutHandler =()=>{
         history.push('/login?redirect=shipping')
           dispatch(passSelectedItem(selectedItems))
-
-          console.log('trigger passed')
-          console.log(selectedItems)
-          
+  
 
     }
     // add and minus button handler
-    const addAddToCart =(id,qty,op)=>{
+    const addAddToCart =(id,qty,op,size)=>{
 
         //trigger add to cart first
-        dispatch(addToCart(id,qty))
+        dispatch(addToCart(id,qty,size))
 
         var checked = false
 
@@ -99,136 +104,111 @@ const CartScreen = ({match, location, history}) => {
    
     useEffect(() =>{
         if(productId){
-            dispatch(addToCart(productId,qty))
+            dispatch(addToCart(productId,qty,size))
             productId = null
             qty =null
+            size=null
         }
     }, [dispatch])
 
     return (
-        <Row className='my-3'>
-            <Col md={9}>
-                <h4 className= 'my-3'> SHOPPING CART</h4>
-                {cartItems.length === 0? (<Message variant='primary'>
-                    Your Cart is EMPTY. Click <Link to='/'> here </Link> to SHOP
-                </Message>) : 
-                (
-                <div>
-                    <Row className='cartHeader '>
-                        <Col md={1}>
-                        </Col>
-                        <Col md={2}>
-                        </Col>
-                        <Col md={2}> 
-                             Name 
-                        </Col>
-                        <Col md={1}> 
-                            Price
-                        </Col>
-                        <Col md={3}> 
-                             Quantity
-                        </Col>
-                        <Col md={2}> 
-                           Subtotal
-                         </Col>
-                        <Col md={1}> 
-                          Delete
-                        </Col>
-                    </Row>
+        <>
+    
+        <Row> 
 
-                    <Row className='my-3'>
-                    <Col>
-                    <ListGroup variant = 'flush'>
-                        {cartItems.map( item => (
-                            <ListGroup.Item key ={item.product}> 
-                                <Row className='text-center'>
-                                    <Col md={1}> 
-                                     <input type="checkbox" onChange={(e) => selectHandler(item.product, item.qty, e.target.checked)} /> 
-                                     </Col>
-                                     
-                                    <Col md={2}>
-                                        <Image src={item.image} alt={item.name}  fluid rounded height={100}/>
-                                    </Col>
+            <Col lg={12} md={12} sm={12}> 
+                <Table >
+                    <thead className='nav-border' style={{borderBottom: '1px 50% rgba(255, 0, 0, 0.1)'}}>
+                        <tr>
+                            <th></th>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th> Size</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th> Subtotal</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
 
-                                    <Col md={2}>
-                                        <Link to={`/product/${item.product}`}>
-                                            {item.name}
-                                        </Link>
-                                    </Col>
+                    <tbody>
+                    {cartItems.map( item => (
+                                        <tr key={item.product}>
 
-                                    <Col md={1}>
-                                     <strong> $ {item.price} </strong> 
-                                    </Col>
-                                    
-                                    <Col md={3} >
-                                      <InputGroup  >   
-                                        <Row className='p-0 m-0 '>
-                                         
-                                        <Col className='p-0 m-0'>
-                                          <Button className='btn-block btn-success p-1 px-2 m-1'
-                                                 onClick = {(e) => addAddToCart(item.product, item.qty-1,'sub')}
-                                                  disabled= {item.qty === 1}> 
-                                                <i className = 'fa fa-minus' > </i></Button>
-                                         </Col>    
-                                         <Col className='p-0 m-0'>
-                                            <Form.Control 
-                                                    value={item.qty}
-                                                    onChange={(e) => onChangeHandler(item.product, Number(e.target.value),item.countInStock)}
-                                                    className="border border-success p-1 px-2 m-1"
-                                                    style ={{width: '50px'}}
-                                                    type="text" 
-                                                    placeholder={item.qty} />
-                                         </Col>  
-                                         <Col className='p-0 m-0'>
-                                                <Button className='btn-block btn-success p-1 px-2 m-1 '
-                                                    onClick = {(e) => addAddToCart(item.product, item.qty+1, 'add')}
-                                                    disabled = {item.countInStock === item.qty}> 
-                                                    <i className = 'fa fa-plus'> </i></Button>
-                                         </Col>
-                                         </Row>
-                                        </InputGroup>
-                                    </Col>
+                                         <td>  <Form.Group>
+                                                <Form.Check 
+                                                    type='checkbox' 
+                                                    onChange={(e) => selectHandler(item.product, item.qty, e.target.checked)}
+                                                    >
+                                                </Form.Check>
 
-                                    <Col md={2}> 
-                                      <strong className=''> $ { (item.price * item.qty).toFixed(2)} </strong>
-                                    </Col>
-                                    
-                                    <Col md={1}>
-                                       <Button variant='light' type='button' className=' btn-block '
-                                         onClick = {()=> removeFromCartHandler(item.product)} > 
-                                         <i className="far fa-trash-alt"> </i> </Button>
-                                    </Col>         
-                               </Row>
-                            </ListGroup.Item>
-                       
-                        ))}
-                        
-                    </ListGroup>
-                    </Col>
-                    </Row>
-                    </div>
-                )
-                }
-              
-            </Col>
-         
+                                            </Form.Group> </td>   
+                                        
+                                      {/*  <td>  <input type="checkbox" onChange={(e) => selectHandler(item.product, item.qty, e.target.checked)} /> </td>    */}   
+                                         <td>   <Image src={item.image} alt={item.name}  fluid style={{height:'80px'}}/> </td>
+                                         <td >
+                                            <Link to={`/product/${item.product}`}>  {item.name} </Link>
+                                         </td>
+                                          <td> {item.size} </td>
+                                         <td> <strong> $ {item.price} </strong> </td>
 
-            < Col md={3} >
+                                         <td>
+                                            <InputGroup  >   
+                                                <Row className='p-0 m-0 ' >
+                                                
+                                                <Col className='p-0 m-0'>
+                                                <Button className='btn-block btn-primary p-1 px-2 m-1'
+                                                        onClick = {(e) => addAddToCart(item.product, item.qty-1,'sub',item.size)}
+                                                        disabled= {item.qty === 1}> 
+                                                        <i className = 'fa fa-minus' > </i></Button>
+                                                </Col>    
+                                                <Col className='p-0 m-0'>
+                                                    <Form.Control 
+                                                            value={item.qty}
+                                                            onChange={(e) => onChangeHandler(item.product, Number(e.target.value),item.countInStock)}
+                                                            className="border border-primary p-1 px-2 m-1"
+                                                            style ={{width: '50px'}}
+                                                            type="text" 
+                                                            placeholder={item.qty} />
+                                                </Col>  
+                                                <Col className='p-0 m-0'>
+                                                        <Button className='btn-block btn-primary p-1 px-2 m-1 '
+                                                            onClick = {(e) => addAddToCart(item.product, item.qty+1, 'add',item.size)}
+                                                            disabled = {item.countInStock === item.qty}> 
+                                                            <i className = 'fa fa-plus'> </i></Button>
+                                                </Col>
+                                                </Row>
+                                                </InputGroup>
+                                           </td>
+
+                                           <td > <strong className=''> $ { (item.price * item.qty).toFixed(2)} </strong> </td>
+                                           
+                                           <td >
+                                            <Button variant='light' type='button' className=' btn-block '
+                                                onClick = {()=> removeFromCartHandler(item.product)} > 
+                                                <i className="far fa-trash-alt"> </i> </Button>
+                                            </td>   
+
+                                        </tr>
+                                    ))}
+                    </tbody>
+                    
+                </Table>
+             </Col>
+         </Row>
+
                 <Row className='m-3'>
-                <Card className='position-sticky'> 
+                <Card className='sticky-bot' style={{backgroundColor:'white', height:'100px', width:'300px'}}> 
                     <ListGroup variant='flush' >
                         <ListGroup.Item>
-                            <h6 className=''> <strong> SUBTOTAL:
+                            <h5 className=''> <strong> SUBTOTAL: 
 
                              </strong>
                                   {` (${selectedItems.reduce((acc,item) => acc + item.qty, 0)}) `}
-                            Items</h6> 
+                            Items</h5> 
 
                             <h5> <strong>$ {selectedItems.reduce( (acc,item)=> acc+item.qty*item.price, 0 ).toFixed(2)} </strong></h5>
                             
-                        </ListGroup.Item>
-
-                        <ListGroup.Item>
                             <Row>
                             <Button type='button' 
                             className='btn-block btn-primary'
@@ -241,12 +221,14 @@ const CartScreen = ({match, location, history}) => {
                            
                         </ListGroup.Item>
                     </ListGroup>
+
+
                 </Card>
                 </Row>
-            
-            </Col>
+    
 
-        </Row>
+         </>
+       
     )
 }
 

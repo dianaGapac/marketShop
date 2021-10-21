@@ -1,11 +1,13 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import {Container, Navbar, Nav, NavDropdown} from 'react-bootstrap'
+import {Container, Navbar, Nav, NavDropdown,Row} from 'react-bootstrap'
 import {LinkContainer } from 'react-router-bootstrap'
 import {useDispatch, useSelector} from 'react-redux'
 import { logOut } from '../actions/userActions'
 import Message from './Message'
 import Loader from './Loader'
+import Slider from './Slider'
+import SearchBar from './SearchBar'
 
 
 const Header = ({history}) => {
@@ -20,18 +22,27 @@ const Header = ({history}) => {
 
     return (
         <header>
-            <Navbar bg="primary" variant="dark">
+
+            <Navbar  variant="light" className='nav-border '  style= {{backgroundColor:'white'}}>
                 <Container>
                     <LinkContainer to='/'>
-                         <Navbar.Brand >MARKET | SHOP</Navbar.Brand>
+                         <Navbar.Brand >SNEAKY | SHOPPY</Navbar.Brand>
                     </LinkContainer>
 
                     <Nav className="ml-auto">
+
+                    <LinkContainer to ='/productlist'>
+                            <Nav.Link >
+                              PRODUCTS
+                            </Nav.Link>
+                        </LinkContainer>
+
                         <LinkContainer to='/cart/:id'>
                             <Nav.Link >
                                 <i className='fa fa-shopping-cart px-2'></i>CART
                             </Nav.Link>
                         </LinkContainer>
+
 
                         { userInfo && userInfo.isAdmin === 'true'&& (
                                 <NavDropdown title ="ADMIN" id='adminmenu'> 
