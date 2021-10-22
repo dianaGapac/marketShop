@@ -46,7 +46,7 @@ const ProductScreen = ({match, history}) => {
     return (
         <div>
             <Link className='btn btn-light my-3' to='/productlist'> GO BACK </Link>
-            { loading? <Loader/> : error ? <Message variant = 'danger'> {error} </Message> : (
+            { loading? <Loader/> : error ? <Message variant = 'danger'> {error} </Message> :  (
                 <Row>
                     <Col lg={6}  md={12} >
                         <Image src={product.image} alt={product.name} fluid/>
@@ -65,7 +65,9 @@ const ProductScreen = ({match, history}) => {
                         <ListGroup variant='flush'>
                            
                            <ListGroup.Item>
-                               <h4> {`Price: $${product.price}`} </h4>  
+                                { product.price &&   <h4> {`Price: $${product.price.toLocaleString()}`} </h4> }
+
+                              
                            </ListGroup.Item>
 
                            <ListGroup.Item>

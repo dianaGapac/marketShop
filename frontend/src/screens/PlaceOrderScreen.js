@@ -17,12 +17,15 @@ const PlaceOrderScreen = ({history}) => {
         return (Math.round(num*100/100)).toFixed(2)
     }
 
-    cart.itemsPrice = addDecimal(cart.selectedItems.reduce( (acc,item) => acc + item.price*item.qty,0))
-    cart.shippingPrice = addDecimal(cart.itemsPrice> 100? 0: 100 )
+    cart.itemsPrice = cart.selectedItems.reduce( (acc,item) => acc + item.price*item.qty,0)
+    cart.shippingPrice = cart.itemsPrice> 100? 0: 100 
+    cart.taxPrice = Number((0.15* cart.itemsPrice).toFixed(2))
+    cart.totalPrice = (Number(cart.itemsPrice) + Number(cart.shippingPrice) + Number(cart.taxPrice))
 
-    cart.taxPrice = addDecimal(Number((0.15* cart.itemsPrice).toFixed(2)))
-
-    cart.totalPrice = (Number(cart.itemsPrice) + Number(cart.shippingPrice) + Number(cart.taxPrice)).toFixed(2)
+    const itemsPrice = cart.itemsPrice
+    const shippingPrice = cart.shippingPrice
+    const taxPrice = cart.taxPrice
+    const totalPrice = cart.totalPrice
 
     const orderCreate= useSelector((state) => state.orderCreate)
     const {order,success, error} = orderCreate
@@ -79,13 +82,16 @@ const PlaceOrderScreen = ({history}) => {
                                             <Col md={1} lg={2}>
                                                 <Image src={item.image} alt={item.name} fluid rounded />
                                             </Col>
-                                            <Col lg={4}>
+                                            <Col lg={3}>
                                                 <Link to={`/product/${item.product}`} >
                                                      {item.name}
                                                  </Link>
                                             </Col>
-                                            <Col md={4} lg={6}>
-                                              ${addDecimal(item.price)} x  {item.qty} = ${addDecimal(item.qty*item.price)}
+                                            <Col lg={2}>
+                                                     {item.size}
+                                            </Col>
+                                            <Col md={4} lg={5}>
+                                              ${item.price.toLocaleString()} x  {item.qty} = ${(item.qty*item.price).toLocaleString()}
                                             </Col>
                                         </Row>
 
@@ -107,28 +113,28 @@ const PlaceOrderScreen = ({history}) => {
                     <ListGroup.Item>
                         <Row>
                             <Col> ITEMS </Col>
-                            <Col> ${cart.itemsPrice}</Col>
+                            <Col> ${itemsPrice.toLocaleString()}</Col>
                         </Row>
                     </ListGroup.Item>
 
                     <ListGroup.Item>
                         <Row>
                             <Col> SHIPPING</Col>
-                            <Col> ${cart.shippingPrice} </Col>
+                            <Col> ${shippingPrice.toLocaleString()} </Col>
                         </Row>
                     </ListGroup.Item>
 
                     <ListGroup.Item>
                         <Row>
                             <Col> TAX </Col>
-                            <Col>${cart.taxPrice} </Col>
+                            <Col>${taxPrice.toLocaleString()} </Col>
                         </Row>
                     </ListGroup.Item>
 
                     <ListGroup.Item>
                         <Row>
                             <Col> TOTAL</Col>
-                            <Col>${cart.totalPrice} </Col>
+                            <Col>${totalPrice.toLocaleString()} </Col>
                         </Row>
                     </ListGroup.Item>
 

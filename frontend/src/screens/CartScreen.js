@@ -17,8 +17,6 @@ const CartScreen = ({match, location, history}) => {
     var size= location.search? location.search.split('-')[1]: 1 
 
 
-    console.log( 'size:', size, 'qty:', qty)
-
 
     const dispatch = useDispatch()
 
@@ -71,9 +69,9 @@ const CartScreen = ({match, location, history}) => {
          ) : dispatch(addToCart(id,stock))
     }
     //delete button handler
-    const removeFromCartHandler = (id)=> {
-        console.log('REMOVE')
-         dispatch(removeFromCart(id))
+    const removeFromCartHandler = (index)=> {
+        console.log('index', index)
+         dispatch(removeFromCart(index))
     }
 
     // checkout
@@ -109,13 +107,17 @@ const CartScreen = ({match, location, history}) => {
             qty =null
             size=null
         }
-    }, [dispatch])
+    }, [dispatch,])
 
     return (
-        <>
-    
-        <Row> 
 
+     <div className='my-5'>
+     {cartItems.length === 0? (<Message variant='primary' >
+        Your Cart is EMPTY. Click <Link to='/'> here </Link> to SHOP
+     </Message>) : 
+      (
+        <div>
+        <Row> 
             <Col lg={12} md={12} sm={12}> 
                 <Table >
                     <thead className='nav-border' style={{borderBottom: '1px 50% rgba(255, 0, 0, 0.1)'}}>
@@ -132,7 +134,7 @@ const CartScreen = ({match, location, history}) => {
                     </thead>
 
                     <tbody>
-                    {cartItems.map( item => (
+                    {cartItems.map( (item, index) => (
                                         <tr key={item.product}>
 
                                          <td>  <Form.Group>
@@ -150,7 +152,7 @@ const CartScreen = ({match, location, history}) => {
                                             <Link to={`/product/${item.product}`}>  {item.name} </Link>
                                          </td>
                                           <td> {item.size} </td>
-                                         <td> <strong> $ {item.price} </strong> </td>
+                                         <td> <strong> $ {item.price.toLocaleString()} </strong> </td>
 
                                          <td>
                                             <InputGroup  >   
@@ -181,11 +183,11 @@ const CartScreen = ({match, location, history}) => {
                                                 </InputGroup>
                                            </td>
 
-                                           <td > <strong className=''> $ { (item.price * item.qty).toFixed(2)} </strong> </td>
+                                           <td > <strong className=''> $ { (item.price * item.qty).toLocaleString()} </strong> </td>
                                            
                                            <td >
                                             <Button variant='light' type='button' className=' btn-block '
-                                                onClick = {()=> removeFromCartHandler(item.product)} > 
+                                                onClick = {()=> removeFromCartHandler(index)} > 
                                                 <i className="far fa-trash-alt"> </i> </Button>
                                             </td>   
 
@@ -207,7 +209,7 @@ const CartScreen = ({match, location, history}) => {
                                   {` (${selectedItems.reduce((acc,item) => acc + item.qty, 0)}) `}
                             Items</h5> 
 
-                            <h5> <strong>$ {selectedItems.reduce( (acc,item)=> acc+item.qty*item.price, 0 ).toFixed(2)} </strong></h5>
+                            <h5> <strong>$ {selectedItems.reduce( (acc,item)=> acc+item.qty*item.price, 0 ).toLocaleString()} </strong></h5>
                             
                             <Row>
                             <Button type='button' 
@@ -227,7 +229,9 @@ const CartScreen = ({match, location, history}) => {
                 </Row>
     
 
-         </>
+         </div>
+      )}
+      </div>
        
     )
 }

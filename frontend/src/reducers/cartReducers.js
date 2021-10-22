@@ -14,20 +14,19 @@ export const cartReducer = (state ={cartItems: [], selectedItems:[], shippingAdd
         case CART_ADD_ITEM:
 
             const item = action.payload
-            const existItem = state.cartItems.find((x) => x.product === item.product)
+            const existItem = state.cartItems.find((x,index) => x.product === item.product && x.size === item.size)
+     
 
             if(existItem)
             {
-                console.log('add To cart again qty' ,item.qty)
+             
                 return{
                     ...state,
-                    cartItems: state.cartItems.map( (x) => x.product === existItem.product ?
+                    cartItems: state.cartItems.map( (x) => x.product === existItem.product  && x.size === item.size?
                         item: x)
                 }
 
             }else{
-                console.log('add To cart new qty' ,item.qty)
-
                 return {
                     
                     ...state,   
@@ -35,10 +34,26 @@ export const cartReducer = (state ={cartItems: [], selectedItems:[], shippingAdd
                 }
             }
         case CART_REMOVE_ITEM: 
-             return{
-                 ...state,
-                 cartItems: state.cartItems.filter( x=> x.product !== action.payload)
-             }
+              
+            console.log('index in reducer:', action.payload)
+            console.log('length',state.cartItems.length)
+
+            if(state.cartItems.length <= 1)
+            {
+                return{
+                    ...state,
+                    cartItems:[]
+                }
+            }
+            else{
+                return{
+                    ...state,
+                    cartItems: state.cartItems.filter( (x , index) => index !== action.payload )
+                }
+            }
+                
+
+           
         
         case PASS_SELECTED_ITEM:
             return{

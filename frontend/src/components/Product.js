@@ -24,7 +24,7 @@ const Product = ({product}) => {
                 </Link>
 
                 <Rating rating={product.rating} numReviews={product.numReviews}/>
-                <h4> <strong> {`$${product.price}`} </strong>   </h4> 
+                <h4> <strong> {`$${product.price.toLocaleString()}`} </strong>   </h4> 
 
 
               {/*  <Card.Text as='h4' className='py-2'>
