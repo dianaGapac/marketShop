@@ -37,14 +37,8 @@ const Header = ({history}) => {
                             </Nav.Link>
                         </LinkContainer>
 
-                        <LinkContainer to='/cart/:id'>
-                            <Nav.Link >
-                                <i className='fa fa-shopping-cart px-2'></i>CART
-                            </Nav.Link>
-                        </LinkContainer>
-
-
                         { userInfo && userInfo.isAdmin === 'true'&& (
+                            <>
                                 <NavDropdown title ="ADMIN" id='adminmenu'> 
                                 <LinkContainer to='/admin/userList'>
                                     <NavDropdown.Item>
@@ -64,11 +58,8 @@ const Header = ({history}) => {
                                     </NavDropdown.Item>
                                  </LinkContainer>
 
-
                             </NavDropdown>
-
-                            )}
-                        { userInfo? (
+                            
                             <NavDropdown title ={userInfo.name}  id='username'> 
                                 <LinkContainer to='/profile'>
                                     <NavDropdown.Item>
@@ -82,12 +73,46 @@ const Header = ({history}) => {
                                 
                                
                             </NavDropdown>
+                            </>
+                            )}
+                        { userInfo  && userInfo.isAdmin === 'false' && (
+                            <>
+                                <LinkContainer to='/cart/:id'>
+                                <Nav.Link >
+                                    <i className='fa fa-shopping-cart px-2'></i>CART
+                                </Nav.Link>
+                                 </LinkContainer>
 
-                        ): <LinkContainer to={'/login'} >
+                            <NavDropdown title ={userInfo.name}  id='username'> 
+                                <LinkContainer to='/profile'>
+                                    <NavDropdown.Item>
+                                        Profile
+                                    </NavDropdown.Item>
+                                 </LinkContainer>
+                              
+                                <NavDropdown.Item onClick={logOutHandler}> 
+                                <Link to='/login'>  Log Out </Link>
+                                 </NavDropdown.Item>
+                                
+                               
+                            </NavDropdown>
+                            </>
+
+                        )}
+                        { !userInfo && (
+                        <>
+                        <LinkContainer to='/cart/:id'>
+                            <Nav.Link >
+                                <i className='fa fa-shopping-cart px-2'></i>CART
+                            </Nav.Link>
+                         </LinkContainer>
+
+                        <LinkContainer to={'/login'} >
                              <Nav.Link>
                              <i className='fa fa-user px-2'></i>LOG IN
                              </Nav.Link>
-                          </LinkContainer>}
+                          </LinkContainer>
+                          </> )}
 
                      
                         
