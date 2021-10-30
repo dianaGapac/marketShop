@@ -25,6 +25,10 @@ const CartScreen = ({match, location, history}) => {
     const [selectedItems, setSelectedItems] = useState([])  //temporary state for selected
 
 
+    const userLogin = useSelector(state => state.userLogin)
+    const {userInfo} = userLogin
+
+
     //add selected item to selectedItems
     const addSelected =(id,op)=>{
 
@@ -76,8 +80,14 @@ const CartScreen = ({match, location, history}) => {
 
     // checkout
     const checkOutHandler =()=>{
+        if(userInfo){
+            history.push('/shipping')
+            dispatch(passSelectedItem(selectedItems))
+        }
+        else{ 
         history.push('/login?redirect=shipping')
           dispatch(passSelectedItem(selectedItems))
+        }
   
 
     }
@@ -101,7 +111,9 @@ const CartScreen = ({match, location, history}) => {
 
    
     useEffect(() =>{
+     
         if(productId){
+    
             dispatch(addToCart(productId,qty,size))
             productId = null
             qty =null

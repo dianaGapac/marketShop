@@ -37,9 +37,9 @@ const OrderListScreen = ({history, location}) => {
     , [dispatch, history,userInfo])
 
     return (
-        <Row className= 'mt-5'> 
+        <Row className= 'mt-4'> 
           
-            <Col md={9}>
+            <Col md={9} lg={12}>
                 <h4>ORDERS</h4>
                 { loadingOrders ? <Loader/>:
                 errorOrders? <Message variant='danger'> {errorOrders}</Message> :

@@ -25,20 +25,30 @@ const LoginScreen = ({location, history}) => {
     const redirect = location.search? location.search.split('=')[1]: '/' 
 
     const submitHandler =(e)=>{
+
         e.preventDefault()
         //dispatch login 
-        dispatch(logIn(email,password))
+        dispatch(logIn(email,password));
+
+    
 
     }
 
 
     useEffect (()=>{
         if(userInfo){
-            history.push(redirect)
-    }}, [history,userInfo, redirect] )
+            
+            history.push('/')
+            window.location.reload(false) }
+
+        
+       
+        }, [history,userInfo, redirect] )
 
     return (
         <FormContainer >
+            
+
            
            <h4 > <strong> LOG IN </strong></h4>
           

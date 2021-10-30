@@ -15,9 +15,10 @@ import {listProducts} from '../actions/productActions'
 /// Featured Product or LOWEST PRICE or NEW ARRIVAL
 
 
-const HomeScreen = () => {
+const HomeScreen = (location) => {
 
     const dispatch   = useDispatch()
+   
     const productList = useSelector(state => state.productList)
     const {loading, error, products } = productList
 
@@ -31,11 +32,14 @@ const HomeScreen = () => {
     useEffect(()=>{
 
         dispatch(listProducts())
+    
         
     },[dispatch])
     
     return (
+
         <div >
+                   
         <Container className='mt-5' style={{backgroundColor:''}} >
 
             <Row className='mt-3' style= {{backgroundColor:''}}>

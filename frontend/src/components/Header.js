@@ -10,13 +10,15 @@ import Slider from './Slider'
 import SearchBar from './SearchBar'
 
 
-const Header = ({history}) => {
+const Header = ({history, location}) => {
     const dispatch = useDispatch()
     const userLogin = useSelector(state=> state.userLogin)
     const { userInfo } = userLogin
 
     const logOutHandler =()=>{
+     
         dispatch(logOut())
+        window.location.reload()
     }
     
 
@@ -89,6 +91,11 @@ const Header = ({history}) => {
                                         Profile
                                     </NavDropdown.Item>
                                  </LinkContainer>
+                                 <LinkContainer to='/myorders'>
+                                 <NavDropdown.Item>
+                                        My Orders
+                                    </NavDropdown.Item>
+                                 </LinkContainer>
                               
                                 <NavDropdown.Item onClick={logOutHandler}> 
                                 <Link to='/login'>  Log Out </Link>
@@ -107,8 +114,8 @@ const Header = ({history}) => {
                             </Nav.Link>
                          </LinkContainer>
 
-                        <LinkContainer to={'/login'} >
-                             <Nav.Link>
+                        <LinkContainer to={'/login'}  >
+                             <Nav.Link >
                              <i className='fa fa-user px-2'></i>LOG IN
                              </Nav.Link>
                           </LinkContainer>

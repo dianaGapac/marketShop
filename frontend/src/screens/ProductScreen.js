@@ -81,24 +81,6 @@ const ProductScreen = ({match, history}) => {
                                  <Row>
                                      <Col className='p-2'> SIZE: </Col>
                                 </Row> 
-                                
-                                    <Row>
-                                    {product.variations.map( v => (
-                                        <Button 
-                                            onClick={e => setSize(v.size)}
-                                            key ={v.size} 
-                                            type = 'button' 
-                                            variant = 'outline-primary' 
-                                            className = 'my-2 mx-1' 
-                                            style = {{
-                                                width: '100px'
-                                            }}> 
-                                            {v.size}
-                                        </Button>
-                                        ))  }
-
-                                        {console.log(size)}
-                                    </Row>
                                
                            </ListGroup.Item>
 
@@ -108,7 +90,7 @@ const ProductScreen = ({match, history}) => {
                           
 
                                     <ListGroup.Item style={{backgroundColor:''}}>
-                                       
+                                        
                                         <Form.Group  >
                                         <Row>
                                             <Col lg={2}  md={2} className='item-center' style={{backgroundColor:''}}>
@@ -135,6 +117,24 @@ const ProductScreen = ({match, history}) => {
                                             </Col>
                                         </Row>
                                         </Form.Group>
+
+                                        <Row>
+                                        {product.variations.map( v => (
+                                            <Button 
+                                                onClick={e => setSize(v.size)}
+                                                key ={v.size} 
+                                                type = 'button' 
+                                                variant = 'outline-primary' 
+                                                className = 'my-2 mx-1' 
+                                                style = {{
+                                                    width: '100px'
+                                                }}> 
+                                                {v.size}
+                                            </Button>
+                                            ))  }
+
+                                            {console.log(size)}
+                                        </Row>
 
                                     </ListGroup.Item> 
                         

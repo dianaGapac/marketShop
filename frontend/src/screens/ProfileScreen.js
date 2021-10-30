@@ -6,6 +6,7 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { getUserDetails, updateUserProfile } from '../actions/userActions'
 import {listMyOrders, getOrderDetails} from '../actions/orderActions'
+import FormContainer from '../components/FormContainer'
 
 const ProfileScreen = ({history, location}) => {
 
@@ -72,9 +73,9 @@ const ProfileScreen = ({history, location}) => {
     , [dispatch, history,userInfo, user,orders])
 
     return (
-        <Row className= 'mt-5'> 
-            <Col md={3}>
-            <h4 > MY PROFILE  </h4>
+        <FormContainer > 
+            <Col  md={6} lg={12} >
+            <h4 className= 'mt-5' > MY PROFILE  </h4>
 
             {message && <Message variant='danger' > {message} </Message> }
             {error && <Message variant='danger' > {error} </Message> }
@@ -114,52 +115,8 @@ const ProfileScreen = ({history, location}) => {
             </Form>
 
             </Col>
-            <Col md={9}>
-                <h4> MY ORDERS</h4>
-                { loadingOrders ? <Loader/>:
-                errorOrders? <Message variant='danger'> {errorOrders}</Message> :
-                (
-                    <Table striped bordered hover reponsive className='table-sm'>
-                        <thead>
-                            <tr>
-                                <th> ID </th>
-                                <th> DATE </th>
-                                <th> TOTAL </th>
-                                <th> PAID </th>
-                                <th> DELIVERED </th>
-                                <th> </th>
-                            </tr>
-                        </thead> 
-                        {orders? ( <tbody>
-                            {orders.map( order =>( 
-                                <tr key={order._id}>
-                                    <td> {order._id} </td>
-                                    <td> {order.createdAt.substring(0,10)} </td>
-                                    <td> {order.totalPrice} </td>
-                                    <td> {order.isPaid? order.paidAt.substring(0,10):
-                                         <i className='fas fa-times' style={{color:'red'}}></i>} 
-                                    </td>
-                                     <td> {order.isDelivered? order.deliveredAt.substring(0,10):
-                                        <i className='fas fa-times' style={{color:'red'}}></i>} 
-                                   </td>
-                                    <td> 
-                                        
-                                            <Button variant='light'  onClick={(e)=> getOrderHandler(order._id)}>
-                                                Details
-                                            </Button>
-                    
-                                        
-                                    </td>
-
-                                </tr>
-                            ))}
-                        </tbody>): <Message> NO ORDERS</Message>}
-           
-                     </Table>
-                )
-                 }
-            </Col>
-        </Row>
+            
+        </FormContainer>
     )
 }
 
