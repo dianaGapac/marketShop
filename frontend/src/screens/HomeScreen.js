@@ -15,7 +15,7 @@ import {listProducts} from '../actions/productActions'
 /// Featured Product or LOWEST PRICE or NEW ARRIVAL
 
 
-const HomeScreen = (location) => {
+const HomeScreen = ({location, history}) => {
 
     const dispatch   = useDispatch()
    
@@ -25,6 +25,12 @@ const HomeScreen = (location) => {
     const categ = [
         'Men', 'Women', 'Kids'
     ]
+
+    const categoryHandler = (categ) =>{
+        console.log('categ', categ)
+        history.push(`/products/${categ}`)
+
+    }
 
 
 
@@ -54,7 +60,10 @@ const HomeScreen = (location) => {
              <h4 className='my-2'>  CATEGORIES </h4>
                 { categ.map((c) => (
                     <Col lg={4} className='item-center mt-3'>
-                         <Categories category = {c} />
+                          <button type="button" class="btn btn-outline-primary" value={c} style={{width:'150px'}} 
+                          onClick={(e) => categoryHandler(e.target.value)}>
+                            {c}
+                            </button>
                     </Col>
                 ))
                 }

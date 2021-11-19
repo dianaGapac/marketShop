@@ -45,7 +45,10 @@ const ProductScreen = ({match, history}) => {
 
     return (
         <div>
-            <Link className='btn btn-light my-3' to='/productlist'> GO BACK </Link>
+            <Link className='btn btn-light my-3'
+             to={product.category === 'Men' ? '/products/Men': product.category === 'Women'?'/products/Women' : product.category === 'Kids'?'/products/Kids': '/productlist'}> 
+             GO BACK 
+             </Link>
             { loading? <Loader/> : error ? <Message variant = 'danger'> {error} </Message> :  (
                 <Row>
                     <Col lg={6}  md={12} >
@@ -65,22 +68,19 @@ const ProductScreen = ({match, history}) => {
                         <ListGroup variant='flush'>
                            
                            <ListGroup.Item>
-                                { product.price &&   <h4> {`Price: $${product.price.toLocaleString()}`} </h4> }
+                                { product.price &&   <h4> Price: &#x20B1; {` ${product.price.toLocaleString()}`} </h4> }
 
                               
                            </ListGroup.Item>
 
                            <ListGroup.Item>
                                 <Row>
-                                        <Col className='p-2' > CATEGORY: </Col>
+                                        <Col className='p-2' > CATEGORY: {product.category}</Col>
                                 </Row>
                                 <Row>
-                                        <Col className='p-2' > BRAND: </Col>
+                                        <Col className='p-2' > BRAND: {product.brand} </Col>
                                 </Row>
 
-                                 <Row>
-                                     <Col className='p-2'> SIZE: </Col>
-                                </Row> 
                                
                            </ListGroup.Item>
 
@@ -153,7 +153,7 @@ const ProductScreen = ({match, history}) => {
                            </ListGroup.Item>
 
                            <ListGroup.Item>
-                                DESCRIPTION: {product.description}
+                               {product.description}
                             </ListGroup.Item>
                         </ListGroup>
                         

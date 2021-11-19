@@ -13,9 +13,9 @@ const Product = ({product}) => {
     const maxPrice = sortedPrice[2].price */}
 
      return (
-        <Card className='my-3 p-3 rounded ' variant='primary'>
+        <Card className='my-3 p-3 rounded ' variant='primary' style={{height:'500px'}}>
             <Link to = {`/product/${product._id}`}>
-                <Card.Img src= {product.image} variant= 'top' /> 
+                <Card.Img src= {product.image} variant= 'top' style={{height:'280px', width:'100%'}} /> 
             </Link>
 
             <Card.Body className='card-body'>
@@ -24,7 +24,7 @@ const Product = ({product}) => {
                 </Link>
 
                 <Rating rating={product.rating} numReviews={product.numReviews}/>
-                <h4> <strong> {`$${product.price.toLocaleString()}`} </strong>   </h4> 
+                <h4> <strong> &#x20B1; {`${product.price.toLocaleString()}`} </strong>   </h4> 
 
 
               {/*  <Card.Text as='h4' className='py-2'>

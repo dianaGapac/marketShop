@@ -1,6 +1,6 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Link} from 'react-router-dom'
-import {Container, Navbar, Nav, NavDropdown,Row} from 'react-bootstrap'
+import {Container, Navbar, Nav, NavDropdown,Row, Button} from 'react-bootstrap'
 import {LinkContainer } from 'react-router-bootstrap'
 import {useDispatch, useSelector} from 'react-redux'
 import { logOut } from '../actions/userActions'
@@ -15,12 +15,22 @@ const Header = ({history, location}) => {
     const userLogin = useSelector(state=> state.userLogin)
     const { userInfo } = userLogin
 
+    const [clicked,setClicked] = useState(false)
+
     const logOutHandler =()=>{
      
         dispatch(logOut())
         window.location.reload()
     }
     
+    const menuClickHandler =()=> {
+        if(!clicked){
+            setClicked(true)
+        }
+        else{
+            setClicked(false)
+        }
+    }
 
     return (
         <header>
@@ -31,13 +41,40 @@ const Header = ({history, location}) => {
                          <Navbar.Brand >SNEAKY | SHOPPY</Navbar.Brand>
                     </LinkContainer>
 
+                    <Button className='menu-icon' onClick={menuClickHandler}>  
+                        <i className ={clicked? 'fas fa-times': 'fas fa-bars' }></i>
+                    </Button>
+
+                    {console.log(clicked)}
+
                     <Nav className="ml-auto">
 
-                    <LinkContainer to ='/productlist'>
-                            <Nav.Link >
-                              PRODUCTS
-                            </Nav.Link>
-                        </LinkContainer>
+ 
+                   <NavDropdown title="CATEGORY" id='category' >
+                   <LinkContainer to ='/productlist'>
+                            <NavDropdown.Item >
+                              ALL PRODUCTS
+                            </NavDropdown.Item>
+                    </LinkContainer>
+                   <LinkContainer to ='/products/Men'>
+                            <NavDropdown.Item >
+                              MEN
+                            </NavDropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer to ='/products/Women'>
+                            <NavDropdown.Item >
+                              WOMEN
+                            </NavDropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer to ='/products/Kids'>
+                            <NavDropdown.Item >
+                              KIDS
+                            </NavDropdown.Item>
+                    </LinkContainer>
+
+                    </NavDropdown>
+
+                   
 
                         { userInfo && userInfo.isAdmin === 'true'&& (
                             <>

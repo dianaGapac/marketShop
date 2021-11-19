@@ -19,6 +19,10 @@ import ProductEditScreen from './screens/ProductEditScreen'
 import OrderListScreen from './screens/OrderListScreen'
 import ProductsScreen from './screens/ProductsScreen'
 import MyOrderScreen from './screens/MyOrderScreen'
+import KidsProductsScreen from './screens/KidsProductsScreen'
+import MenProductsScreen from './screens/MenProductsScreen'
+import WomenProductsScreen from './screens/WomenProductsScreen'
+
 
 function App() {
   return (
@@ -44,6 +48,9 @@ function App() {
             <Route path='/admin/productlist' component={ProductListScreen} />
             <Route path='/admin/product/:id/edit' component={ProductEditScreen} />
             <Route path='/admin/orderList' component={OrderListScreen} />
+            <Route path='/products/Kids' component={KidsProductsScreen}/>
+            <Route path='/products/Men' component={MenProductsScreen}/>
+            <Route path='/products/Women' component={WomenProductsScreen}/>
 
 
 

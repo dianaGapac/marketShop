@@ -164,7 +164,7 @@ const CartScreen = ({match, location, history}) => {
                                             <Link to={`/product/${item.product}`}>  {item.name} </Link>
                                          </td>
                                           <td> {item.size} </td>
-                                         <td> <strong> $ {item.price.toLocaleString()} </strong> </td>
+                                         <td> <strong> &#x20B1; {item.price.toLocaleString()} </strong> </td>
 
                                          <td>
                                             <InputGroup  >   
@@ -195,7 +195,7 @@ const CartScreen = ({match, location, history}) => {
                                                 </InputGroup>
                                            </td>
 
-                                           <td > <strong className=''> $ { (item.price * item.qty).toLocaleString()} </strong> </td>
+                                           <td > <strong className=''> &#x20B1; { (item.price * item.qty).toLocaleString()} </strong> </td>
                                            
                                            <td >
                                             <Button variant='light' type='button' className=' btn-block '
@@ -221,7 +221,7 @@ const CartScreen = ({match, location, history}) => {
                                   {` (${selectedItems.reduce((acc,item) => acc + item.qty, 0)}) `}
                             Items</h5> 
 
-                            <h5> <strong>$ {selectedItems.reduce( (acc,item)=> acc+item.qty*item.price, 0 ).toLocaleString()} </strong></h5>
+                            <h5> <strong> &#x20B1; {selectedItems.reduce( (acc,item)=> acc+item.qty*item.price, 0 ).toLocaleString()} </strong></h5>
                             
                             <Row>
                             <Button type='button' 

@@ -48,3 +48,15 @@ main {
 	bottom: 0;
 	width: 100%;
 }
+
+.menu-icon {
+	display: none;
+}
+
+@media screen and (max-width: 600px) {
+	.menu-icon {
+		display: flex;
+		align-items: flex-end;
+		background-color: red;
+	}
+}

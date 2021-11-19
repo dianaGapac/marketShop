@@ -91,7 +91,7 @@ const PlaceOrderScreen = ({history}) => {
                                                      {item.size}
                                             </Col>
                                             <Col md={4} lg={5}>
-                                              ${item.price.toLocaleString()} x  {item.qty} = ${(item.qty*item.price).toLocaleString()}
+                                            &#x20B1; {item.price.toLocaleString()} x  {item.qty} = &#x20B1; {(item.qty*item.price).toLocaleString()}
                                             </Col>
                                         </Row>
 
@@ -113,28 +113,28 @@ const PlaceOrderScreen = ({history}) => {
                     <ListGroup.Item>
                         <Row>
                             <Col> ITEMS </Col>
-                            <Col> ${itemsPrice.toLocaleString()}</Col>
+                            <Col> &#x20B1; {itemsPrice.toLocaleString()}</Col>
                         </Row>
                     </ListGroup.Item>
 
                     <ListGroup.Item>
                         <Row>
                             <Col> SHIPPING</Col>
-                            <Col> ${shippingPrice.toLocaleString()} </Col>
+                            <Col> &#x20B1; {shippingPrice.toLocaleString()} </Col>
                         </Row>
                     </ListGroup.Item>
 
                     <ListGroup.Item>
                         <Row>
                             <Col> TAX </Col>
-                            <Col>${taxPrice.toLocaleString()} </Col>
+                            <Col>&#x20B1;{taxPrice.toLocaleString()} </Col>
                         </Row>
                     </ListGroup.Item>
 
                     <ListGroup.Item>
                         <Row>
                             <Col> TOTAL</Col>
-                            <Col>${totalPrice.toLocaleString()} </Col>
+                            <Col>&#x20B1;{totalPrice.toLocaleString()} </Col>
                         </Row>
                     </ListGroup.Item>
 
