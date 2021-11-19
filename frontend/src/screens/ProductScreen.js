@@ -45,6 +45,7 @@ const ProductScreen = ({match, history}) => {
 
     return (
         <div>
+            { product._id === match.params.id? ( <div> 
             <Link className='btn btn-light my-3'
              to={product.category === 'Men' ? '/products/Men': product.category === 'Women'?'/products/Women' : product.category === 'Kids'?'/products/Kids': '/productlist'}> 
              GO BACK 
@@ -161,6 +162,9 @@ const ProductScreen = ({match, history}) => {
                       </Col>
                 </Row>
             )}   
+        </div>
+
+        ): <Loader></Loader>}
         </div>
     )
 }
