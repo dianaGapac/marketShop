@@ -32,9 +32,8 @@ main {
 }
 
 .nav-border {
-	border-bottom-style: solid;
-	border-bottom-color: grey;
 	border-bottom-width: 1px;
+	box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
 .sticky-top {
@@ -49,14 +48,19 @@ main {
 	width: 100%;
 }
 
+.searchBar {
+	box-shadow: 0 5px 5px rgb(0 0 0 / 0.2);
+}
+.searchIcon {
+	box-shadow: 0 5px 5px rgb(0 0 0 / 0.2);
+}
+
 .menu-icon {
 	display: none;
 }
 
+.navlinks {
+}
+
 @media screen and (max-width: 600px) {
-	.menu-icon {
-		display: flex;
-		align-items: flex-end;
-		background-color: red;
-	}
 }

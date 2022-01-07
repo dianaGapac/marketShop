@@ -34,7 +34,6 @@ const Header = ({history, location}) => {
 
     return (
         <header>
-
             <Navbar  variant="light" className='nav-border '  style= {{backgroundColor:'white'}}>
                 <Container>
                     <LinkContainer to='/'>
@@ -47,128 +46,110 @@ const Header = ({history, location}) => {
 
                     {console.log(clicked)}
 
-                    <Nav className="ml-auto">
-
- 
-                   <NavDropdown title="CATEGORY" id='category' >
-                   <LinkContainer to ='/productlist'>
-                            <NavDropdown.Item >
-                              ALL PRODUCTS
-                            </NavDropdown.Item>
-                    </LinkContainer>
-                   <LinkContainer to ='/products/Men'>
-                            <NavDropdown.Item >
-                              MEN
-                            </NavDropdown.Item>
-                    </LinkContainer>
-                    <LinkContainer to ='/products/Women'>
-                            <NavDropdown.Item >
-                              WOMEN
-                            </NavDropdown.Item>
-                    </LinkContainer>
-                    <LinkContainer to ='/products/Kids'>
-                            <NavDropdown.Item >
-                              KIDS
-                            </NavDropdown.Item>
-                    </LinkContainer>
-
-                    </NavDropdown>
-
-                   
-
-                        { userInfo && userInfo.isAdmin === 'true'&& (
-                            <>
-                                <NavDropdown title ="ADMIN" id='adminmenu'> 
-                                <LinkContainer to='/admin/userList'>
-                                    <NavDropdown.Item>
-                                       Users
-                                    </NavDropdown.Item>
-                                 </LinkContainer>
-
-                                 <LinkContainer to='/admin/productList'>
-                                    <NavDropdown.Item>
-                                       Products
-                                    </NavDropdown.Item>
-                                 </LinkContainer>
-
-                                 <LinkContainer to='/admin/orderList'>
-                                    <NavDropdown.Item>
-                                       Orders
-                                    </NavDropdown.Item>
-                                 </LinkContainer>
-
-                            </NavDropdown>
+                    <Nav className="navlinks menu-list" >
                             
-                            <NavDropdown title ={userInfo.name}  id='username'> 
-                                <LinkContainer to='/profile'>
-                                    <NavDropdown.Item>
-                                        Profile
-                                    </NavDropdown.Item>
-                                 </LinkContainer>
-                              
-                                <NavDropdown.Item onClick={logOutHandler}> 
-                                <Link to='/login'>  Log Out </Link>
-                                 </NavDropdown.Item>
-                                
-                               
-                            </NavDropdown>
-                            </>
-                            )}
-                        { userInfo  && userInfo.isAdmin === 'false' && (
-                            <>
-                                <LinkContainer to='/cart/:id'>
-                                <Nav.Link >
-                                    <i className='fa fa-shopping-cart px-2'></i>CART
-                                </Nav.Link>
-                                 </LinkContainer>
+                        <NavDropdown title="CATEGORY" id='category' >
 
-                            <NavDropdown title ={userInfo.name}  id='username'> 
-                                <LinkContainer to='/profile'>
+                            <LinkContainer to ='/productlist'>
+                                <NavDropdown.Item > All Products </NavDropdown.Item>
+                            </LinkContainer>
+
+                            <LinkContainer to ='/products/Men'>
+                                <NavDropdown.Item > Men </NavDropdown.Item>
+                            </LinkContainer>
+
+                            <LinkContainer to ='/products/Women'>
+                                <NavDropdown.Item > Women </NavDropdown.Item>
+                            </LinkContainer>
+
+                            <LinkContainer to ='/products/Kids'>
+                                <NavDropdown.Item > Kids </NavDropdown.Item>
+                            </LinkContainer>
+
+                        </NavDropdown>
+
+                   { userInfo && userInfo.isAdmin === 'true'&& (
+                            <>
+                        <NavDropdown title ="ADMIN" id='adminmenu'> 
+                            <LinkContainer to='/admin/userList'>
+                                <NavDropdown.Item>
+                                    Users
+                                </NavDropdown.Item>
+                            </LinkContainer>
+
+                            <LinkContainer to='/admin/productList'>
+                                <NavDropdown.Item>
+                                    Products
+                                </NavDropdown.Item>
+                            </LinkContainer>
+
+                            <LinkContainer to='/admin/orderList'>
+                                <NavDropdown.Item>
+                                    Orders
+                                </NavDropdown.Item>
+                            </LinkContainer>
+
+                        </NavDropdown>
+                    
+                        <NavDropdown title ={userInfo.name}  id='username'> 
+                            <LinkContainer to='/profile'>
+                                <NavDropdown.Item>
+                                    Profile
+                                </NavDropdown.Item>
+                            </LinkContainer>
+                            
+                                <NavDropdown.Item onClick={logOutHandler}> 
+                                    <Link to='/login'>  Log Out </Link>
+                                </NavDropdown.Item>
+                            
+                          </NavDropdown>
+                        </>
+                        )}
+                    { userInfo  && userInfo.isAdmin === 'false' && (
+                        <>
+                                <LinkContainer to='/cart/:id'>
+                                    <Nav.Link > <i className='fa fa-shopping-cart px-2'></i>  CART </Nav.Link>
+                                </LinkContainer>
+
+                          <NavDropdown title ={userInfo.name}  id='username'> 
+                              <LinkContainer to='/profile'>
                                     <NavDropdown.Item>
                                         Profile
                                     </NavDropdown.Item>
-                                 </LinkContainer>
-                                 <LinkContainer to='/myorders'>
-                                 <NavDropdown.Item>
+                                </LinkContainer>
+
+                                <LinkContainer to='/myorders'>
+                                    <NavDropdown.Item>
                                         My Orders
                                     </NavDropdown.Item>
-                                 </LinkContainer>
-                              
+                                </LinkContainer>
+                            
                                 <NavDropdown.Item onClick={logOutHandler}> 
-                                <Link to='/login'>  Log Out </Link>
-                                 </NavDropdown.Item>
-                                
-                               
+                                    <Link to='/login'>  Log Out </Link>
+                                </NavDropdown.Item>
+            
                             </NavDropdown>
-                            </>
-
+                        </>
                         )}
+
                         { !userInfo && (
                         <>
-                        <LinkContainer to='/cart/:id'>
-                            <Nav.Link >
-                                <i className='fa fa-shopping-cart px-2'></i>CART
-                            </Nav.Link>
-                         </LinkContainer>
+                            <LinkContainer to='/cart/:id'>
+                                <Nav.Link >
+                                    <i className='fa fa-shopping-cart px-2'></i>  CART
+                                </Nav.Link>
+                            </LinkContainer>
 
-                        <LinkContainer to={'/login'}  >
-                             <Nav.Link >
-                             <i className='fa fa-user px-2'></i>LOG IN
-                             </Nav.Link>
-                          </LinkContainer>
-                          </> )}
-
-                     
-                        
+                            <LinkContainer to={'/login'}  >
+                                <Nav.Link >
+                                    <i className='fa fa-user px-2'></i>LOG IN
+                                </Nav.Link>
+                            </LinkContainer>
+                        </> )}
                     </Nav>
-                    </Container>
-             </Navbar>
-
-       
-         
-
-
-        </header>
+                </Container>
+         </Navbar>
+      </header>
     )
 }
 

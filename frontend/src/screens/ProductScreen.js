@@ -86,14 +86,18 @@ const ProductScreen = ({match, history}) => {
                            </ListGroup.Item>
 
                            <ListGroup.Item>
-                            STOCK: {product.countInStock>0 ? product.countInStock : 'Out of Stock' }
+                            <Row>
+                                <Col  className='p-2' >
+                                    STOCK: {product.countInStock>0 ? product.countInStock : 'Out of Stock' }
+                                </Col>
+                            </Row>
+
                            </ListGroup.Item>
                           
 
                                     <ListGroup.Item style={{backgroundColor:''}}>
                                         
-                                        <Form.Group  >
-                                        <Row>
+                                        <Row  >
                                             <Col lg={2}  md={2} className='item-center' style={{backgroundColor:''}}>
                                                 <Button className='btn-block btn-primary' 
                                                 disabled={qty===1}
@@ -117,7 +121,7 @@ const ProductScreen = ({match, history}) => {
                                                 <i className = 'fa fa-plus'> </i></Button>
                                             </Col>
                                         </Row>
-                                        </Form.Group>
+                                      
 
                                         <Row>
                                         {product.variations.map( v => (

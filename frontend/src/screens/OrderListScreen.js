@@ -70,21 +70,17 @@ const OrderListScreen = ({history, location}) => {
                                         <i className='fas fa-times' style={{color:'red'}}></i>} 
                                    </td>
                                     <td> 
-                                        
-                                            <Button variant='light' onClick={(e)=> getOrderHandler(order._id)}>
-                                                Details
-                                            </Button>
-                         
-                
+                                         <Button variant='primary' onClick={(e)=> getOrderHandler(order._id)}>
+                                            Details
+                                         </Button> 
                                     </td>
-
                                 </tr>
                             ))}
                         </tbody>): <Message> NO ORDERS</Message>}
            
                      </Table>
                 )
-                 }
+                }
             </Col>
         </Row>
     )
