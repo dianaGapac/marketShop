@@ -21,6 +21,9 @@ import {
     ORDER_DELIVER_FAILED,
     ORDER_DELIVER_REQUEST,
     ORDER_DELIVER_RESET,
+    ORDER_RECEIVED_REQUEST,
+    ORDER_RECEIVED_SUCCESS,
+    ORDER_RECEIVED_FAILED,
 
 
 } from '../constants/orderConstants'
@@ -164,6 +167,27 @@ export const orderDeliverReducer = (state= {}, action ) => {
         case ORDER_DELIVER_RESET:   
             return{}
 
+        default:
+            return state
+    }
+}
+
+
+export const orderReceivedReducer = (state= {}, action ) => {
+    switch(action.type) {
+        case ORDER_RECEIVED_REQUEST:
+            return {
+                loading: true
+            }
+        case ORDER_RECEIVED_SUCCESS:
+            return{
+                loading: false,
+                success: true
+            }   
+        case ORDER_RECEIVED_FAILED:
+            return{
+                loading:false,  
+                error: action.payload  }
         default:
             return state
     }

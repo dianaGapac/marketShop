@@ -74,6 +74,7 @@ const MyOrderScreen = ({history, location}) => {
                                     <th> TOTAL </th>
                                     <th> PAID </th>
                                     <th> DELIVERED </th>
+                                    <th> RECEIVED </th>
                                     <th> </th>
                                 </tr>
                             </thead> 
@@ -82,20 +83,20 @@ const MyOrderScreen = ({history, location}) => {
                                     <tr key={order._id}>
                                         <td> {order._id} </td>
                                         <td> {order.createdAt.substring(0,10)} </td>
-                                        <td> {order.totalPrice} </td>
+                                        <td >&#x20B1; {order.totalPrice.toLocaleString()} </td>
                                         <td> {order.isPaid? order.paidAt.substring(0,10):
                                              <i className='fas fa-times' style={{color:'red'}}></i>} 
                                         </td>
                                          <td> {order.isDelivered? order.deliveredAt.substring(0,10):
                                             <i className='fas fa-times' style={{color:'red'}}></i>} 
                                        </td>
+                                       <td> {order.isReceived? <ic className= 'fas fa-check' > </ic>:
+                                            <i className='fas fa-times' style={{color:'red'}}></i>} 
+                                       </td>
                                         <td> 
-                                            
-                                                <Button variant='light'  onClick={(e)=> getOrderHandler(order._id)}>
-                                                    Details
-                                                </Button>
-                        
-                                            
+                                            <Button variant='light'  onClick={(e)=> getOrderHandler(order._id)}>
+                                                Details
+                                            </Button>
                                         </td>
     
                                     </tr>

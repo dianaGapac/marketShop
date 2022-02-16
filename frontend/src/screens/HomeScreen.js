@@ -22,11 +22,6 @@ const HomeScreen = ({location, history}) => {
     const {loading, error, products } = productList
     const [searchTerm, setSearchTerm] = useState('') 
     const [searchResult, setSearchResult] = useState([])
-  
-    
-    
-
-    
 
     const categ = [
         'Men', 'Women', 'Kids'
@@ -36,10 +31,6 @@ const HomeScreen = ({location, history}) => {
         history.push(`/products/${categ}`)
     }
 
-   
-
-
-    
     
 
     //fetch data from api in backend
@@ -69,9 +60,6 @@ const HomeScreen = ({location, history}) => {
                         }
                 </Row> 
 
-               {/*} <Row  className='mt-3 mx-o px-0'>
-                    <SearchBar className='mx-0 px-0 no-gutters mt-3'/>
-    </Row> */}
 
               <Row  className='mx-0 px-0 no-gutters mt-3 '   >
                  <h4 className='my-2'> PRODUCTS </h4>
@@ -123,13 +111,6 @@ const HomeScreen = ({location, history}) => {
                 </Row> }
 
              
-
-               
-
-
-               
-
-
             
                 {/* <Row className='mx-0 px-0 no-gutters mt-3 '>
                     <h4 className='my-2'>  ALL PRODUCTS </h4>

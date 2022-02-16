@@ -6,7 +6,7 @@ import { Button, Row,Col, ListGroup, Image } from 'react-bootstrap'
 import { useDispatch, useSelector} from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import  {getOrderDetails, payOrder, deliverOrder} from '../actions/orderActions'
+import  {getOrderDetails, payOrder, deliverOrder, receiveOrder} from '../actions/orderActions'
 import {ORDER_PAY_RESET, ORDER_DELIVER_RESET, ORDER_DETAILS_RESET} from '../constants/orderConstants'
 import { LinkContainer } from 'react-router-bootstrap'
 
@@ -32,13 +32,18 @@ const OrderScreen = ({match,history}) => {
     const orderDeliver= (useSelector((state) => state.orderDeliver)) 
     const {loading: loadingDeliver, success:successDeliver } = orderDeliver
 
+    const orderReceived= (useSelector((state) => state.orderReceived)) 
+    const {loading: loadingReceive, success:successReceive } = orderReceived
+
+
 
     const addDecimal = (num) =>{
         return (Math.round(num*100/100)).toFixed(2)
     }
+
     if(!loading){
        
-        order.itemsPrice = addDecimal(order.orderItems.reduce( (acc,item) => acc + item.price*item.qty,0))
+        order.itemsPrice = order.orderItems.reduce( (acc,item) => acc + item.price*item.qty,0)
 
     }
 
@@ -62,6 +67,10 @@ const OrderScreen = ({match,history}) => {
          dispatch({ type: ORDER_DETAILS_RESET})
      }
 
+     const orderReceivedHandler = ()=>{
+         dispatch(receiveOrder(orderId))
+         window.alert('Order Received')
+     } 
 
     useEffect(()=>{
 
@@ -153,7 +162,7 @@ const OrderScreen = ({match,history}) => {
                                                 </Link>
                                             </Col>
                                             <Col md={4}>
-                                            ${addDecimal(item.price)} x  {item.qty} = ${addDecimal(item.qty*item.price)}
+                                             &#x20B1; {  item.price.toLocaleString() } x  {item.qty}   =   &#x20B1; {(item.qty*item.price).toLocaleString()}
                                             </Col>
                                         </Row>
 
@@ -175,28 +184,28 @@ const OrderScreen = ({match,history}) => {
                     <ListGroup.Item>
                         <Row>
                             <Col> ITEMS </Col>
-                            <Col> ${order.itemsPrice}</Col>
+                            <Col> &#x20B1; {order.itemsPrice.toLocaleString()}</Col>
                         </Row>
                     </ListGroup.Item>
 
                     <ListGroup.Item>
                         <Row>
                             <Col> SHIPPING</Col>
-                            <Col> ${order.shippingPrice} </Col>
+                            <Col> &#x20B1; {order.shippingPrice.toLocaleString()} </Col>
                         </Row>
                     </ListGroup.Item>
 
                     <ListGroup.Item>
                         <Row>
                             <Col> TAX </Col>
-                            <Col>${order.taxPrice} </Col>
+                            <Col>&#x20B1;{order.taxPrice.toLocaleString()} </Col>
                         </Row>
                     </ListGroup.Item>
 
                     <ListGroup.Item>
                         <Row>
                             <Col> TOTAL</Col>
-                            <Col>${order.totalPrice} </Col>
+                            <Col>&#x20B1;{order.totalPrice.toLocaleString()} </Col>
                         </Row>
                     </ListGroup.Item>
                     {!order.isPaid && userInfo.isAdmin === 'false' && (
@@ -209,10 +218,19 @@ const OrderScreen = ({match,history}) => {
                         </ListGroup.Item> 
                     ) }
 
-                    { order.isPaid &&  userInfo.isAdmin === 'false' &&    
+                    { order.isPaid && !order.isDelivered && userInfo.isAdmin === 'false'?
                     (<ListGroup.Item> 
-                        <Button variant='success' type='submit' onClick={proceedHandler}> PROCEED </Button>
-                    </ListGroup.Item>) }
+                        <Button type='submit' disabled> ORDER RECEIVE</Button>
+                    </ListGroup.Item>) 
+                    :   order.isPaid && !order.isDelivered && !order.isReceived && userInfo.isAdmin === 'false'?  
+                    (<ListGroup.Item> 
+                        <Button type='submit' onClick={(e) => orderReceivedHandler(orderId)}> ORDER RECEIVE </Button>
+
+                    </ListGroup.Item>) : order.isDelivered && order.isReceived && userInfo.isAdmin === 'false' &&
+                     (<ListGroup.Item> 
+                        <Button disabled> ORDER RECEIVED </Button>
+                    </ListGroup.Item>)
+                    }
                     
                     
                 {userInfo && userInfo.isAdmin === 'true' && order.isPaid && !order.isDelivered &&  (
@@ -220,7 +238,7 @@ const OrderScreen = ({match,history}) => {
                         (<ListGroup.Item> 
 
                             <Button type='button' className='btn-btn-block' onClick={(e)=> deliverHandler(orderId)}> 
-                            MARK AS DELIVERED
+                               MARK AS DELIVERED
                             </Button>
                         </ListGroup.Item>
                         

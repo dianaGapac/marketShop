@@ -132,7 +132,7 @@ const CartScreen = ({match, location, history}) => {
         <Row> 
             <Col lg={12} md={12} sm={12}> 
                 <Table >
-                    <thead className='nav-border' style={{borderBottom: '1px 50% rgba(255, 0, 0, 0.1)'}}>
+                    <thead className='nav-border'>
                         <tr>
                             <th></th>
                             <th>Image</th>
@@ -158,7 +158,7 @@ const CartScreen = ({match, location, history}) => {
 
                                             </Form.Group> </td>   
                                         
-                                      {/*  <td>  <input type="checkbox" onChange={(e) => selectHandler(item.product, item.qty, e.target.checked)} /> </td>    */}   
+                           
                                          <td>   <Image src={item.image} alt={item.name}  fluid style={{height:'80px'}}/> </td>
                                          <td >
                                             <Link to={`/product/${item.product}`}>  {item.name} </Link>

@@ -12,16 +12,6 @@ main {
 .cartHeader {
 	background-color: #f0f0f0;
 }
-.no-gutters {
-	margin-right: 0;
-	margin-left: 0;
-
-	& > [class^="col-"],
-	& > [class*=" col-"] {
-		padding-right: 0;
-		padding-left: 0;
-	}
-}
 
 .item-center {
 	display: grid;
@@ -32,7 +22,6 @@ main {
 }
 
 .nav-border {
-	border-bottom-width: 1px;
 	box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
