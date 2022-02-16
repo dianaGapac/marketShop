@@ -229,6 +229,7 @@ const OrderScreen = ({match,history}) => {
                     </ListGroup.Item>) : order.isDelivered && order.isReceived && userInfo.isAdmin === 'false' &&
                      (<ListGroup.Item> 
                         <Button disabled> ORDER RECEIVED </Button>
+                        <Button> RATE PRODUCT </Button>
                     </ListGroup.Item>)
                     }
                     
@@ -276,3 +277,7 @@ const OrderScreen = ({match,history}) => {
 }
 
 export default OrderScreen
+
+
+/// RATE BOOLEAN
+/// REVIEW FEATRUE
