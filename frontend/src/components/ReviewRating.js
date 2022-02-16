@@ -1,9 +1,10 @@
 import React from 'react'
 
-const Rating = ({rating,numReviews}) => {
-    return (
-        <div className='rating'>
-
+const ReviewRating = ({rating}) => {
+ 
+  return (
+    <div className='rating'>
+           
             <span>
                 <i className={rating >= 1? 'fas fa-star' : rating >= 0.5? 'fas fa-star-half-alt': 'far fa-star' }> </i>
             </span>
@@ -19,13 +20,11 @@ const Rating = ({rating,numReviews}) => {
             <span>
                 <i className={rating >= 5? 'fas fa-star' : rating >= 4.5? 'fas fa-star-half-alt': 'far fa-star' }> </i>
             </span>
-            <span className='p-2'>{rating}/5</span>
-            <div>
-                <span>{numReviews} reviews </span>
-            </div>
-        </div>
-    )
+            
+           
+    </div>
+     
+  )
 }
 
-export default Rating
-
+export default ReviewRating

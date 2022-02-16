@@ -67,6 +67,15 @@ const orderSchema = mongoose.Schema({
         type:Boolean,
         required: true,
         default: false
+    },
+    isRated: {
+        type:Boolean,
+        required: true,
+        default: false
+    },
+    review:{
+        rating: {type: Number, required: false },
+        review: {type: String, required: false }
     }
   
 }, {

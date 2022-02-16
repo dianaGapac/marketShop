@@ -2,10 +2,11 @@ import React, {useState, useEffect} from 'react'
 import {PayPalButton} from 'react-paypal-button-v2'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
-import { Button, Row,Col, ListGroup, Image } from 'react-bootstrap'
+import { Button, Row,Col, ListGroup, Image, Form, InputGroup } from 'react-bootstrap'
 import { useDispatch, useSelector} from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
+import ReviewRating from '../components/ReviewRating'
 import  {getOrderDetails, payOrder, deliverOrder, receiveOrder} from '../actions/orderActions'
 import {ORDER_PAY_RESET, ORDER_DELIVER_RESET, ORDER_DETAILS_RESET} from '../constants/orderConstants'
 import { LinkContainer } from 'react-router-bootstrap'
@@ -34,6 +35,8 @@ const OrderScreen = ({match,history}) => {
 
     const orderReceived= (useSelector((state) => state.orderReceived)) 
     const {loading: loadingReceive, success:successReceive } = orderReceived
+
+    const rating = 0;
 
 
 
@@ -227,9 +230,9 @@ const OrderScreen = ({match,history}) => {
                         <Button type='submit' onClick={(e) => orderReceivedHandler(orderId)}> ORDER RECEIVE </Button>
 
                     </ListGroup.Item>) : order.isDelivered && order.isReceived && userInfo.isAdmin === 'false' &&
-                     (<ListGroup.Item> 
+                     
+                     (<ListGroup.Item >  
                         <Button disabled> ORDER RECEIVED </Button>
-                        <Button> RATE PRODUCT </Button>
                     </ListGroup.Item>)
                     }
                     
@@ -263,6 +266,19 @@ const OrderScreen = ({match,history}) => {
                     )}
                 
                 </ListGroup>
+                
+                <ListGroup  className='mt-5'variant='flush'>
+                   <ListGroup.Item>  <h5> PRODUCT REVIEW</h5>  </ListGroup.Item>   
+                    <ListGroup.Item> 
+                            <ReviewRating  props={rating}> </ReviewRating>
+                            <span className='p-2'>{rating}/5</span>
+                    </ListGroup.Item>
+
+                   {/* * <ListGroup.Item> Comment: <input type ='text' style = {{width: '400px', padding: '2px'}}/></ListGroup.Item>  */}
+                    <ListGroup.Item> NOT RATED YET <Button className='mx-3 '> RATE NOW</Button></ListGroup.Item>
+                   
+                </ListGroup>
+                
 
             </Col>
         </Row>
