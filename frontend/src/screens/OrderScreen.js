@@ -38,7 +38,7 @@ const OrderScreen = ({match,history}) => {
     const orderReceived= (useSelector((state) => state.orderReceived)) 
     const {loading: loadingReceive, success:successReceive } = orderReceived
 
-    const rating = 0;
+    const [rating, setRating] = useState(0)
     const [orderIsReceived, setOrderIsReceived] = useState(false)
     const [popUpButton, setPopUpButton] = useState(false)
     const [popUpRate, setPopUpRate] = useState(false)
@@ -78,6 +78,7 @@ const OrderScreen = ({match,history}) => {
 
      const orderReceivedHandler = ()=>{
          dispatch(receiveOrder(orderId))
+         window.alert('ORDE RECEIVED')
          setOrderIsReceived(true)
      } 
      const popUpRatepHandler =()=>{
@@ -226,6 +227,7 @@ const OrderScreen = ({match,history}) => {
                             <Col> TOTAL</Col>
                             <Col>&#x20B1;{order.totalPrice.toLocaleString()} </Col>
                         </Row>
+
                     </ListGroup.Item>
                     {!order.isPaid && userInfo.isAdmin === 'false' && (
                         <ListGroup.Item>
@@ -243,12 +245,14 @@ const OrderScreen = ({match,history}) => {
                     (<ListGroup.Item> 
                         <Button type='submit' disabled> ORDER RECEIVED</Button>
                     </ListGroup.Item>) 
-                    : order.isPaid && order.isDelivered && userInfo.isAdmin === 'false'? 
+
+
+                    : order.isDelivered && !order.isReceived && userInfo.isAdmin === 'false'? 
                     (
                         <ListGroup.Item>
                             <Button type='submit' alt= 'Click if order is received'
                             onClick={(e) => orderReceivedHandler(orderId)}> ORDER RECEIVED </Button>
-
+                        {/* 
                             <PopUp trigger={orderIsReceived} setTrigger={setOrderIsReceived}>
                                 { !isRated? (
                                     <>
@@ -264,38 +268,33 @@ const OrderScreen = ({match,history}) => {
                                 }
                                 
                           </PopUp>
-
-                          <PopUp trigger={popUpRate} setTrigger={setPopUpRate}> 
-                                     <ReviewProduct> </ReviewProduct>
-                                    <Button onClick={submitRating}> SUBMIT</Button>
-                                </PopUp>
+                          <ReviewProduct className='my-10' trigger={popUpRate} setTrigger={setPopUpRate} > 
+                     </ReviewProduct>  
+                     
+                     */}
+                         
                         </ListGroup.Item>
                     )
-                    :   order.isPaid && !order.isDelivered && !order.isReceived && userInfo.isAdmin === 'false'?  
-                    (<ListGroup.Item> 
+                  :  order.isDelivered && order.isReceived && userInfo.isAdmin === 'false' ?
+                     (
+                        <>
+                         <ListGroup.Item >  
+                            <Button disabled> ORDER RECEIVED </Button>
+                        </ListGroup.Item>
+
+                        <ListGroup.Item>
+                            <Button onClick={popUpRatepHandler}> RATE NOW</Button>
+                        </ListGroup.Item>
+                        </>
+                     ) : ""
                        
-                       <p> Nahh</p>
-                        
-
-                    </ListGroup.Item>) : order.isDelivered && order.isReceived && userInfo.isAdmin === 'false' &&
-                     
-                     (<ListGroup.Item >  
-                        <Button disabled> ORDER RECEIVED </Button>
-                    </ListGroup.Item>)
                     }
-                    
-                     {/* Normal PopUP
-                     
-                     <Button onClick={()=> setPopUpButton(true)} >PopUp Sample</Button>
-                        <PopUp trigger={popUpButton} setTrigger={setPopUpButton}>
-                           
-                         </PopUp>
-                      */}
-                    
-                  
 
-        
+                     <ReviewProduct className='my-10' trigger={popUpRate} setTrigger={setPopUpRate} > 
+                     </ReviewProduct>
+
                     
+                
                 {userInfo && userInfo.isAdmin === 'true' && order.isPaid && !order.isDelivered &&  (
 
                         (<ListGroup.Item> 
@@ -317,28 +316,12 @@ const OrderScreen = ({match,history}) => {
                                     GO BACK
                                     </Button>
                                 </LinkContainer>
-
-                                
                         </ListGroup.Item>
                         
                         )
                     )}
                 
                 </ListGroup>
-                {/* 
-                <ListGroup  className='mt-5'variant='flush'>
-                   <ListGroup.Item>  <h5> PRODUCT REVIEW</h5>  </ListGroup.Item>   
-                    <ListGroup.Item> 
-                            <ReviewRating  props={rating}> </ReviewRating>
-                            <span className='p-2'>{rating}/5</span>
-                    </ListGroup.Item>
-
-             
-                    <ListGroup.Item> NOT RATED YET <Button className='mx-3 '> RATE NOW</Button></ListGroup.Item>
-                   
-                </ListGroup>  */}
-                
-
             </Col>
         </Row>
         </div>
@@ -346,8 +329,6 @@ const OrderScreen = ({match,history}) => {
         
     )}
         
-
-
     </>
 }
 
@@ -357,3 +338,13 @@ export default OrderScreen
 /// RATE BOOLEAN
 /// REVIEW FEATRUE
 // AFTER ORDER RECEIVED, POP-UP ng Successfuky received the Rate now.
+
+
+ {/* Normal PopUP
+                     
+                     <Button onClick={()=> setPopUpButton(true)} >PopUp Sample</Button>
+                        <PopUp trigger={popUpButton} setTrigger={setPopUpButton}>
+                           
+                         </PopUp>
+                      */}
+                    

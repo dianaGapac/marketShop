@@ -6,6 +6,10 @@ main {
 	color: #ff9900;
 	padding: 2px;
 }
+.reviewRating {
+	height: 200px;
+	width: 200px;
+}
 .deleteButton {
 	color: white;
 }
@@ -70,6 +74,14 @@ main {
 	max-width: 640px;
 	background-color: white;
 }
+.rate-popUp-inner {
+	position: relative;
+	padding: 32px;
+	width: 100%;
+	max-width: 640px;
+	height: 325px;
+	background-color: white;
+}
 
 .popUp-button {
 	position: absolute;
@@ -84,6 +96,12 @@ main {
 }
 
 .button-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.center {
 	display: flex;
 	justify-content: center;
 	align-items: center;

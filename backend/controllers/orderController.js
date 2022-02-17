@@ -119,7 +119,7 @@ const updateOrderToDelivered = asyncHandler (async( req,res) =>{
     }
  })  
 
-  // @desc Update order to received
+// @desc Update order to received
 // @route GET '/api/orders/:id/receive'
 // @access Private/Admin
 

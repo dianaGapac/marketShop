@@ -7,7 +7,9 @@ const PopUp = (props) => {
         <div className='popUp-outer'>
         <div className='popUp-inner' >
           <span  onClick={()=> props.setTrigger(false)} className='popUp-button'> <i className='fa fa-times'> </i> </span>  
-            {props.children}
+            <div className='popUp-child'>
+              {props.children}
+            </div>
         </div>
     </div> 
        
