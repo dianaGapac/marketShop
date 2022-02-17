@@ -75,7 +75,7 @@ const orderSchema = mongoose.Schema({
     },
     review:{
         rating: {type: Number, required: false },
-        review: {type: String, required: false }
+        review: {type: String, required: false}
     }
   
 }, {

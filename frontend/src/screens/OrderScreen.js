@@ -2,11 +2,13 @@ import React, {useState, useEffect} from 'react'
 import {PayPalButton} from 'react-paypal-button-v2'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
-import { Button, Row,Col, ListGroup, Image, Form, InputGroup } from 'react-bootstrap'
+import { Button, Row,Col, ListGroup, Image, Form, InputGroup, ListGroupItem } from 'react-bootstrap'
 import { useDispatch, useSelector} from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import ReviewRating from '../components/ReviewRating'
+import PopUp from '../components/PopUp'
+import ReviewProduct from '../components/ReviewProduct'
 import  {getOrderDetails, payOrder, deliverOrder, receiveOrder} from '../actions/orderActions'
 import {ORDER_PAY_RESET, ORDER_DELIVER_RESET, ORDER_DETAILS_RESET} from '../constants/orderConstants'
 import { LinkContainer } from 'react-router-bootstrap'
@@ -37,6 +39,10 @@ const OrderScreen = ({match,history}) => {
     const {loading: loadingReceive, success:successReceive } = orderReceived
 
     const rating = 0;
+    const [orderIsReceived, setOrderIsReceived] = useState(false)
+    const [popUpButton, setPopUpButton] = useState(false)
+    const [popUpRate, setPopUpRate] = useState(false)
+    const [isRated, setIsRated] = useState(false)
 
 
 
@@ -72,8 +78,18 @@ const OrderScreen = ({match,history}) => {
 
      const orderReceivedHandler = ()=>{
          dispatch(receiveOrder(orderId))
-         window.alert('Order Received')
+         setOrderIsReceived(true)
      } 
+     const popUpRatepHandler =()=>{
+         setPopUpRate(true)
+         //setPopUpButton(false)
+     }
+
+     const submitRating = ()=>{
+         setIsRated(true)
+         setPopUpRate(false)
+     }
+
 
     useEffect(()=>{
 
@@ -221,13 +237,45 @@ const OrderScreen = ({match,history}) => {
                         </ListGroup.Item> 
                     ) }
 
-                    { order.isPaid && !order.isDelivered && userInfo.isAdmin === 'false'?
+                    
+                    { // conditional rendering for order received button 
+                    order.isPaid && !order.isDelivered && userInfo.isAdmin === 'false'?
                     (<ListGroup.Item> 
-                        <Button type='submit' disabled> ORDER RECEIVE</Button>
+                        <Button type='submit' disabled> ORDER RECEIVED</Button>
                     </ListGroup.Item>) 
+                    : order.isPaid && order.isDelivered && userInfo.isAdmin === 'false'? 
+                    (
+                        <ListGroup.Item>
+                            <Button type='submit' alt= 'Click if order is received'
+                            onClick={(e) => orderReceivedHandler(orderId)}> ORDER RECEIVED </Button>
+
+                            <PopUp trigger={orderIsReceived} setTrigger={setOrderIsReceived}>
+                                { !isRated? (
+                                    <>
+                                        <h5>Order Received Successfully!</h5>
+                                        <p>Rate the product now</p>
+                                        <Button onClick={popUpRatepHandler}> RATE NOW</Button> 
+                                    </>): (
+                                    <>
+                                        <h5>Rated The Product Successfully!</h5>
+                                        <p>Thank You, For giving a time to review the product</p>
+                                    </>
+                                    )
+                                }
+                                
+                          </PopUp>
+
+                          <PopUp trigger={popUpRate} setTrigger={setPopUpRate}> 
+                                     <ReviewProduct> </ReviewProduct>
+                                    <Button onClick={submitRating}> SUBMIT</Button>
+                                </PopUp>
+                        </ListGroup.Item>
+                    )
                     :   order.isPaid && !order.isDelivered && !order.isReceived && userInfo.isAdmin === 'false'?  
                     (<ListGroup.Item> 
-                        <Button type='submit' onClick={(e) => orderReceivedHandler(orderId)}> ORDER RECEIVE </Button>
+                       
+                       <p> Nahh</p>
+                        
 
                     </ListGroup.Item>) : order.isDelivered && order.isReceived && userInfo.isAdmin === 'false' &&
                      
@@ -236,6 +284,17 @@ const OrderScreen = ({match,history}) => {
                     </ListGroup.Item>)
                     }
                     
+                     {/* Normal PopUP
+                     
+                     <Button onClick={()=> setPopUpButton(true)} >PopUp Sample</Button>
+                        <PopUp trigger={popUpButton} setTrigger={setPopUpButton}>
+                           
+                         </PopUp>
+                      */}
+                    
+                  
+
+        
                     
                 {userInfo && userInfo.isAdmin === 'true' && order.isPaid && !order.isDelivered &&  (
 
@@ -266,7 +325,7 @@ const OrderScreen = ({match,history}) => {
                     )}
                 
                 </ListGroup>
-                
+                {/* 
                 <ListGroup  className='mt-5'variant='flush'>
                    <ListGroup.Item>  <h5> PRODUCT REVIEW</h5>  </ListGroup.Item>   
                     <ListGroup.Item> 
@@ -274,10 +333,10 @@ const OrderScreen = ({match,history}) => {
                             <span className='p-2'>{rating}/5</span>
                     </ListGroup.Item>
 
-                   {/* * <ListGroup.Item> Comment: <input type ='text' style = {{width: '400px', padding: '2px'}}/></ListGroup.Item>  */}
+             
                     <ListGroup.Item> NOT RATED YET <Button className='mx-3 '> RATE NOW</Button></ListGroup.Item>
                    
-                </ListGroup>
+                </ListGroup>  */}
                 
 
             </Col>
@@ -297,3 +356,4 @@ export default OrderScreen
 
 /// RATE BOOLEAN
 /// REVIEW FEATRUE
+// AFTER ORDER RECEIVED, POP-UP ng Successfuky received the Rate now.
