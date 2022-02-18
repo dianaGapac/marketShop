@@ -23,7 +23,8 @@ const Product = ({product}) => {
                     <Card.Title className='card-title' > <strong > {product.name} </strong> </Card.Title>
                 </Link>
 
-                <Rating rating={product.rating} numReviews={product.numReviews}/>
+                <Rating rating={product.rating} />
+                <span>{product.numReviews} reviews </span>
                 <h4> <strong> &#x20B1; {`${product.price.toLocaleString()}`} </strong>   </h4> 
 
 

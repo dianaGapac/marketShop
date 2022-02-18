@@ -8,6 +8,7 @@ import Loader from '../components/Loader'
 import Message from '../components/Message'
 import PopUp from '../components/PopUp'
 import ReviewProduct from '../components/ReviewProduct'
+import Rating from '../components/Rating'
 import  {getOrderDetails, payOrder, deliverOrder, receiveOrder} from '../actions/orderActions'
 import {ORDER_PAY_RESET, ORDER_DELIVER_RESET, ORDER_DETAILS_RESET} from '../constants/orderConstants'
 import { LinkContainer } from 'react-router-bootstrap'
@@ -29,13 +30,15 @@ const OrderScreen = ({match,history}) => {
 
     const orderPay = (useSelector((state) => state.orderPay)) 
     const {loading: loadingPay, success:successPay } = orderPay
-
     
     const orderDeliver= (useSelector((state) => state.orderDeliver)) 
     const {loading: loadingDeliver, success:successDeliver } = orderDeliver
 
     const orderReceived= (useSelector((state) => state.orderReceived)) 
     const {loading: loadingReceive, success:successReceive } = orderReceived
+
+   const orderCreateReview = (useSelector((state) => state.orderCreateReview))
+   const {order: orderReview ,loading: loadingReview, error:errorReview , success: successReview} = orderCreateReview
 
     const [rating, setRating] = useState(0)
     const [orderIsReceived, setOrderIsReceived] = useState(false)
@@ -77,7 +80,6 @@ const OrderScreen = ({match,history}) => {
 
      const orderReceivedHandler = ()=>{
          dispatch(receiveOrder(orderId))
-         window.alert('ORDE RECEIVED')
          setOrderIsReceived(true)
      } 
      const popUpRatepHandler =()=>{
@@ -120,12 +122,8 @@ const OrderScreen = ({match,history}) => {
                 setSdkReady(true) 
             }
         }
-   
 
-      
    
-
-       
     },[dispatch, orderId, successPay,successDeliver,order, history, userInfo])
      
     return loading? <Loader/>:error? <Message variant='danger'> {error} </Message>:
@@ -195,6 +193,7 @@ const OrderScreen = ({match,history}) => {
             </Col>
 
             <Col md={4}>
+                <Row> 
                 <ListGroup variant='flush'>
                     <ListGroup.Item>
                         <h5> ORDER SUMMARY </h5>
@@ -226,8 +225,12 @@ const OrderScreen = ({match,history}) => {
                             <Col> TOTAL</Col>
                             <Col>&#x20B1;{order.totalPrice.toLocaleString()} </Col>
                         </Row>
-
+            
                     </ListGroup.Item>
+                    </ListGroup>
+                </Row>
+
+                <Row > 
                     {!order.isPaid && userInfo.isAdmin === 'false' && (
                         <ListGroup.Item>
                             {loadingPay && <Loader/>}
@@ -245,22 +248,48 @@ const OrderScreen = ({match,history}) => {
                         <Button type='submit' disabled> ORDER RECEIVED</Button>
                     </ListGroup.Item>) 
 
+                    : order.isDelivered && order.isReceived && order.isRated && userInfo.isAdmin === 'false' ?
+                     (
+                         <ListGroup >
+                             <ListGroup variant='flush' className='py-3'>
+                                <ListGroup.Item >
+                                    <h5> PRODUCT REVIEW</h5>
+                                </ListGroup.Item>
+
+                                <ListGroup.Item >
+                                    <Rating rating={order.review.rating}> </Rating>
+                                    <p> {order.review.review} </p>
+
+                                </ListGroup.Item>
+                                <ListGroup.Item className='py-2' >
+                                        <div >
+                                        <LinkContainer to='/myorders'>
+                                            <Button onClick={goBackHandler}>
+                                                GO BACK
+                                                </Button>
+                                        </LinkContainer>
+                                    </div>
+                                </ListGroup.Item>
+                              </ListGroup>
+                         </ListGroup>
+                        
+                     )
 
                     : order.isDelivered && !order.isReceived && userInfo.isAdmin === 'false'? 
                     (
                         <ListGroup.Item>
                             <Button type='submit' alt= 'Click if order is received'
                             onClick={(e) => orderReceivedHandler(orderId)}> ORDER RECEIVED </Button>
-                        {/* 
+                         
                             <PopUp trigger={orderIsReceived} setTrigger={setOrderIsReceived}>
-                                { !isRated? (
+                                { !order.isRated? (
                                     <>
                                         <h5>Order Received Successfully!</h5>
                                         <p>Rate the product now</p>
                                         <Button onClick={popUpRatepHandler}> RATE NOW</Button> 
                                     </>): (
                                     <>
-                                        <h5>Rated The Product Successfully!</h5>
+                                        <h5>PRODUCT RATED Successfully</h5>
                                         <p>Thank You, For giving a time to review the product</p>
                                     </>
                                     )
@@ -268,10 +297,7 @@ const OrderScreen = ({match,history}) => {
                                 
                           </PopUp>
                           <ReviewProduct className='my-10' trigger={popUpRate} setTrigger={setPopUpRate} > 
-                     </ReviewProduct>  
-                     
-                     */}
-                         
+                     </ReviewProduct>         
                         </ListGroup.Item>
                     )
                   :  order.isDelivered && order.isReceived && userInfo.isAdmin === 'false' ?
@@ -285,7 +311,7 @@ const OrderScreen = ({match,history}) => {
                             <Button onClick={popUpRatepHandler}> RATE NOW</Button>
                         </ListGroup.Item>
                         </>
-                     ) : ""
+                     )  : ''
                        
                     }
 
@@ -320,7 +346,8 @@ const OrderScreen = ({match,history}) => {
                         )
                     )}
                 
-                </ListGroup>
+                
+                </Row>
             </Col>
         </Row>
         </div>

@@ -79,7 +79,7 @@ main {
 	padding: 32px;
 	width: 100%;
 	max-width: 640px;
-	height: 325px;
+	max-height: 325px;
 	background-color: white;
 }
 
@@ -92,7 +92,7 @@ main {
 .button-lower-right {
 	position: absolute;
 	bottom: 16px;
-	right: 16px;
+	right: 48px;
 }
 
 .button-center {

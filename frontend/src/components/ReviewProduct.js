@@ -1,24 +1,49 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { useDispatch, useSelector} from 'react-redux'
 import {Button, Form, ListGroup, ListGroupItem} from 'react-bootstrap'
 
-import {createReview} from '../actions/orderActions'
+import {createReview, getOrderDetails} from '../actions/orderActions'
 
 
 
-const ReviewProduct = ({setTrigger, trigger, orderId}) => {
+const ReviewProduct = ({setTrigger, trigger, orderId, history, location}) => {
 
     const dispatch = useDispatch()
 
+    const [message, setMessage] = useState('')
     const [rating,setRating] = useState(0)
     const [review,setReview] = useState('')
-    const orderCreateReview = (useSelector((state) => state.orderCreateReview))
-    const {order,loading, error , success} = orderCreateReview
+    const [isRated, setIsRated] = useState(false)
+  
 
     const submitHandler =()=>{
-      console.log('rating:',rating, 'review:', review)
-      dispatch(createReview(orderId,review,rating))
+      if(rating === 0){
+        setMessage("Fill up the form First")
+      }else{
+        dispatch(createReview(orderId,review,rating))
+        setIsRated(true)
+      }
+
     }
+
+    const closeHandler =()=>{
+      if(isRated){
+        window.location.reload()
+      }
+      else{
+        setTrigger(false)
+      }
+    }
+
+
+
+    useEffect (()=>{
+        if(isRated){
+          dispatch(getOrderDetails(orderId))
+        }
+              
+      }
+  , [dispatch])
 
 
     return  (trigger) ? (
@@ -26,10 +51,12 @@ const ReviewProduct = ({setTrigger, trigger, orderId}) => {
     <div className='popUp-outer'>
         <div className='rate-popUp-inner' >
       
-          <span  onClick={()=> setTrigger(false)} className='popUp-button'>
+          <span  onClick={closeHandler} className='popUp-button'>
            <i className='fa fa-times'> </i> </span>  
           
-            <Form>
+          
+          {!isRated ? (
+               <div>
                  <h5>PRODUCT REVIEW</h5>
                 <ListGroup variant = 'flush'>
                     <ListGroup.Item className='center rating'>
@@ -53,14 +80,26 @@ const ReviewProduct = ({setTrigger, trigger, orderId}) => {
                     <ListGroup.Item>
 
                     <label>Comment:</label>
-                       <input  onChange={(e)=> setReview(e.target.value)}style={{width:'100%', height:'100px',padding:'2px' }} type='text'/>
+                       <input  onChange={(e)=> setReview(e.target.value)}style={{width:'100%',height:'80px',padding:'2px' }} type='text'/>
                     </ListGroup.Item>
-
                 </ListGroup>
-                <Button onClick={submitHandler} className='button-lower-right'> RATE </Button>
-              
-               
-            </Form>
+                
+                <div style={{ height: '50px'}}> 
+                  
+                    <Button onClick={submitHandler} className='button-lower-right'> RATE </Button>
+                    {message && (<p>{message}</p>)}
+                 </div>
+                   
+            </div>
+          ): (
+            <div>
+               <h5>PRODUCT RATED Successfully</h5>
+               <p>Thank You, For giving a time to review the product</p>
+            </div>
+          )
+          
+          }
+          
            
 
 
