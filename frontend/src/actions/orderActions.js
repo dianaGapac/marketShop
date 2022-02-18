@@ -20,6 +20,9 @@ import { ORDER_CREATE_REQUEST,
       ORDER_RECEIVED_SUCCESS,
       ORDER_RECEIVED_FAILED,
       ORDER_RECEIVED_REQUEST,
+      ORDER_REVIEW_SUCCESS,
+      ORDER_REVIEW_REQUEST,
+      ORDER_REVIEW_FAILED
     } from '../constants/orderConstants'
 import axios from 'axios'
 
@@ -264,3 +267,41 @@ export const receiveOrder = (orderId) => async(dispatch, getState) => {
          })
     }  
 }   
+
+
+export const createReview = (orderId, review, rating) => async(dispatch, getState) => {
+    try {
+        dispatch({
+            type:  ORDER_REVIEW_REQUEST
+        })
+
+        const { userLogin: { userInfo}} = getState() 
+
+        const config = {
+            headers: { 
+                'Content-Type' : 'application/json' ,
+                Authorization: `Bearer ${userInfo.token}`
+            }
+         }
+         console.log('review & rating', review, rating )
+
+         
+         const {data} = await axios.put(`/api/orders/${orderId}/review`, {review,rating},config) 
+
+         console.log('data',data)
+      
+         dispatch({
+            type:  ORDER_REVIEW_SUCCESS,
+            payload: data 
+         })
+
+        }
+
+     catch (error) {
+        dispatch({
+            type:  ORDER_REVIEW_FAILED,
+            payload: error.response && error.response.data.message ?
+                     error.response.data.message : error.message
+         })
+    }  
+}  

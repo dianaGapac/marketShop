@@ -24,6 +24,9 @@ import {
     ORDER_RECEIVED_REQUEST,
     ORDER_RECEIVED_SUCCESS,
     ORDER_RECEIVED_FAILED,
+    ORDER_REVIEW_REQUEST,
+    ORDER_REVIEW_SUCCESS,
+    ORDER_REVIEW_FAILED,
 
 
 } from '../constants/orderConstants'
@@ -188,6 +191,29 @@ export const orderReceivedReducer = (state= {}, action ) => {
             return{
                 loading:false,  
                 error: action.payload  }
+        default:
+            return state
+    }
+}
+
+
+export const orderCreateReviewReducer = (state= {}, action ) => {
+    switch(action.type) {
+        case ORDER_REVIEW_REQUEST:
+            return {
+                loading: true,
+            }
+        case ORDER_REVIEW_SUCCESS:
+            return{
+                loading: false,
+                success: true,
+                order: action.payload
+            }   
+        case ORDER_REVIEW_FAILED:
+            return{
+                loading:false,
+                error: action.payload  
+            }
         default:
             return state
     }

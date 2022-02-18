@@ -1,11 +1,10 @@
 import asyncHandler from 'express-async-handler'
 import Order from '../models/orderModel.js'
 
-
-
 // @desc Create New Order
 // @route POST '/api/orders'
 // @access Private
+
 const addOrderItems = asyncHandler (async( req,res) =>{
     const {orderItems, 
         shippingAddress,
@@ -121,7 +120,7 @@ const updateOrderToDelivered = asyncHandler (async( req,res) =>{
 
 // @desc Update order to received
 // @route GET '/api/orders/:id/receive'
-// @access Private/Admin
+// @access Private/User
 
 const updateOrderToReceived = asyncHandler (async( req,res) =>{
     const order = await Order.findById(req.params.id)
@@ -136,8 +135,30 @@ const updateOrderToReceived = asyncHandler (async( req,res) =>{
         throw new Error('Order not found')
     }
  })  
+
+ // @desc Update order to rated
+// @route GET '/api/orders/:id/review'
+// @access Private/User
+
+const updateOrderToRated= asyncHandler (async( req,res) =>{
+    const order = await Order.findById(req.params.id)
+   
+    const {review, rating} = req.body
  
- 
+    if(order){
+        order.isRated = true
+        order.review.rating = rating
+        order.review.review = review
+
+        const updatedOrder = await order.save()
+          res.json(updatedOrder)
+    }
+    else{
+        res.status(404)
+        throw new Error('Order not found')
+    }
+ })  
 
 
-export{ addOrderItems, getOrderById, updateOrderToPaid, getMyOrders, getOrders, updateOrderToDelivered, updateOrderToReceived}
+export{ addOrderItems, getOrderById, updateOrderToPaid, getMyOrders,
+     getOrders, updateOrderToDelivered, updateOrderToReceived, updateOrderToRated}

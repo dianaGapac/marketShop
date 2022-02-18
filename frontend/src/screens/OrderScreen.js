@@ -6,7 +6,6 @@ import { Button, Row,Col, ListGroup, Image, Form, InputGroup, ListGroupItem } fr
 import { useDispatch, useSelector} from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import ReviewRating from '../components/ReviewRating'
 import PopUp from '../components/PopUp'
 import ReviewProduct from '../components/ReviewProduct'
 import  {getOrderDetails, payOrder, deliverOrder, receiveOrder} from '../actions/orderActions'
@@ -290,7 +289,7 @@ const OrderScreen = ({match,history}) => {
                        
                     }
 
-                     <ReviewProduct className='my-10' trigger={popUpRate} setTrigger={setPopUpRate} > 
+                     <ReviewProduct className='my-10' trigger={popUpRate} setTrigger={setPopUpRate}  orderId= {orderId} orderDetails userLogin> 
                      </ReviewProduct>
 
                     
@@ -337,7 +336,13 @@ export default OrderScreen
 
 /// RATE BOOLEAN
 /// REVIEW FEATRUE
-// AFTER ORDER RECEIVED, POP-UP ng Successfuky received the Rate now.
+// AFTER ORDER RECEIVED, POP-UP ng Successfuky received the Rate now. ///
+///REDUX STATE OF REVIEW TO GET THE INPUT
+/// IS RATED REDUX
+///ADD REVIEW TO PRODUCT STATE
+
+
+
 
 
  {/* Normal PopUP
