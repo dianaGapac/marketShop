@@ -3,12 +3,16 @@ import { useDispatch, useSelector} from 'react-redux'
 import {Button, Form, ListGroup, ListGroupItem} from 'react-bootstrap'
 
 import {createReview, getOrderDetails} from '../actions/orderActions'
+import { reviewProduct } from '../actions/productActions'
 
 
 
 const ReviewProduct = ({setTrigger, trigger, orderId, history, location}) => {
 
     const dispatch = useDispatch()
+
+    const orderDetails = (useSelector((state) => state.orderDetails))
+    const {order,loading, error} = orderDetails
 
     const [message, setMessage] = useState('')
     const [rating,setRating] = useState(0)
@@ -20,15 +24,23 @@ const ReviewProduct = ({setTrigger, trigger, orderId, history, location}) => {
       if(rating === 0){
         setMessage("Fill up the form First")
       }else{
+
+        
         dispatch(createReview(orderId,review,rating))
+
+        const productId = order.orderItems[0].product
+        console.log('pID', productId)
+        dispatch(reviewProduct(productId, rating,review))
         setIsRated(true)
       }
 
     }
 
     const closeHandler =()=>{
+      
       if(isRated){
         window.location.reload()
+        
       }
       else{
         setTrigger(false)

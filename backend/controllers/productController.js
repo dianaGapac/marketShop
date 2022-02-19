@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler'
 import Product from '../models/productModel.js'
+import  Order from '../models/orderModel.js'
 
 
 
@@ -98,15 +99,36 @@ const updateProduct = asyncHandler (async( req,res) =>{
 // @access Private
 
 const createProductReview = asyncHandler (async( req,res) =>{
-    const { rating, comment} = req.body
-    
-    const product = await Product.findById(req.params.id) 
+    const {productId,rating,review} = req.body
 
+    const product= await Product.findById(productId) 
+
+    if(product) {
+       
+        const newReview ={
+            name: req.user.name,
+            rating: Number(rating),
+            comment:review,
+         }
+
+         product.review.push(newReview)
+         
+         product.numReviews = product.review.length
+         product.rating = product.review.reduce((acc, item) => item.rating + acc, 0) / product.review.length
+         await product.save()
+         res.status(201).json({message: 'Review Added'}) 
+         console.log('Review Added')
+    } else{
+        res.status(404)
+        throw new Error('Product Not Found') }
+        
+    
+/*
     if(product){
         const review ={
             name: req.user.name,
             rating: Number(rating),
-            comment,
+            comment:review,
             user: req.user._id }
 
         product.reviews.push(review)
@@ -119,7 +141,7 @@ const createProductReview = asyncHandler (async( req,res) =>{
     }else{
         res.status(404)
         throw new Error('Product Not Found')
-    }
+    }  */
     
  })
 

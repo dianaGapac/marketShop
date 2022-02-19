@@ -16,6 +16,9 @@ import {
     PRODUCT_UPDATE_SUCCESS,
     PRODUCT_UPDATE_FAILED,
     PRODUCT_UPDATE_RESET,
+    PRODUCT_REVIEW_REQUEST,
+    PRODUCT_REVIEW_SUCCESS,
+    PRODUCT_REVIEW_FAILED,
 
 
     
@@ -91,4 +94,19 @@ export const productUpdateReducer = (state={product: {}}, action) =>{
             return state
     } 
 } 
+
+export const productReviewReducer = (state={}, action) =>{
+    switch (action.type){
+        case PRODUCT_REVIEW_REQUEST:
+            return {loading: true }
+        case PRODUCT_REVIEW_SUCCESS:
+            return {loading: false, success: true, product: action.payload}
+        case PRODUCT_REVIEW_FAILED:
+            return {loading: false, error: action.payload}
+    
+        default: 
+            return state
+    } 
+} 
+
 

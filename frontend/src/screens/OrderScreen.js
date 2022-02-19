@@ -124,7 +124,7 @@ const OrderScreen = ({match,history}) => {
         }
 
    
-    },[dispatch, orderId, successPay,successDeliver,order, history, userInfo])
+    },[dispatch, orderId, successPay,successDeliver,order, history, userInfo,orderDetails])
      
     return loading? <Loader/>:error? <Message variant='danger'> {error} </Message>:
     <>
@@ -270,6 +270,16 @@ const OrderScreen = ({match,history}) => {
                                         </LinkContainer>
                                     </div>
                                 </ListGroup.Item>
+
+
+                                 <ListGroup.Item >  
+                                    <Button disabled> ORDER RECEIVED </Button>
+                                </ListGroup.Item>
+
+                                <ListGroup.Item>
+                                    <Button onClick={popUpRatepHandler}> RATE NOW</Button>
+                                </ListGroup.Item>
+                                
                               </ListGroup>
                          </ListGroup>
                         

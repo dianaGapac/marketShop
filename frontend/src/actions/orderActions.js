@@ -283,12 +283,8 @@ export const createReview = (orderId, review, rating) => async(dispatch, getStat
                 Authorization: `Bearer ${userInfo.token}`
             }
          }
-         console.log('review & rating', review, rating )
-
          
          const {data} = await axios.put(`/api/orders/${orderId}/review`, {review,rating},config) 
-
-         console.log('data',data)
       
          dispatch({
             type:  ORDER_REVIEW_SUCCESS,
