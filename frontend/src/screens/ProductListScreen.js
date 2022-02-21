@@ -21,21 +21,15 @@ const ProductListScreen = ({history}) => {
     const productCreate = useSelector(state => state.productCreate)
     const {loading: loadingCreate, error: errorCreate, success: successCreate, product} = productCreate
 
-    
-
     const userLogin = useSelector(state=> state.userLogin)
     const {userInfo} = userLogin
 
-  
 
     const deleteHandler =(id)=>{ 
         if(window.confirm('Are you sure to delete this User?')){
             //delete product
             dispatch(deleteProduct(id))
-
         }
- 
-        
     }
 
     const createProductHandler =()=>{

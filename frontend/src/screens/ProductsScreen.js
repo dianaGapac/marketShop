@@ -6,9 +6,6 @@ import Message from '../components/Message';
 import Product from '../components/Product';
 import {listProducts} from '../actions/productActions';
 
-//TODO' Display All Products by Category 
-//MEN. WOMEN. KIDS.
-
 
 const ProductsScreen = () => {
 

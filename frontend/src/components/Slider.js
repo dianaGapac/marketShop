@@ -1,54 +1,42 @@
-import React, {useState}from 'react'
-import { Col, Row, Carousel,Card } from 'react-bootstrap'
-
-
+import React from 'react'
+import { Carousel,Row,Col } from 'react-bootstrap'
 
 
 const Slider = () => {
-
-
-
     return (
-        <div style={{width:'1400px',height:'500px',backgroundColor:''}}>
-         <Carousel variant='dark' style= {{backgroundColor:''}}>
+        <div >
+            <Row>
+                <Col lg={12} md={12} sm={12} xs={12}>
+                    <Carousel  className='slider' variant='dark' >
 
-          <Carousel.Item interval={2000}>
-              <img
-              className="d-block w-100"
-              src="images/slider1.jpg"
-              alt="First slide"
-              style={{width:'1400px',height:'500px',backgroundColor:''}}
-               /> 
-              <Carousel.Caption>
-              </Carousel.Caption>
-          </Carousel.Item>
+                        <Carousel.Item interval={2000}>
+                            <img
+                            className="sliderImage"
+                            src="images/slider1.jpg"
+                            alt="First slide"
+                            /> 
+                        </Carousel.Item>
 
-          <Carousel.Item  interval={2000}>
-              <img
-              className="d-block w-100"
-              src="images/slider2.jpg"
-              alt="First slide"
-              style={{width:'1400px',height:'500px',backgroundColor:''}}
-              />
-              <Carousel.Caption>
-              </Carousel.Caption>
-          </Carousel.Item>
-          <Carousel.Item  interval={2000}>
-              <img
-              className="d-block w-100"
-              src="images/slider3.jpg"
-              alt="First slide"
-              style={{width:'1400px',height:'500px',backgroundColor:''}}
-              />
-              <Carousel.Caption>
-              </Carousel.Caption>
-          </Carousel.Item>
+                        <Carousel.Item  interval={2000}>
+                            <img
+                            className="sliderImage"
+                            src="images/slider2.jpg"
+                            alt="Second slide"
+                            />
+                        </Carousel.Item>
 
+                        <Carousel.Item  interval={2000}>
+                            <img
+                            className="sliderImage"
+                            src="images/slider3.jpg"
+                            alt="Thirdslide"
+                            />
+                        </Carousel.Item>
 
-      </Carousel>
-      
-         
-        </div>
+                    </Carousel>
+                 </Col>
+            </Row>
+         </div>
     )
 }
 

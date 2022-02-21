@@ -118,5 +118,40 @@ main {
 	justify-content: center;
 	align-items: center;
 }
-@media screen and (max-width: 600px) {
+
+.slider {
+	max-width: 1400px;
+}
+.sliderItem {
+	width: 1400px;
+	height: 500px;
+}
+.sliderImage {
+	display: block;
+	width: 100%;
+}
+
+.nav-menu-mobile {
+	position: absolute;
+	display: block;
+	list-style: none;
+	background-color: #dcdcdc;
+	left: 0;
+	top: 75px;
+	transition: all 0.5s ease-out;
+	width: 100%;
+}
+
+@media screen and (max-width: 780px) {
+	.menu-icon {
+		display: block;
+		cursor: pointer;
+	}
+	.nav-menu {
+		display: none;
+	}
+
+	.nav-item {
+		color: white;
+	}
 }
