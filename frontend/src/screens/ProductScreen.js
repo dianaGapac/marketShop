@@ -6,6 +6,7 @@ import { useDispatch,useSelector} from 'react-redux'
 import {listProductDetails} from '../actions/productActions'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
+import DisplayReview from '../components/DisplayReview';
 
 
 
@@ -51,6 +52,7 @@ const ProductScreen = ({match, history}) => {
              GO BACK 
              </Link>
             { loading? <Loader/> : error ? <Message variant = 'danger'> {error} </Message> :  (
+                <>
                 <Row>
                     <Col lg={6}  md={12} >
                         <Image src={product.image} alt={product.name} fluid/>
@@ -159,17 +161,26 @@ const ProductScreen = ({match, history}) => {
                            </ListGroup.Item>
 
                            <ListGroup.Item>
-                               {product.description}
+                               <h5>PRODUCT DESCRIPTION</h5>
+                               <p style={{textIndent:'10%'}}>  {product.description} </p>
                             </ListGroup.Item>
                         </ListGroup>
-                        
-                
                       </Col>
                 </Row>
+
+                <Row className='mt-3'>
+                    <h5> PRODUCT REVIEWS</h5>
+                    <DisplayReview product={product}></DisplayReview>
+                </Row>
+                </>
+
             )}   
+
+
         </div>
 
         ): <Loader></Loader>}
+
         </div>
     )
 }
