@@ -27,8 +27,9 @@ import WomenProductsScreen from './screens/WomenProductsScreen'
 function App() {
   return (
     <Router>
-        <Header/>
-        <main>
+        <Header />
+
+        <main style={{ marginTop:'120px'}}> 
           <Container>
             <Route path='/' component={HomeScreen} exact/>
             <Route path='/productlist' component={ProductsScreen}/>
