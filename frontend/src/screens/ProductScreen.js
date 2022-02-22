@@ -54,16 +54,12 @@ const ProductScreen = ({match, history}) => {
                                 </ListGroup>
 
                                 <ListGroup variant='flush'>
-                                
                                 <ListGroup.Item>
-                                    <Row>
-                                        <Col className='p-2' >
-                                            { product.price &&   <h5> Price: &#x20B1; {` ${product.price.toLocaleString()}`} </h5> }
-                                        </Col>
-                                    </Row>
-                                </ListGroup.Item>
-
-                                <ListGroup.Item>
+                                        <Row>
+                                            <Col className='p-2' >
+                                                { product.price &&   <h5> Price: &#x20B1; {` ${product.price.toLocaleString()}`} </h5> }
+                                            </Col>
+                                        </Row>
                                         <Row>
                                              <Col className='p-2' > <h5>CATEGORY: {product.category} </h5> </Col>
                                         </Row>
@@ -72,15 +68,14 @@ const ProductScreen = ({match, history}) => {
                                         </Row>
                                 </ListGroup.Item>
 
-                                <ListGroup.Item>
-                                    <Row>
+                                
+                                <ListGroup.Item >
+                                     <Row>
                                         <Col  className='p-2' >
                                             <h5>STOCK: {product.countInStock>0 ? product.countInStock : 'Out of Stock' } </h5>
                                         </Col>
                                     </Row>
-                                </ListGroup.Item>
 
-                                <ListGroup.Item >
                                     <Row>
                                         <Col lg={12} md={12} sm={12} xs={12}>
                                             <Row>

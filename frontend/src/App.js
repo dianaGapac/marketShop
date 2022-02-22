@@ -29,13 +29,12 @@ function App() {
     <Router>
         <Header />
 
-        <main style={{ marginTop:'120px'}}> 
+        <main style={{ marginTop:'120px'}} > 
           <Container>
             <Route path='/' component={HomeScreen} exact/>
             <Route path='/productlist' component={ProductsScreen}/>
             <Route path='/product/:id' component={ProductScreen}/>
             <Route path='/cart/:id' component= {CartScreen}/>
-
             <Route path='/login/' component={LoginScreen}/>
             <Route path='/register' component={RegisterScreen}/>
             <Route path='/profile' component={ProfileScreen}/>

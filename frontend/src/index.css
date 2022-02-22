@@ -52,9 +52,6 @@ main {
 	display: none;
 }
 
-.navlinks {
-}
-
 .popUp-outer {
 	position: fixed;
 	top: 0;
@@ -135,11 +132,13 @@ main {
 	position: absolute;
 	display: block;
 	list-style: none;
-	background-color: #dcdcdc;
+	background-color: rgb(240, 240, 240);
 	left: 0;
-	top: 75px;
+	top: 95px;
 	transition: all 0.5s ease-out;
 	width: 100%;
+	height: 45vh;
+	box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
 @media screen and (max-width: 780px) {
@@ -151,7 +150,25 @@ main {
 		display: none;
 	}
 
-	.nav-item {
-		color: white;
+	.nav-item-container {
+		width: 100%;
+		padding-left: 15px;
+		padding-top: 5px;
+		padding-bottom: 5px;
+		font-size: 16px;
+	}
+	.nav-item-container:hover {
+		background-color: white;
+		border: solid 1px gray;
+	}
+	.nav-item-container.active {
+		background-color: white;
+		border: solid 1px gray;
+		color: black;
+	}
+
+	.nav-item-link {
+		padding: 3px;
+		font-size: 16px;
 	}
 }

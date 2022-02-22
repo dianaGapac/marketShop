@@ -12,6 +12,9 @@ const Header = () => {
     const { userInfo } = userLogin
 
     const [clicked,setClicked] = useState(false)
+    const [categActive, setCategActive] = useState(false)
+    const [profileActive, setProfileActive] = useState(false)
+    const [cartActive,setCartActive] = useState(false)
 
     const logOutHandler =()=>{
         dispatch(logOut())
@@ -24,6 +27,26 @@ const Header = () => {
         }
         else{
             setClicked(false)
+        }
+    }
+
+    const setActive = (name) =>{
+        if(name === 'categ'){
+            setCategActive(true)
+            setProfileActive(false)
+            setCartActive(false)
+        }else if( name === 'cart'){
+            setCategActive(false)
+            setProfileActive(false)
+            setCartActive(true)
+        } else if(name==='profile' ){
+            setCategActive(false)
+            setProfileActive(true)
+            setCartActive(false)
+        } else{
+            setCategActive(false)
+            setProfileActive(false)
+            setCartActive(false)
         }
     }
     return (
@@ -41,29 +64,31 @@ const Header = () => {
                         </Button>
                     </div>
 
-                    <Nav className={clicked? 'nav-menu-mobile': 'nav-menu'} >
+                    <Nav style={{color:'black'}} className={clicked? 'nav-menu-mobile': 'nav-menu'} >
                             
-                        <NavDropdown className='nav-item' title="CATEGORY" id='category' >
-                            <LinkContainer to ='/productlist'>
-                                <NavDropdown.Item > All Products </NavDropdown.Item>
+                        <NavDropdown  className={categActive? "nav-item-container active" : "nav-item-container" }  title="CATEGORY" id='category' >
+                           <LinkContainer name='categ' onClick={(e)=> setActive('categ')} to ='/productlist'>
+                                <NavDropdown.Item >
+                                      <p className="nav-item-link" > All Products </p> 
+                                 </NavDropdown.Item>
                             </LinkContainer>
 
-                            <LinkContainer to ='/products/Men'>
-                                <NavDropdown.Item > Men </NavDropdown.Item>
+                            <LinkContainer  name='categ' onClick={(e)=> setActive('categ')} to ='/products/Men'>
+                                <NavDropdown.Item > <p className="nav-item-link" > Men </p> </NavDropdown.Item>
                             </LinkContainer>
 
-                            <LinkContainer to ='/products/Women'>
-                                <NavDropdown.Item > Women </NavDropdown.Item>
+                            <LinkContainer name='categ' onClick={(e)=> setActive('categ')} to ='/products/Women'>
+                                <NavDropdown.Item >  <p className="nav-item-link" > Women  </p> </NavDropdown.Item>
                             </LinkContainer>
 
-                            <LinkContainer to ='/products/Kids'>
-                                <NavDropdown.Item > Kids </NavDropdown.Item>
+                            <LinkContainer  name='categ' onClick={(e)=> setActive('categ')} to ='/products/Kids'>
+                                <NavDropdown.Item >  <p className="nav-item-link" > Kids </p> </NavDropdown.Item>
                             </LinkContainer>
                         </NavDropdown>
 
                    { userInfo && userInfo.isAdmin === 'true'&& (
                             <>
-                        <NavDropdown  className='nav-item' title ="ADMIN" id='adminmenu'> 
+                        <NavDropdown title ="ADMIN" id='adminmenu'> 
                             <LinkContainer to='/admin/userList'>
                                 <NavDropdown.Item>
                                     Users
@@ -84,7 +109,7 @@ const Header = () => {
 
                         </NavDropdown>
                     
-                        <NavDropdown className='nav-item'  title ={userInfo.name}  id='username'> 
+                        <NavDropdown className={clicked?"nav-item-container":''} title ={userInfo.name}  id='username'> 
                             <LinkContainer to='/profile'>
                                 <NavDropdown.Item>
                                     Profile
@@ -101,25 +126,27 @@ const Header = () => {
 
                     { userInfo  && userInfo.isAdmin === 'false' && (
                         <>
-                                <LinkContainer className='nav-item' to='/cart/:id'>
+                                <LinkContainer  name='cart' className={cartActive? "nav-item-container active":"nav-item-container"} 
+                                  onClick={(e)=> setActive('cart')}
+                                     to='/cart/:id'>
                                     <Nav.Link > <i className='fa fa-shopping-cart px-2'></i>  CART </Nav.Link>
                                 </LinkContainer>
 
-                          <NavDropdown className='nav-item' title ={userInfo.name}  id='username'> 
-                              <LinkContainer to='/profile'>
-                                    <NavDropdown.Item>
-                                        Profile
+                          <NavDropdown name = 'profile' className={profileActive?"nav-item-container active":"nav-item-container"}title ={userInfo.name}  id='username'> 
+                              <LinkContainer  name= 'profile' onClick={(e)=> setActive('profile')} to='/profile'>
+                                    <NavDropdown.Item  >
+                                    <p className="nav-item-link" > Profile </p>
                                     </NavDropdown.Item>
                                 </LinkContainer>
 
-                                <LinkContainer to='/myorders'>
+                                <LinkContainer  name= 'profile' onClick={(e)=> setActive('profile')} to='/myorders'>
                                     <NavDropdown.Item>
-                                        My Orders
+                                    <p className="nav-item-link" > My Orders </p>
                                     </NavDropdown.Item>
                                 </LinkContainer>
                             
                                 <NavDropdown.Item onClick={logOutHandler}> 
-                                    <Link to='/login'>  Log Out </Link>
+                                    <Link to='/login'>  <p className="nav-item-link" > Log Out </p> </Link>
                                 </NavDropdown.Item>
             
                             </NavDropdown>
@@ -128,13 +155,13 @@ const Header = () => {
 
                         { !userInfo && (
                         <>
-                            <LinkContainer className='nav-item'  to='/cart/:id'>
+                            <LinkContainer className={clicked?"nav-item-container":''}  to='/cart/:id'>
                                 <Nav.Link >
                                     <i className='fa fa-shopping-cart px-2'></i>  CART
                                 </Nav.Link>
                             </LinkContainer>
 
-                            <LinkContainer  className='nav-item'  to={'/login'}  >
+                            <LinkContainer  className={clicked?"nav-item-container":''}  to={'/login'}  >
                                 <Nav.Link >
                                     <i className='fa fa-user px-2'></i>LOG IN
                                 </Nav.Link>
