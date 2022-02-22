@@ -82,20 +82,25 @@ const PlaceOrderScreen = ({history}) => {
                             <ListGroup variant='flush'>
                                  {cart.selectedItems.map((item, index) => (
                                      <ListGroup.Item key={index}> 
+
                                         <Row>
-                                            <Col md={1} lg={2}>
+                                            <Col sm={3} xs={3} md={2} lg={2}> 
                                                 <Image src={item.image} alt={item.name} fluid rounded />
                                             </Col>
-                                            <Col lg={3}>
-                                                <Link to={`/product/${item.product}`} >
-                                                     {item.name}
-                                                 </Link>
-                                            </Col>
-                                            <Col lg={2}>
-                                                     {item.size}
-                                            </Col>
-                                            <Col md={4} lg={5}>
-                                            &#x20B1; {item.price.toLocaleString()} x  {item.qty} = &#x20B1; {(item.qty*item.price).toLocaleString()}
+
+                                            <Col sm={9} xs={9} >
+                                                <Row >
+                                                    <Col  xs={12} sm={12}>
+                                                        <Link to={`/product/${item.product}`} >
+                                                        {item.name}
+                                                        </Link>
+                                                    </Col>
+
+                                                    <Col className= 'p-2' md={4}>
+                                                         <span> &#x20B1; {  item.price.toLocaleString() } x  {item.qty}  </span> 
+                                                         <span> = &#x20B1; {(item.qty*item.price).toLocaleString()} </span>
+                                                    </Col>
+                                                </Row>
                                             </Col>
                                         </Row>
 

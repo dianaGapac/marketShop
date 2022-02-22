@@ -150,15 +150,13 @@ const OrderScreen = ({match,history}) => {
                                 {order.orderItems.map((item, index) => (
                                     <ListGroup.Item key={index}> 
                                         <Row>
-                                      
-                                            <Row> </Row>
                                             <Col sm={3} xs={3} md={1}>
                                                 <Image src={item.image} alt={item.name} fluid rounded />
                                             </Col>
 
                                             <Col sm={9} xs={9} >
                                                 <Row >
-                                                    <Col  xs={10} sm={10}>
+                                                    <Col  xs={12} sm={12}>
                                                         <Link to={`/product/${item.product}`} >
                                                         {item.name}
                                                         </Link>
@@ -168,7 +166,6 @@ const OrderScreen = ({match,history}) => {
 
                                                          <span> &#x20B1; {  item.price.toLocaleString() } x  {item.qty}  </span> 
                                                          <span> = &#x20B1; {(item.qty*item.price).toLocaleString()} </span>
-                                                        
                                                     </Col>
                                                 </Row>
                                             </Col>

@@ -35,7 +35,6 @@ const ShippingScreen = ({history}) => {
             <FormContainer >
                    
                         <Form  onSubmit={submitHandler}> 
-                            
                             <Form.Group controlId='address'>
                                     <Form.Label> Address </Form.Label>
                                     <Form.Control type='text' placeholder='Enter Address' value= {address} required onChange={(e) => setAddress(e.target.value)}>  
