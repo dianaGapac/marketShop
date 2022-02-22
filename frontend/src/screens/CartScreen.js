@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {Link} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
-import {Row, Col, Card, ListGroup, Image, Form, Button,InputGroup, Table, Navbar, Nav} from 'react-bootstrap'
+import {Row, Col, Card, ListGroup, Image, Form, Button,InputGroup, Table, Navbar, Nav, ListGroupItem} from 'react-bootstrap'
 import Message from '../components/Message'
 import { addToCart, removeFromCart ,passSelectedItem } from '../actions/cartActions'
 
@@ -179,13 +179,13 @@ const CartScreen = ({match, location, history}) => {
                                                         <InputGroup  >   
                                                             <Row className='p-0 m-0 ' >
                                                             
-                                                            <Col className='p-0 m-0'>
+                                                            <Col md={3} className='p-0 m-0'>
                                                             <Button className='btn-block btn-primary p-1 px-2 m-1'
                                                                     onClick = {(e) => addAddToCart(item.product, item.qty-1,'sub',item.size)}
                                                                     disabled= {item.qty === 1}> 
                                                                     <i className = 'fa fa-minus' > </i></Button>
                                                             </Col>    
-                                                            <Col className='p-0 m-0'>
+                                                            <Col md={6} className='p-0 m-0'>
                                                                 <Form.Control 
                                                                         value={item.qty}
                                                                         onChange={(e) => onChangeHandler(item.product, Number(e.target.value),item.countInStock)}
@@ -194,7 +194,7 @@ const CartScreen = ({match, location, history}) => {
                                                                         type="text" 
                                                                         placeholder={item.qty} />
                                                             </Col>  
-                                                            <Col className='p-0 m-0'>
+                                                            <Col md={3} className='p-0 m-0'>
                                                                     <Button className='btn-block btn-primary p-1 px-2 m-1 '
                                                                         onClick = {(e) => addAddToCart(item.product, item.qty+1, 'add',item.size)}
                                                                         disabled = {item.countInStock === item.qty}> 
@@ -241,51 +241,114 @@ const CartScreen = ({match, location, history}) => {
                                         </Button>
 
                                         </Row>
-                                    
                                     </ListGroup.Item>
                                 </ListGroup>
-
-
                             </Card>
                             </Row>
-                
-
                     </div>
                 )}
                 </div> 
           </div>
         ) : (
-          <div>
-            MOBILE VIEW
-          </div>
-        )}
-      </div>
+            <div>
+                {cartItems.map((item, index)=>(
+                      <ListGroup className='mt-1'>
+                        <Row>
+                            <Col xs={1} sm={1}>
+                            <Form.Group>
+                                <Form.Check 
+                                    type='checkbox' 
+                                    onChange={(e) => selectHandler(item.product, item.qty, e.target.checked)}
+                                    >
+                                </Form.Check>
+                            </Form.Group>
+                            </Col>
+
+                             <Col xs={11} sm={11}>
+                                 <ListGroup.Item> 
+                                     <Row>
+                                        <Col xs={3} sm={3}>
+                                        <Image src={item.image} alt={item.name}  fluid style={{height:'80px'}}/>
+                                        </Col>
+
+                                        <Col xs={9} sm={9}>
+                                            <Row>
+                                                <Col xs={10} sm={10}> 
+                                                   <span > {item.name} </span> 
+                                                </Col >
+                                                <Col xs={1} sm={1}> 
+                                                    <span   className=' btn-block '
+                                                      onClick = {()=> removeFromCartHandler(index)} > 
+                                                    <i className="fa fa-times"> </i> 
+                                                    </span>
+                                                </Col>
+                                            </Row>  
+                                            <Row>
+                                                <Col> {item.size} </Col>
+                                            </Row>
+                                            <Row>
+                                                <Col> <strong> &#x20B1; {item.price.toLocaleString()} </strong> </Col>
+                                            </Row>
+                                        </Col>
+                                     </Row>
+                                     <Row>
+                                         <Col sm={3} xs={3}>  </Col>
+
+                                         <Col sm={9} xs={9} >
+                                            <InputGroup  >   
+                                                <Row className='p-0 m-0 ' >
+                                                    <Col xs={12} sm={12}>
+                                                      <Row>
+                                                        <Col sm={3} xs={3} md={3} className='p-0 m-0'>
+                                                            <Button className='btn-block btn-primary p-1 px-2 m-1'
+                                                                    onClick = {(e) => addAddToCart(item.product, item.qty-1,'sub',item.size)}
+                                                                    disabled= {item.qty === 1}> 
+                                                                    <i className = 'fa fa-minus' > </i></Button>
+                                                            </Col>    
+                                                            <Col sm={6} xs={6} md={6} className='p-0 m-0'>
+                                                                <Form.Control 
+                                                                        value={item.qty}
+                                                                        onChange={(e) => onChangeHandler(item.product, Number(e.target.value),item.countInStock)}
+                                                                        className="border border-primary p-1 px-2 m-1"
+                                                                        style ={{width: '65px'}}
+                                                                        type="text" 
+                                                                        placeholder={item.qty} />
+                                                            </Col>  
+                                                            <Col md={3} sm={3} xs={3} className='px-0 m-0'>
+                                                                    <Button className='btn-block btn-primary p-1 px-2 m-1 '
+                                                                        onClick = {(e) => addAddToCart(item.product, item.qty+1, 'add',item.size)}
+                                                                        disabled = {item.countInStock === item.qty}> 
+                                                                        <i className = 'fa fa-plus'> </i></Button>
+                                                            </Col>
+
+                                                        </Row>
+                                                    </Col>
+                                                </Row>
+
+                                                
+                                            </InputGroup>
+                                         </Col>
+                                     </Row>
+
+ 
+
+                                 </ListGroup.Item>            
+                              </Col>
+                         </Row>
+                        
+                      </ListGroup>
+                ))}
+
+         </div>
+        )
 
    
        
+     }
+     </div>
     )
 }
 
 export default CartScreen
 
-//TO DO
-// cartItems don't add up DONE
-// local strorage issue. what if i restart the browser will my cartItems be empty?  nah
-// duplicate item dont add up. (existing item on shop) just replacing it DONE
-// Cart wont show when cart icon is clicked DONE
 
-// inactive button when out of stock. DONE
-// restrictions DONE
-//minus button DONE
-//delete button
-
-//header title (Qunatity, Name etc)
-//SELECT ITEM BEFORE PLACING ORDER or CHECKOUT
-// cart notif (item count)
-
-//deselect DONE
-//selectAll 
-//Subtotal of selected rerender when quanty increments
-//PROBLEM  nauuna select ITEM chuchu
-
-// select ALL
