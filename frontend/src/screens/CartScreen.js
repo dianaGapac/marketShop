@@ -16,8 +16,6 @@ const CartScreen = ({match, location, history}) => {
 
     var size= location.search? location.search.split('-')[1]: 1 
 
-
-
     const dispatch = useDispatch()
 
     const cart = useSelector((state) => state.cart) //to getthe value of states available
@@ -28,6 +26,12 @@ const CartScreen = ({match, location, history}) => {
     const userLogin = useSelector(state => state.userLogin)
     const {userInfo} = userLogin
 
+    const [isDesktop, setDesktop] = useState(window.innerWidth > 1000);
+
+    const updateMedia = () => {
+        setDesktop(window.innerWidth > 1000);
+      };
+    
 
     //add selected item to selectedItems
     const addSelected =(id,op)=>{
@@ -111,9 +115,11 @@ const CartScreen = ({match, location, history}) => {
 
    
     useEffect(() =>{
-     
+
+        window.addEventListener("resize", updateMedia);
+        window.removeEventListener("resize", updateMedia)
+
         if(productId){
-    
             dispatch(addToCart(productId,qty,size))
             productId = null
             qty =null
@@ -123,127 +129,139 @@ const CartScreen = ({match, location, history}) => {
 
     return (
 
-     <div className='my-5'>
-     {cartItems.length === 0? (<Message variant='primary' >
-        Your Cart is EMPTY. Click <Link to='/'> here </Link> to SHOP
-     </Message>) : 
-      (
         <div>
-        <Row> 
-            <Col lg={12} md={12} sm={12}> 
-                <Table >
-                    <thead className='nav-border'>
-                        <tr>
-                            <th></th>
-                            <th>Image</th>
-                            <th>Name</th>
-                            <th> Size</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th> Subtotal</th>
-                            <th>Delete</th>
-                        </tr>
-                    </thead>
+        {isDesktop ? (
+          <div>
+            <div className='my-5'>
+                {cartItems.length === 0? (<Message variant='primary' >
+                    Your Cart is EMPTY. Click <Link to='/'> here </Link> to SHOP
+                </Message>) : 
+                (
+                    <div>
+                    <Row> 
+                        <Col lg={12} md={12} sm={12}> 
+                            <Table >
+                                <thead className='nav-border'>
+                                    <tr>
+                                        <th></th>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th> Size</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th> Subtotal</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
 
-                    <tbody>
-                    {cartItems.map( (item, index) => (
-                                        <tr key={item.product}>
+                                <tbody>
+                                {cartItems.map( (item, index) => (
+                                                    <tr key={item.product}>
 
-                                         <td>  <Form.Group>
-                                                <Form.Check 
-                                                    type='checkbox' 
-                                                    onChange={(e) => selectHandler(item.product, item.qty, e.target.checked)}
-                                                    >
-                                                </Form.Check>
+                                                    <td>  <Form.Group>
+                                                            <Form.Check 
+                                                                type='checkbox' 
+                                                                onChange={(e) => selectHandler(item.product, item.qty, e.target.checked)}
+                                                                >
+                                                            </Form.Check>
 
-                                            </Form.Group> </td>   
+                                                        </Form.Group> </td>   
+                                                    
+                                    
+                                                    <td>   <Image src={item.image} alt={item.name}  fluid style={{height:'80px'}}/> </td>
+                                                    <td >
+                                                        <Link to={`/product/${item.product}`}>  {item.name} </Link>
+                                                    </td>
+                                                    <td> {item.size} </td>
+                                                    <td> <strong> &#x20B1; {item.price.toLocaleString()} </strong> </td>
+
+                                                    <td>
+                                                        <InputGroup  >   
+                                                            <Row className='p-0 m-0 ' >
+                                                            
+                                                            <Col className='p-0 m-0'>
+                                                            <Button className='btn-block btn-primary p-1 px-2 m-1'
+                                                                    onClick = {(e) => addAddToCart(item.product, item.qty-1,'sub',item.size)}
+                                                                    disabled= {item.qty === 1}> 
+                                                                    <i className = 'fa fa-minus' > </i></Button>
+                                                            </Col>    
+                                                            <Col className='p-0 m-0'>
+                                                                <Form.Control 
+                                                                        value={item.qty}
+                                                                        onChange={(e) => onChangeHandler(item.product, Number(e.target.value),item.countInStock)}
+                                                                        className="border border-primary p-1 px-2 m-1"
+                                                                        style ={{width: '50px'}}
+                                                                        type="text" 
+                                                                        placeholder={item.qty} />
+                                                            </Col>  
+                                                            <Col className='p-0 m-0'>
+                                                                    <Button className='btn-block btn-primary p-1 px-2 m-1 '
+                                                                        onClick = {(e) => addAddToCart(item.product, item.qty+1, 'add',item.size)}
+                                                                        disabled = {item.countInStock === item.qty}> 
+                                                                        <i className = 'fa fa-plus'> </i></Button>
+                                                            </Col>
+                                                            </Row>
+                                                            </InputGroup>
+                                                    </td>
+
+                                                    <td > <strong className=''> &#x20B1; { (item.price * item.qty).toLocaleString()} </strong> </td>
+                                                    
+                                                    <td >
+                                                        <Button variant='light' type='button' className=' btn-block '
+                                                            onClick = {()=> removeFromCartHandler(index)} > 
+                                                            <i className="far fa-trash-alt"> </i> </Button>
+                                                        </td>   
+
+                                                    </tr>
+                                                ))}
+                                </tbody>
+                                
+                            </Table>
+                        </Col>
+                    </Row>
+
+                            <Row className='m-3'>
+                            <Card className='sticky-bot' style={{backgroundColor:'white', height:'100px', width:'300px'}}> 
+                                <ListGroup variant='flush' >
+                                    <ListGroup.Item>
+                                        <h5 className=''> <strong> SUBTOTAL: 
+
+                                        </strong>
+                                            {` (${selectedItems.reduce((acc,item) => acc + item.qty, 0)}) `}
+                                        Items</h5> 
+
+                                        <h5> <strong> &#x20B1; {selectedItems.reduce( (acc,item)=> acc+item.qty*item.price, 0 ).toLocaleString()} </strong></h5>
                                         
-                           
-                                         <td>   <Image src={item.image} alt={item.name}  fluid style={{height:'80px'}}/> </td>
-                                         <td >
-                                            <Link to={`/product/${item.product}`}>  {item.name} </Link>
-                                         </td>
-                                          <td> {item.size} </td>
-                                         <td> <strong> &#x20B1; {item.price.toLocaleString()} </strong> </td>
+                                        <Row>
+                                        <Button type='button' 
+                                        className='btn-block btn-primary'
+                                        disabled={selectedItems.length === 0}
+                                        onClick={checkOutHandler}>
+                                            CHECKOUT
+                                        </Button>
 
-                                         <td>
-                                            <InputGroup  >   
-                                                <Row className='p-0 m-0 ' >
-                                                
-                                                <Col className='p-0 m-0'>
-                                                <Button className='btn-block btn-primary p-1 px-2 m-1'
-                                                        onClick = {(e) => addAddToCart(item.product, item.qty-1,'sub',item.size)}
-                                                        disabled= {item.qty === 1}> 
-                                                        <i className = 'fa fa-minus' > </i></Button>
-                                                </Col>    
-                                                <Col className='p-0 m-0'>
-                                                    <Form.Control 
-                                                            value={item.qty}
-                                                            onChange={(e) => onChangeHandler(item.product, Number(e.target.value),item.countInStock)}
-                                                            className="border border-primary p-1 px-2 m-1"
-                                                            style ={{width: '50px'}}
-                                                            type="text" 
-                                                            placeholder={item.qty} />
-                                                </Col>  
-                                                <Col className='p-0 m-0'>
-                                                        <Button className='btn-block btn-primary p-1 px-2 m-1 '
-                                                            onClick = {(e) => addAddToCart(item.product, item.qty+1, 'add',item.size)}
-                                                            disabled = {item.countInStock === item.qty}> 
-                                                            <i className = 'fa fa-plus'> </i></Button>
-                                                </Col>
-                                                </Row>
-                                                </InputGroup>
-                                           </td>
+                                        </Row>
+                                    
+                                    </ListGroup.Item>
+                                </ListGroup>
 
-                                           <td > <strong className=''> &#x20B1; { (item.price * item.qty).toLocaleString()} </strong> </td>
-                                           
-                                           <td >
-                                            <Button variant='light' type='button' className=' btn-block '
-                                                onClick = {()=> removeFromCartHandler(index)} > 
-                                                <i className="far fa-trash-alt"> </i> </Button>
-                                            </td>   
 
-                                        </tr>
-                                    ))}
-                    </tbody>
-                    
-                </Table>
-             </Col>
-         </Row>
-
-                <Row className='m-3'>
-                <Card className='sticky-bot' style={{backgroundColor:'white', height:'100px', width:'300px'}}> 
-                    <ListGroup variant='flush' >
-                        <ListGroup.Item>
-                            <h5 className=''> <strong> SUBTOTAL: 
-
-                             </strong>
-                                  {` (${selectedItems.reduce((acc,item) => acc + item.qty, 0)}) `}
-                            Items</h5> 
-
-                            <h5> <strong> &#x20B1; {selectedItems.reduce( (acc,item)=> acc+item.qty*item.price, 0 ).toLocaleString()} </strong></h5>
-                            
-                            <Row>
-                            <Button type='button' 
-                            className='btn-block btn-primary'
-                            disabled={selectedItems.length === 0}
-                            onClick={checkOutHandler}>
-                                 CHECKOUT
-                            </Button>
-
+                            </Card>
                             </Row>
-                           
-                        </ListGroup.Item>
-                    </ListGroup>
+                
 
-
-                </Card>
-                </Row>
-    
-
-         </div>
-      )}
+                    </div>
+                )}
+                </div> 
+          </div>
+        ) : (
+          <div>
+            MOBILE VIEW
+          </div>
+        )}
       </div>
+
+   
        
     )
 }

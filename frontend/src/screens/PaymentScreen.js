@@ -1,5 +1,5 @@
 import React, {useState } from 'react'
-import {Form, Button, Col, Row, Container} from 'react-bootstrap'
+import {Form, Button, Row, Container} from 'react-bootstrap'
 import { useDispatch, useSelector} from 'react-redux'
 import FormContainer  from '../components/FormContainer'
 import CheckoutSteps from '../components/CheckoutSteps'
@@ -26,7 +26,6 @@ const PaymentScreen = ({history}) => {
         history.push('/placeorder')
    
     }
-
 
     return (
 
@@ -75,9 +74,6 @@ const PaymentScreen = ({history}) => {
 
         </FormContainer>
      
-       
-      
-
         </Container>
     )
 }

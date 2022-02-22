@@ -114,7 +114,7 @@ const ProductEditScreen = ({match,history}) => {
 
     return (
         <>
-         <Link to="/admin/productlist" className='btn btn-light my-3'>  GO BACK</Link>
+         <Link to="/admin/productlist" className='btn btn-light '>  GO BACK</Link>
             
          <FormContainer >
            <h4 > <strong> EDIT PRODUCT </strong></h4>
@@ -144,7 +144,7 @@ const ProductEditScreen = ({match,history}) => {
                         <Form.Control type='text' placeholder={image} value= {image} onChange={(e) => setImage(e.target.value)}>  
                         </Form.Control>
 
-                        <Form.File id='image-file' label='Choose File' custom onChange={uploadFileHandler}></Form.File>
+                        <Form.File variant='dark' id='image-file'  custom onChange={uploadFileHandler}></Form.File>
                         {uploading && <Loader />}
 
 

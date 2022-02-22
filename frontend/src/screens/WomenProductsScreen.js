@@ -1,11 +1,10 @@
 import React from 'react'
 import {useSelector} from 'react-redux'
-import {Link} from 'react-router-dom'
 import { Col, Row } from 'react-bootstrap'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import Product from '../components/Product'
-import {listProducts} from '../actions/productActions'
+
 
 const WomenProductsScreen = () => {
 

@@ -27,7 +27,6 @@ const ProductListScreen = ({history}) => {
 
     const deleteHandler =(id)=>{ 
         if(window.confirm('Are you sure to delete this User?')){
-            //delete product
             dispatch(deleteProduct(id))
         }
     }
@@ -35,10 +34,7 @@ const ProductListScreen = ({history}) => {
     const createProductHandler =()=>{
         dispatch(createProduct())
     }
-
     useEffect(()=>{
-
-
 
         if( userInfo && userInfo.isAdmin === 'true') {
             dispatch(listProducts())
@@ -60,7 +56,7 @@ const ProductListScreen = ({history}) => {
     }, [dispatch, history, userInfo, successDelete, successCreate, product])
         return ( 
 
-        <>
+        <div className='mt-0'>
 
         <Row className='align-items-center'>
             <Col>
@@ -107,7 +103,7 @@ const ProductListScreen = ({history}) => {
                                      </Button>
                                 </LinkContainer> 
 
-                                    <Button variant='danger' className='btn-sm mx-2' onClick={()=> deleteHandler(product._id)}>  
+                                    <Button variant='dark' className='btn-sm mx-2' onClick={()=> deleteHandler(product._id)}>  
                                         <i className='fas fa-trash'></i>
                                     </Button>
                                 </td>
@@ -119,7 +115,7 @@ const ProductListScreen = ({history}) => {
              )
 
              }   
-        </>
+        </div>
     )
 }
 

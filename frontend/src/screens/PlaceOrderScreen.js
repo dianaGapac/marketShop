@@ -42,9 +42,6 @@ const PlaceOrderScreen = ({history}) => {
             taxPrice: cart.taxPrice,
             totalPrice: cart.totalPrice
         }))
-   
-   
-       
 
     }
     

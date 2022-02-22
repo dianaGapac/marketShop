@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {Form, Button, Row, Col, Table} from 'react-bootstrap'
-import {LinkContainer} from 'react-router-bootstrap'
+import {Form, Button, Col} from 'react-bootstrap'
 import { useDispatch, useSelector} from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -16,7 +15,6 @@ const ProfileScreen = ({history, location}) => {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [message,setMessage] = useState(null)
-
 
 
     const dispatch = useDispatch()
@@ -47,7 +45,6 @@ const ProfileScreen = ({history, location}) => {
     
       }
         
-    
     }
     const getOrderHandler =(id)=>{
         dispatch(getOrderDetails(id))
@@ -75,7 +72,7 @@ const ProfileScreen = ({history, location}) => {
     return (
         <FormContainer > 
             <Col  md={6} lg={12} >
-            <h4 className= 'mt-5' > MY PROFILE  </h4>
+            <h4 className= 'mt-2' > MY PROFILE  </h4>
 
             {message && <Message variant='danger' > {message} </Message> }
             {error && <Message variant='danger' > {error} </Message> }
