@@ -131,6 +131,9 @@ const MyOrderScreen = ({history, location,}) => {
                                         orders.map(order=>(
                                             <ListGroup  variant='flush' key={order._id}> 
                                                 <ListGroup.Item>
+                                                    <Row>
+                                                        <p>{order.orderItems[0]._id} </p>
+                                                    </Row>
                                                 <Row>
                                                     <Col xs={3} sm={3} md={1}>
                                                         <Image src={order.orderItems[0].image} alt={order.orderItems[0].name} fluid rounded />

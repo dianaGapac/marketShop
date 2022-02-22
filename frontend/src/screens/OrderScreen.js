@@ -43,6 +43,7 @@ const OrderScreen = ({match,history}) => {
     
     const [orderIsReceived, setOrderIsReceived] = useState(false)
     const [popUpRate, setPopUpRate] = useState(false)
+
    
     
     const successPaymentHandler = (paymentResult)=>{
@@ -110,11 +111,10 @@ const OrderScreen = ({match,history}) => {
     <>
     { loading && <Loader/> }
 
-    <h5 className='mt-4'>ORDER ID: {order._id} </h5>
+    <h5 className='mt-4'> <strong>  ORDER ID </strong>  </h5>
+    <p> {order._id} </p>
 
     { orderDetails && (   
-
-
         <div>
         <Row>
             <Col md={8}>
@@ -131,7 +131,7 @@ const OrderScreen = ({match,history}) => {
                     </ListGroup.Item>
                     <ListGroup.Item>
                         <h5> PAYMENT METHOD</h5>
-                    <p>  METHOD:
+                    <p> 
                         {order.paymentMethod} </p>
                     <p>
                     {order.isPaid? (<Message variant='success'> Paid on {order.paidAt}</Message>) :
@@ -150,20 +150,30 @@ const OrderScreen = ({match,history}) => {
                                 {order.orderItems.map((item, index) => (
                                     <ListGroup.Item key={index}> 
                                         <Row>
-                                            <Col md={1}>
+                                      
+                                            <Row> </Row>
+                                            <Col sm={3} xs={3} md={1}>
                                                 <Image src={item.image} alt={item.name} fluid rounded />
                                             </Col>
-                                            <Col>
-                                                <Link to={`/product/${item.product}`} >
-                                                    {item.name}
-                                                </Link>
-                                            </Col>
-                                            <Col md={4}>
-                                            {order.itemsPrice = order.orderItems.reduce( (acc,item) => acc + item.price*item.qty,0)}
-                                             &#x20B1; {  item.price.toLocaleString() } x  {item.qty}   =   &#x20B1; {(item.qty*item.price).toLocaleString()}
-                                            </Col>
-                                        </Row>
 
+                                            <Col sm={9} xs={9} >
+                                                <Row >
+                                                    <Col  xs={10} sm={10}>
+                                                        <Link to={`/product/${item.product}`} >
+                                                        {item.name}
+                                                        </Link>
+                                                    </Col>
+
+                                                    <Col className= 'p-2'  md={4}>
+        
+                                                         <span> &#x20B1; {  item.price.toLocaleString() } x  {item.qty}  </span> 
+                                                         <span> = &#x20B1; {(item.qty*item.price).toLocaleString()} </span>
+                                                        
+                                                    </Col>
+                                                </Row>
+                                            </Col>
+                                       
+                                        </Row> 
                                     </ListGroup.Item>
                                 ))}
                             </ListGroup>
@@ -183,7 +193,9 @@ const OrderScreen = ({match,history}) => {
                     <ListGroup.Item>
                         <Row>
                             <Col> ITEMS </Col>
-                            <Col> &#x20B1; {order.itemsPrice.toLocaleString()}</Col>
+                            <Col> &#x20B1;
+                              {(order.itemsPrice= order.orderItems.reduce( (acc,item) => acc + item.price*item.qty,0)).toLocaleString()}
+                             </Col>
                         </Row>
                     </ListGroup.Item>
 
