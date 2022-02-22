@@ -4,7 +4,8 @@ import { Button, Row,Col, ListGroup, Image, Container } from 'react-bootstrap'
 import { useDispatch, useSelector} from 'react-redux'
 import CheckoutSteps from '../components/CheckoutSteps'
 import Message from '../components/Message'
-import  {createOrder} from '../actions/orderActions'
+import  {createOrder, getOrderDetails} from '../actions/orderActions'
+import { ORDER_CREATE_RESET } from '../constants/orderConstants'
 
 
 const PlaceOrderScreen = ({history}) => {
@@ -28,7 +29,7 @@ const PlaceOrderScreen = ({history}) => {
     const totalPrice = cart.totalPrice
 
     const orderCreate= useSelector((state) => state.orderCreate)
-    const {order,success, error} = orderCreate
+    const {order,success, error,reset} = orderCreate
 
     const placeOrderHandler =() =>{ 
       
@@ -41,14 +42,20 @@ const PlaceOrderScreen = ({history}) => {
             taxPrice: cart.taxPrice,
             totalPrice: cart.totalPrice
         }))
+   
+   
+       
+
     }
     
     useEffect(()=>{
         if(success){
+            
+            dispatch(getOrderDetails(order._id))
             history.push(`/orders/${order._id}`)
-            // eslint-disable-next-lin
+            dispatch({ type: ORDER_CREATE_RESET})
         }
-
+      
     },[history,success])
      
     return (

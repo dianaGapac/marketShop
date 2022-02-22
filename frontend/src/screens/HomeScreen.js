@@ -77,7 +77,7 @@ const HomeScreen = ({history}) => {
                 { loading? <Loader/> : error ? <Message variant = 'danger'> {error} </Message> :
 
                     <Row className='mx-0 px-0 no-gutters mt-3'>
-                        <Col lg={12} md={12} sm={12} xs={12}> 
+                        
                         {   products.filter( (product) =>{
                                 if(searchTerm ===''){
                                 return  product
@@ -85,11 +85,11 @@ const HomeScreen = ({history}) => {
                                     return (product)
                                 }
                             }).map(product =>(
-                                (<Col key={product._id} xs={12} sm={12} md={6} lg={4} xl={3}> 
+                                (<Col key={product._id} lg={4} xl={3} xs={12} sm={12} md={6} > 
                                     <Product product = {product}/> </Col> )  
                             )) 
                         }  
-                        </Col>        
+                           
                     </Row> }
         </div>
         

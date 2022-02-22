@@ -9,8 +9,8 @@ import Message from '../components/Message'
 import PopUp from '../components/PopUp'
 import ReviewProduct from '../components/ReviewProduct'
 import Rating from '../components/Rating'
-import  {getOrderDetails, payOrder, deliverOrder, receiveOrder} from '../actions/orderActions'
-import {ORDER_PAY_RESET, ORDER_DELIVER_RESET, ORDER_DETAILS_RESET} from '../constants/orderConstants'
+import  {getOrderDetails, payOrder, deliverOrder, receiveOrder, listMyOrders} from '../actions/orderActions'
+import {ORDER_PAY_RESET, ORDER_DELIVER_RESET, ORDER_DETAILS_RESET, ORDER_CREATE_RESET} from '../constants/orderConstants'
 import { LinkContainer } from 'react-router-bootstrap'
 
 
@@ -37,45 +37,29 @@ const OrderScreen = ({match,history}) => {
     const orderReceived= (useSelector((state) => state.orderReceived)) 
     const {loading: loadingReceive, success:successReceive } = orderReceived
 
-   const orderCreateReview = (useSelector((state) => state.orderCreateReview))
-   const {order: orderReview ,loading: loadingReview, error:errorReview , success: successReview} = orderCreateReview
+    const orderCreateReview = (useSelector((state) => state.orderCreateReview))
+    const {order: orderReview ,loading: loadingReview, error:errorReview , success: successReview} = orderCreateReview
 
-    const [rating, setRating] = useState(0)
+    
     const [orderIsReceived, setOrderIsReceived] = useState(false)
-    const [popUpButton, setPopUpButton] = useState(false)
     const [popUpRate, setPopUpRate] = useState(false)
-    const [isRated, setIsRated] = useState(false)
-
-
-
-    const addDecimal = (num) =>{
-        return (Math.round(num*100/100)).toFixed(2)
-    }
-
-    if(!loading){
-       
-        order.itemsPrice = order.orderItems.reduce( (acc,item) => acc + item.price*item.qty,0)
-
-    }
-
+   
     
     const successPaymentHandler = (paymentResult)=>{
         console.log(paymentResult)
         dispatch(payOrder(orderId,paymentResult)) 
      }
-     const proceedHandler = (paymentResult)=>{
-        paymentResult = {}
-        history.push('/')
-        window.location.reload(false);
 
-     }
 
      const deliverHandler = ()=>{
          dispatch(deliverOrder(orderId))
      }
     
      const goBackHandler = ()=>{
+
          dispatch({ type: ORDER_DETAILS_RESET})
+         dispatch(listMyOrders())
+        
      }
 
      const orderReceivedHandler = ()=>{
@@ -84,13 +68,8 @@ const OrderScreen = ({match,history}) => {
      } 
      const popUpRatepHandler =()=>{
          setPopUpRate(true)
-         //setPopUpButton(false)
      }
 
-     const submitRating = ()=>{
-         setIsRated(true)
-         setPopUpRate(false)
-     }
 
 
     useEffect(()=>{
@@ -113,6 +92,7 @@ const OrderScreen = ({match,history}) => {
         if(!order || successPay || successDeliver){
             dispatch({type: ORDER_PAY_RESET})
             dispatch({type: ORDER_DELIVER_RESET})
+            dispatch({ type: ORDER_DETAILS_RESET})
             dispatch(getOrderDetails(orderId))
         } else if(!order.isPaid){
             if(!window.paypal){
@@ -124,9 +104,9 @@ const OrderScreen = ({match,history}) => {
         }
 
    
-    },[dispatch, orderId, successPay,successDeliver,order, history, userInfo,orderDetails])
+    },[dispatch, orderId, successPay,successDeliver,order, history, userInfo])
      
-    return loading? <Loader/>:error? <Message variant='danger'> {error} </Message>:
+    return loading? <Loader/>:error? <Message variant='danger'> {error} </Message>: !loading? (
     <>
     { loading && <Loader/> }
 
@@ -179,6 +159,7 @@ const OrderScreen = ({match,history}) => {
                                                 </Link>
                                             </Col>
                                             <Col md={4}>
+                                            {order.itemsPrice = order.orderItems.reduce( (acc,item) => acc + item.price*item.qty,0)}
                                              &#x20B1; {  item.price.toLocaleString() } x  {item.qty}   =   &#x20B1; {(item.qty*item.price).toLocaleString()}
                                             </Col>
                                         </Row>
@@ -238,14 +219,28 @@ const OrderScreen = ({match,history}) => {
                                 <PayPalButton  
                                     amount={order.totalPrice} 
                                     onSuccess={successPaymentHandler} /> }
+                             <div >
+                                <LinkContainer to='/myorders'>
+                                    <Button onClick={goBackHandler}>
+                                        GO BACK
+                                        </Button>
+                                </LinkContainer>
+                            </div>
                         </ListGroup.Item> 
                     ) }
 
                     
                     { // conditional rendering for order received button 
                     order.isPaid && !order.isDelivered && userInfo.isAdmin === 'false'?
-                    (<ListGroup.Item> 
+                    (<ListGroup.Item variant='flush'> 
                         <Button type='submit' disabled> ORDER RECEIVED</Button>
+                        <div >
+                             <LinkContainer to='/myorders'>
+                                   <Button onClick={goBackHandler}>
+                                      GO BACK
+                                     </Button>
+                              </LinkContainer>
+                        </div>
                     </ListGroup.Item>) 
 
                     : order.isDelivered && order.isReceived && order.isRated && userInfo.isAdmin === 'false' ?
@@ -262,22 +257,13 @@ const OrderScreen = ({match,history}) => {
 
                                 </ListGroup.Item>
                                 <ListGroup.Item className='py-2' >
-                                        <div >
+                                    <div >
                                         <LinkContainer to='/myorders'>
                                             <Button onClick={goBackHandler}>
                                                 GO BACK
                                                 </Button>
                                         </LinkContainer>
                                     </div>
-                                </ListGroup.Item>
-
-
-                                 <ListGroup.Item >  
-                                    <Button disabled> ORDER RECEIVED </Button>
-                                </ListGroup.Item>
-
-                                <ListGroup.Item>
-                                    <Button onClick={popUpRatepHandler}> RATE NOW</Button>
                                 </ListGroup.Item>
                                 
                               </ListGroup>
@@ -312,7 +298,7 @@ const OrderScreen = ({match,history}) => {
                     )
                   :  order.isDelivered && order.isReceived && userInfo.isAdmin === 'false' ?
                      (
-                        <>
+                        <ListGroup variant='flush'>
                          <ListGroup.Item >  
                             <Button disabled> ORDER RECEIVED </Button>
                         </ListGroup.Item>
@@ -320,12 +306,12 @@ const OrderScreen = ({match,history}) => {
                         <ListGroup.Item>
                             <Button onClick={popUpRatepHandler}> RATE NOW</Button>
                         </ListGroup.Item>
-                        </>
+                        </ListGroup>
                      )  : ''
                        
                     }
 
-                     <ReviewProduct className='my-10' trigger={popUpRate} setTrigger={setPopUpRate}  orderId= {orderId} orderDetails userLogin> 
+                     <ReviewProduct className='my-10' trigger={popUpRate} setTrigger={setPopUpRate}  orderId= {orderId} > 
                      </ReviewProduct>
 
                     
@@ -365,7 +351,7 @@ const OrderScreen = ({match,history}) => {
         
     )}
         
-    </>
+    </> ): ''
 }
 
 export default OrderScreen

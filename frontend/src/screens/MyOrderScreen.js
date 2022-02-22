@@ -33,7 +33,7 @@ const MyOrderScreen = ({history, location}) => {
     const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
     const {success} = userUpdateProfile 
 
-    
+   
         
     const getOrderHandler =(id)=>{
         dispatch(getOrderDetails(id))
@@ -56,7 +56,7 @@ const MyOrderScreen = ({history, location}) => {
                     }
             }
         }
-    , [dispatch, history,userInfo, user,orders])
+    , [dispatch, history,userInfo, user,orders, myOrderList])
 
     return (
         <div>

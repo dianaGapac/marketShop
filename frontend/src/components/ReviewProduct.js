@@ -7,7 +7,7 @@ import { reviewProduct } from '../actions/productActions'
 
 
 
-const ReviewProduct = ({setTrigger, trigger, orderId, history, location}) => {
+const ReviewProduct = ({setTrigger, trigger, orderId}) => {
 
     const dispatch = useDispatch()
 
