@@ -220,7 +220,7 @@ const CartScreen = ({match, location, history}) => {
                         </Col>
                     </Row>
 
-                            <Row className='m-3'>
+                        <Row className='m-3'>
                             <Card className='sticky-bot' style={{backgroundColor:'white', height:'100px', width:'300px'}}> 
                                 <ListGroup variant='flush' >
                                     <ListGroup.Item>
@@ -284,7 +284,7 @@ const CartScreen = ({match, location, history}) => {
                                                 </Col>
                                             </Row>  
                                             <Row>
-                                                <Col> {item.size} </Col>
+                                                <Col> Size: {item.size} </Col>
                                             </Row>
                                             <Row>
                                                 <Col> <strong> &#x20B1; {item.price.toLocaleString()} </strong> </Col>
@@ -335,9 +335,34 @@ const CartScreen = ({match, location, history}) => {
                                  </ListGroup.Item>            
                               </Col>
                          </Row>
-                        
                       </ListGroup>
                 ))}
+
+                 <Row className='m-3'>
+                    <Card className='sticky-bot' style={{backgroundColor:'white', height:'100px', width:'300px'}}> 
+                        <ListGroup variant='flush' >
+                            <ListGroup.Item>
+                                <h5 className=''> <strong> SUBTOTAL: 
+
+                                </strong>
+                                    {` (${selectedItems.reduce((acc,item) => acc + item.qty, 0)}) `}
+                                Items</h5> 
+
+                                <h5> <strong> &#x20B1; {selectedItems.reduce( (acc,item)=> acc+item.qty*item.price, 0 ).toLocaleString()} </strong></h5>
+                                
+                                <Row>
+                                <Button type='button' 
+                                className='btn-block btn-primary'
+                                disabled={selectedItems.length === 0}
+                                onClick={checkOutHandler}>
+                                    CHECKOUT
+                                </Button>
+
+                                </Row>
+                            </ListGroup.Item>
+                        </ListGroup>
+                    </Card>
+                    </Row>
 
          </div>
         )

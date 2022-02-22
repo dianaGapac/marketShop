@@ -165,7 +165,7 @@ const OrderScreen = ({match,history}) => {
                                                     </Col>
 
                                                     <Col className= 'p-2'  md={4}>
-        
+
                                                          <span> &#x20B1; {  item.price.toLocaleString() } x  {item.qty}  </span> 
                                                          <span> = &#x20B1; {(item.qty*item.price).toLocaleString()} </span>
                                                         
@@ -367,24 +367,3 @@ const OrderScreen = ({match,history}) => {
 }
 
 export default OrderScreen
-
-
-/// RATE BOOLEAN
-/// REVIEW FEATRUE
-// AFTER ORDER RECEIVED, POP-UP ng Successfuky received the Rate now. ///
-///REDUX STATE OF REVIEW TO GET THE INPUT
-/// IS RATED REDUX
-///ADD REVIEW TO PRODUCT STATE
-
-
-
-
-
- {/* Normal PopUP
-                     
-                     <Button onClick={()=> setPopUpButton(true)} >PopUp Sample</Button>
-                        <PopUp trigger={popUpButton} setTrigger={setPopUpButton}>
-                           
-                         </PopUp>
-                      */}
-                    
