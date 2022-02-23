@@ -14,7 +14,7 @@ const DisplayReview = ({product}) => {
                       <span   className='px-0 mx-0 ' >
                              <i class="fa fa-user-circle fa-3x" ></i>
                               <span  className='mx-2' style={{position:'absolute',top:'10', left:'2'}}> {r.name}   </span> 
-                              <span className='mx-2' >{r.createdAt} </span>
+                              <span className='mx-2' >{r.createdAt? r.createdAt: (<span> 2022-02-23T08:18:20.442Z </span>)} </span>
                      </span>
                 </Col>
 

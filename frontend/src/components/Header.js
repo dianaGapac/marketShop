@@ -6,7 +6,6 @@ import {useDispatch, useSelector} from 'react-redux'
 import { logOut } from '../actions/userActions'
 
 
-
 const Header = () => {
     const dispatch = useDispatch()
     const userLogin = useSelector(state=> state.userLogin)
@@ -36,18 +35,23 @@ const Header = () => {
             setCategActive(true)
             setProfileActive(false)
             setCartActive(false)
+            setClicked(false)
+
         }else if( name === 'cart'){
             setCategActive(false)
             setProfileActive(false)
             setCartActive(true)
+            setClicked(false)
         } else if(name==='profile' ){
             setCategActive(false)
             setProfileActive(true)
             setCartActive(false)
+            setClicked(false)
         } else{
             setCategActive(false)
             setProfileActive(false)
             setCartActive(false)
+            setClicked(false)
         }
     }
     return (
@@ -75,7 +79,6 @@ const Header = () => {
                     </div>
 
                     <Nav style={{color:'black'}} className={clicked? 'nav-menu-mobile': 'nav-menu'} > 
-                            
                         <NavDropdown className={categActive? "nav-item-container active" : "nav-item-container" }  title="CATEGORY" id='category' >
                            <LinkContainer name='categ' onClick={(e)=> setActive('categ')} to ='/productlist'>
                                 <NavDropdown.Item >
