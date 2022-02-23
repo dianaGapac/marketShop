@@ -1,9 +1,10 @@
 import React, {useState} from 'react'
 import {Link} from 'react-router-dom'
-import {Container, Navbar, Nav, NavDropdown,Row, Button} from 'react-bootstrap'
+import {Container, Navbar, Nav, NavDropdown,Row, Button, Image} from 'react-bootstrap'
 import {LinkContainer } from 'react-router-bootstrap'
 import {useDispatch, useSelector} from 'react-redux'
 import { logOut } from '../actions/userActions'
+
 
 
 const Header = () => {
@@ -51,11 +52,20 @@ const Header = () => {
     }
     return (
         <header>
-        
             <Navbar sticky='top' variant= {clicked?"dark": "light"} className='nav-border' style= {{backgroundColor:'white'}}>
                 <Container>
-                    <LinkContainer  style={{color:'black'}}  to='/'>
-                         <Navbar.Brand >SNEAKY | SHOPPY</Navbar.Brand>
+                    <LinkContainer   to='/'>
+                          <Navbar.Brand> 
+                              <img
+                                src="/logo.png"
+                                width="115"
+                                className="d-inline-block align-top"
+                                alt="Sneaky logo"
+                            />
+                            
+                          </Navbar.Brand>
+                          
+                         
                     </LinkContainer>
 
                     <div className='menu-icon' onClick={menuClickHandler}>
