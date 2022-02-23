@@ -52,9 +52,9 @@ const Header = () => {
     return (
         <header>
         
-            <Navbar sticky='top' variant="light" className='nav-border ' style= {{backgroundColor:'white'}}>
+            <Navbar sticky='top' variant= {clicked?"dark": "light"} className='nav-border' style= {{backgroundColor:'white'}}>
                 <Container>
-                    <LinkContainer to='/'>
+                    <LinkContainer  style={{color:'black'}}  to='/'>
                          <Navbar.Brand >SNEAKY | SHOPPY</Navbar.Brand>
                     </LinkContainer>
 
@@ -64,9 +64,9 @@ const Header = () => {
                         </Button>
                     </div>
 
-                    <Nav style={{color:'black'}} className={clicked? 'nav-menu-mobile': 'nav-menu'} >
+                    <Nav style={{color:'black'}} className={clicked? 'nav-menu-mobile': 'nav-menu'} > 
                             
-                        <NavDropdown  className={categActive? "nav-item-container active" : "nav-item-container" }  title="CATEGORY" id='category' >
+                        <NavDropdown className={categActive? "nav-item-container active" : "nav-item-container" }  title="CATEGORY" id='category' >
                            <LinkContainer name='categ' onClick={(e)=> setActive('categ')} to ='/productlist'>
                                 <NavDropdown.Item >
                                       <p className="nav-item-link" > All Products </p> 

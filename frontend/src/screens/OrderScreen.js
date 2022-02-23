@@ -150,11 +150,11 @@ const OrderScreen = ({match,history}) => {
                                 {order.orderItems.map((item, index) => (
                                     <ListGroup.Item key={index}> 
                                         <Row>
-                                            <Col sm={3} xs={3} md={1}>
+                                            <Col lg={2} sm={3} xs={3} md={1}>
                                                 <Image src={item.image} alt={item.name} fluid rounded />
                                             </Col>
 
-                                            <Col sm={9} xs={9} >
+                                            <Col lg={6} sm={9} xs={9} >
                                                 <Row >
                                                     <Col  xs={12} sm={12}>
                                                         <Link to={`/product/${item.product}`} >
@@ -241,16 +241,21 @@ const OrderScreen = ({match,history}) => {
                     
                     { // conditional rendering for order received button 
                     order.isPaid && !order.isDelivered && userInfo.isAdmin === 'false'?
-                    (<ListGroup.Item variant='flush'> 
-                        <Button type='submit' disabled> ORDER RECEIVED</Button>
-                        <div >
-                             <LinkContainer to='/myorders'>
-                                   <Button onClick={goBackHandler}>
-                                      GO BACK
-                                     </Button>
-                              </LinkContainer>
-                        </div>
-                    </ListGroup.Item>) 
+                    (
+                        <ListGroup variant='flush'> 
+                            <ListGroup.Item > 
+                                <Button type='submit' disabled> ORDER RECEIVED</Button>
+                            </ListGroup.Item>
+                            <ListGroup.Item>
+                                <LinkContainer to='/myorders'>
+                                    <Button onClick={goBackHandler}>
+                                        GO BACK
+                                        </Button>
+                                </LinkContainer>
+                            </ListGroup.Item>
+                          </ListGroup>
+                    
+                    ) 
 
                     : order.isDelivered && order.isReceived && order.isRated && userInfo.isAdmin === 'false' ?
                      (
@@ -282,28 +287,30 @@ const OrderScreen = ({match,history}) => {
 
                     : order.isDelivered && !order.isReceived && userInfo.isAdmin === 'false'? 
                     (
+                     <ListGroup variant='flush'> 
                         <ListGroup.Item>
-                            <Button type='submit' alt= 'Click if order is received'
-                            onClick={(e) => orderReceivedHandler(orderId)}> ORDER RECEIVED </Button>
-                         
-                            <PopUp trigger={orderIsReceived} setTrigger={setOrderIsReceived}>
-                                { !order.isRated? (
-                                    <>
-                                        <h5>Order Received Successfully!</h5>
-                                        <p>Rate the product now</p>
-                                        <Button onClick={popUpRatepHandler}> RATE NOW</Button> 
-                                    </>): (
-                                    <>
-                                        <h5>PRODUCT RATED Successfully</h5>
-                                        <p>Thank You, For giving a time to review the product</p>
-                                    </>
-                                    )
-                                }
-                                
-                          </PopUp>
-                          <ReviewProduct className='my-10' trigger={popUpRate} setTrigger={setPopUpRate} > 
-                     </ReviewProduct>         
+                                <Button type='submit' alt= 'Click if order is received'
+                                onClick={(e) => orderReceivedHandler(orderId)}> ORDER RECEIVED </Button>
+                            
+                                <PopUp trigger={orderIsReceived} setTrigger={setOrderIsReceived}>
+                                    { !order.isRated? (
+                                        <>
+                                            <h5>Order Received Successfully!</h5>
+                                            <p>Rate the product now</p>
+                                            <Button onClick={popUpRatepHandler}> RATE NOW</Button> 
+                                        </>): (
+                                        <>
+                                            <h5>PRODUCT RATED Successfully</h5>
+                                            <p>Thank You, For giving a time to review the product</p>
+                                        </>
+                                        )
+                                    }
+                                    
+                            </PopUp>
+                                <ReviewProduct className='my-10' trigger={popUpRate} setTrigger={setPopUpRate} > 
+                                </ReviewProduct>         
                         </ListGroup.Item>
+                    </ListGroup>
                     )
                   :  order.isDelivered && order.isReceived && userInfo.isAdmin === 'false' ?
                      (
@@ -327,27 +334,30 @@ const OrderScreen = ({match,history}) => {
                 
                 {userInfo && userInfo.isAdmin === 'true' && order.isPaid && !order.isDelivered &&  (
 
-                        (<ListGroup.Item> 
-
-                            <Button type='button' className='btn-btn-block' onClick={(e)=> deliverHandler(orderId)}> 
-                               MARK AS DELIVERED
-                            </Button>
-                        </ListGroup.Item>
+                        (
+                        <ListGroup variant='flush'>
+                            <ListGroup.Item > 
+                                <Button type='button' className='btn-btn-block' onClick={(e)=> deliverHandler(orderId)}> 
+                                MARK AS DELIVERED
+                                </Button>
+                            </ListGroup.Item>
+                        </ListGroup>
                         
                         )
                     )}
 
                     { userInfo.isAdmin === 'true' && (
 
-                        (<ListGroup.Item> 
-
-                            <LinkContainer to='/admin/orderList'>
-                                    <Button onClick={goBackHandler}>
-                                    GO BACK
-                                    </Button>
-                                </LinkContainer>
-                        </ListGroup.Item>
-                        
+                        (
+                         <ListGroup variant='flush'>
+                            <ListGroup.Item > 
+                                <LinkContainer to='/admin/orderList'>
+                                        <Button onClick={goBackHandler}>
+                                        GO BACK
+                                        </Button>
+                                    </LinkContainer>
+                            </ListGroup.Item>
+                        </ListGroup>
                         )
                     )}
                 

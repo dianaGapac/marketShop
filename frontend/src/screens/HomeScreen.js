@@ -89,7 +89,6 @@ const HomeScreen = ({history}) => {
                                     <Product product = {product}/> </Col> )  
                             )) 
                         }  
-                           
                     </Row> }
         </div>
         
