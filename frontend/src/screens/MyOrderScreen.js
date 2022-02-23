@@ -71,57 +71,71 @@ const MyOrderScreen = ({history, location,}) => {
                 <div>
                     {isDesktop ? (
                         <div>
-                            <Row>
-                                <h4 className='mt-2'> MY ORDERS</h4>
-                                { loadingOrders ? <Loader/>:
-                                errorOrders? <Message variant='danger'> {errorOrders}</Message> :
+                            {orders?
+                            (<div> 
+                                {orders.length === 0?  (<Message variant='primary' >
+                                 No ORDERS YET. CLICK<Link to='/'> here </Link> TO SHOP
+                            </Message>): 
                                 (
-                                    <Table striped bordered hover reponsive className='table-sm'>
-                                        <thead>
-                                            <tr>
-                                                <th> ID </th>
-                                                <th> DATE </th>
-                                                <th> TOTAL </th>
-                                                <th> PAID </th>
-                                                <th> DELIVERED </th>
-                                                <th> RECEIVED </th>
-                                                <th> </th>
-                                            </tr>
-                                        </thead> 
-                                        {orders? ( <tbody>
-                                            {orders.map( order =>( 
-                                                <tr key={order._id}>
-                                                    <td> {order._id} </td>
-                                                    <td> {order.createdAt.substring(0,10)} </td>
-                                                    <td >&#x20B1; {order.totalPrice.toLocaleString()} </td>
-                                                    <td> {order.isPaid? order.paidAt.substring(0,10):
-                                                        <i className='fas fa-times' style={{color:'red'}}></i>} 
-                                                    </td>
-                                                    <td> {order.isDelivered? order.deliveredAt.substring(0,10):
-                                                        <i className='fas fa-times' style={{color:'red'}}></i>} 
-                                                </td>
-                                                <td> {order.isReceived? <ic className= 'fas fa-check' > </ic>:
-                                                        <i className='fas fa-times' style={{color:'red'}}></i>} 
-                                                </td>
-                                                    <td> 
-                                                        <Button variant='dark'  onClick={(e)=> getOrderHandler(order._id)}>
-                                                            Details
-                                                        </Button>
-                                                    </td>
-                
+                                 <Row>
+                                    <h4 className='mt-2'> MY ORDERS</h4>
+                                    { loadingOrders ? <Loader/>:
+                                    errorOrders? <Message variant='danger'> {errorOrders}</Message> :
+                                    (
+                                        <Table striped bordered hover reponsive className='table-sm'>
+                                            <thead>
+                                                <tr>
+                                                    <th> ID </th>
+                                                    <th> DATE </th>
+                                                    <th> TOTAL </th>
+                                                    <th> PAID </th>
+                                                    <th> DELIVERED </th>
+                                                    <th> RECEIVED </th>
+                                                    <th> </th>
                                                 </tr>
-                                            ))}
-                                        </tbody>): <Message> NO ORDERS</Message>}
-                        
-                                    </Table>
-                                )
-                                }
-                            </Row>
+                                            </thead> 
+                                            {orders? ( <tbody>
+                                                {orders.map( order =>( 
+                                                    <tr key={order._id}>
+                                                        <td> {order._id} </td>
+                                                        <td> {order.createdAt.substring(0,10)} </td>
+                                                        <td >&#x20B1; {order.totalPrice.toLocaleString()} </td>
+                                                        <td> {order.isPaid? order.paidAt.substring(0,10):
+                                                            <i className='fas fa-times' style={{color:'red'}}></i>} 
+                                                        </td>
+                                                        <td> {order.isDelivered? order.deliveredAt.substring(0,10):
+                                                            <i className='fas fa-times' style={{color:'red'}}></i>} 
+                                                    </td>
+                                                    <td> {order.isReceived? <ic className= 'fas fa-check' > </ic>:
+                                                            <i className='fas fa-times' style={{color:'red'}}></i>} 
+                                                    </td>
+                                                        <td> 
+                                                            <Button variant='dark'  onClick={(e)=> getOrderHandler(order._id)}>
+                                                                Details
+                                                            </Button>
+                                                        </td>
+                    
+                                                    </tr>
+                                                ))}
+                                            </tbody>): <Message> NO ORDERS</Message>}
+                            
+                                        </Table>
+                                    )
+                                    }
+                                </Row>
+                                )}
+                            </div>): ''
+                          }
 
                         </div>
                     ) : 
                     (
                         <div>
+                             {orders.length === 0 &&
+                             (<Message variant='primary' >
+                                 No ORDERS YET. CLICK<Link to='/'> here </Link> TO SHOP
+                            </Message>) }
+
                              <h4 className='mt-2 '> MY ORDERS</h4>
                                 { loadingOrders ? <Loader/>:
                                 errorOrders? <Message variant='danger'> {errorOrders}</Message> :(

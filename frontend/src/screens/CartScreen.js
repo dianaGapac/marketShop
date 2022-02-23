@@ -251,6 +251,12 @@ const CartScreen = ({match, location, history}) => {
           </div>
         ) : (
             <div>
+                {cartItems.length === 0 && 
+                (<Message variant='primary' >
+                    Your Cart is EMPTY. Click <Link to='/'> here </Link> to SHOP
+                </Message>)
+                }
+                
                 {cartItems.map((item, index)=>(
                       <ListGroup className='mt-1'>
                         <Row>
