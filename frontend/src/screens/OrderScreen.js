@@ -93,11 +93,11 @@ const OrderScreen = ({match,history}) => {
          else if(!order.isPaid){
             if(!window.paypal){
                 addPayPalScript()
-                setSdkReady(true) 
-                
+                console.log('pasok')
             }
             else{
                 setSdkReady(true) 
+                console.log('pasok sdk true')
             }
         }
 

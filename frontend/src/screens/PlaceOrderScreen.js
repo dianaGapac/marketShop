@@ -32,7 +32,6 @@ const PlaceOrderScreen = ({history}) => {
     const {order,success, error,reset} = orderCreate
 
     const placeOrderHandler =() =>{ 
-      
         dispatch(createOrder({
             orderItems: cart.selectedItems,
             shippingAddress: cart.shippingAddress,
@@ -49,7 +48,7 @@ const PlaceOrderScreen = ({history}) => {
 
         window.scrollTo(0, 0)
         if(success){
-            dispatch(getOrderDetails(order._id))
+           // dispatch(getOrderDetails(order._id))
             history.push(`/orders/${order._id}`)
             dispatch({ type: ORDER_CREATE_RESET})
         }
