@@ -37,25 +37,25 @@ const ShippingScreen = ({history}) => {
                    
                         <Form  onSubmit={submitHandler}> 
                             <Form.Group controlId='address'>
-                                    <Form.Label> Address </Form.Label>
+                                    <Form.Label className="mt-1"> Address </Form.Label>
                                     <Form.Control type='text' placeholder='Enter Address' value= {address} required onChange={(e) => setAddress(e.target.value)}>  
                                     </Form.Control>
                             </Form.Group>
 
                             <Form.Group controlId='city'>
-                                    <Form.Label> City </Form.Label>
+                                    <Form.Label className="mt-1"> City </Form.Label>
                                     <Form.Control type='text' placeholder='Enter City' value= {city} required onChange={(e) => setCity(e.target.value)}>  
                                     </Form.Control>
                             </Form.Group>
 
                             <Form.Group controlId='postalCode'>
-                                    <Form.Label> Postal Code </Form.Label>
+                                    <Form.Label className="mt-1"> Postal Code </Form.Label>
                                     <Form.Control type='text' placeholder='Enter PostalCode' value= {postalCode} required onChange={(e) => setPostalCode(e.target.value)}>  
                                     </Form.Control>
                             </Form.Group>
 
                             <Form.Group controlId='country'>
-                                    <Form.Label> Country </Form.Label>
+                                    <Form.Label className="mt-1"> Country </Form.Label>
                                     <Form.Control type='text' placeholder='Enter Country' value= {country} required onChange={(e) => setCountry(e.target.value)}>  
                                     </Form.Control>
                             </Form.Group>

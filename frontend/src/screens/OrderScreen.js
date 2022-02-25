@@ -89,9 +89,12 @@ const OrderScreen = ({match,history}) => {
             dispatch({type: ORDER_DELIVER_RESET})
             dispatch({ type: ORDER_DETAILS_RESET})
             dispatch(getOrderDetails(orderId))
-        } else if(!order.isPaid){
+        }
+         else if(!order.isPaid){
             if(!window.paypal){
                 addPayPalScript()
+                setSdkReady(true) 
+                
             }
             else{
                 setSdkReady(true) 
@@ -111,7 +114,6 @@ const OrderScreen = ({match,history}) => {
         <Row>
             <Col md={8}>
                 <ListGroup variant= 'flush'>
-
                     <ListGroup.Item>
                     <h5>SHIPPING</h5>
                     <p> NAME: {order.user.name} </p>
