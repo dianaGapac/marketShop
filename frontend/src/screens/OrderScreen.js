@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import {PayPalButton} from 'react-paypal-button-v2'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
-import { Button, Row,Col, ListGroup, Image, Form, InputGroup, ListGroupItem } from 'react-bootstrap'
+import { Button, Row,Col, ListGroup, Image} from 'react-bootstrap'
 import { useDispatch, useSelector} from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
@@ -10,9 +10,8 @@ import PopUp from '../components/PopUp'
 import ReviewProduct from '../components/ReviewProduct'
 import Rating from '../components/Rating'
 import  {getOrderDetails, payOrder, deliverOrder, receiveOrder, listMyOrders} from '../actions/orderActions'
-import {ORDER_PAY_RESET, ORDER_DELIVER_RESET, ORDER_DETAILS_RESET, ORDER_CREATE_RESET} from '../constants/orderConstants'
+import {ORDER_PAY_RESET, ORDER_DELIVER_RESET, ORDER_DETAILS_RESET} from '../constants/orderConstants'
 import { LinkContainer } from 'react-router-bootstrap'
-
 
 
 const OrderScreen = ({match,history}) => {
