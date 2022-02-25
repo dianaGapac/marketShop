@@ -5,7 +5,8 @@ import { useDispatch, useSelector} from 'react-redux'
 import CheckoutSteps from '../components/CheckoutSteps'
 import Message from '../components/Message'
 import  {createOrder, getOrderDetails} from '../actions/orderActions'
-import { ORDER_CREATE_RESET } from '../constants/orderConstants'
+import{ORDER_DETAILS_RESET} from '../constants/orderConstants'
+
 
 
 const PlaceOrderScreen = ({history}) => {
@@ -31,6 +32,7 @@ const PlaceOrderScreen = ({history}) => {
     const orderCreate= useSelector((state) => state.orderCreate)
     const {order,success, error,reset} = orderCreate
 
+
     const placeOrderHandler =() =>{ 
         dispatch(createOrder({
             orderItems: cart.selectedItems,
@@ -42,18 +44,18 @@ const PlaceOrderScreen = ({history}) => {
             totalPrice: cart.totalPrice
         }))
 
+
     }
     
     useEffect(()=>{
-
         window.scrollTo(0, 0)
         if(success){
-           // dispatch(getOrderDetails(order._id))
+            dispatch(getOrderDetails(order._id))
             history.push(`/orders/${order._id}`)
-            dispatch({ type: ORDER_CREATE_RESET})
+          
         }
       
-    },[history,success])
+    },[history,success,order])
      
     return (
         <Container className='mt-5'>

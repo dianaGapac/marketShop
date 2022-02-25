@@ -42,6 +42,7 @@ const Header = () => {
             setProfileActive(false)
             setCartActive(true)
             setClicked(false)
+            
         } else if(name==='profile' ){
             setCategActive(false)
             setProfileActive(true)

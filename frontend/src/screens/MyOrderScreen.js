@@ -123,7 +123,7 @@ const MyOrderScreen = ({history}) => {
                                     }
                                 </Row>
                                 )}
-                            </div>): ''
+                            </div>): <Loader/>
                           }
 
                         </div>
@@ -193,7 +193,7 @@ const MyOrderScreen = ({history}) => {
                                     
                                 ) }
                                 </div>
-                            ): '' }
+                            ): <Loader/> }
                         </div>
                     )
                  }
