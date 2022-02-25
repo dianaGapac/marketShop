@@ -46,8 +46,9 @@ const PlaceOrderScreen = ({history}) => {
     }
     
     useEffect(()=>{
+
+        window.scrollTo(0, 0)
         if(success){
-            
             dispatch(getOrderDetails(order._id))
             history.push(`/orders/${order._id}`)
             dispatch({ type: ORDER_CREATE_RESET})

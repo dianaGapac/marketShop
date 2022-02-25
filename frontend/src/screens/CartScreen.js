@@ -9,11 +9,9 @@ import { addToCart, removeFromCart ,passSelectedItem } from '../actions/cartActi
 //TODO Gawing table ung cart screeen
 
 const CartScreen = ({match, location, history}) => {
-
     //to trigger addtocart dispatch
     var productId = match.params.id 
     var qty = location.search? Number(location.search.split('=')[1]) : 1 
-
     var size= location.search? location.search.split('-')[1]: 1 
 
     const dispatch = useDispatch()
@@ -21,8 +19,6 @@ const CartScreen = ({match, location, history}) => {
     const cart = useSelector((state) => state.cart) //to getthe value of states available
     const { cartItems} = cart //get states needed
     const [selectedItems, setSelectedItems] = useState([])  //temporary state for selected
-
-
     const userLogin = useSelector(state => state.userLogin)
     const {userInfo} = userLogin
 
@@ -32,10 +28,8 @@ const CartScreen = ({match, location, history}) => {
         setDesktop(window.innerWidth > 1000);
       };
     
-
     //add selected item to selectedItems
     const addSelected =(id,op)=>{
-
         const item = cartItems.find( x => x.product === id)
         const alreadySelectedItem =  selectedItems.find((x) => x.product === id) 
 
@@ -45,7 +39,6 @@ const CartScreen = ({match, location, history}) => {
                  { item.qty = item.qty+1 }
             else
                  { item.qty = item.qty-1 }
-
             return ( setSelectedItems( selectedItems.map( (x) => x.product === alreadySelectedItem.product ?item: x ))
              )
 
@@ -68,9 +61,7 @@ const CartScreen = ({match, location, history}) => {
             removeSelected(id)
         }
 
-
     }
-
     // change on quanty input handler 
     const onChangeHandler =(id, qty, stock)=>{
          qty < stock ? dispatch(addToCart(id,qty) 
@@ -100,9 +91,7 @@ const CartScreen = ({match, location, history}) => {
 
         //trigger add to cart first
         dispatch(addToCart(id,qty,size))
-
         var checked = false
-
         //check if item selected already
         const selected = selectedItems.find(x => x.product === id)
         //if selected pass on the operation
@@ -115,7 +104,7 @@ const CartScreen = ({match, location, history}) => {
 
    
     useEffect(() =>{
-
+        window.scrollTo(0, 0)
         window.addEventListener("resize", updateMedia);
         window.removeEventListener("resize", updateMedia)
 
@@ -215,7 +204,6 @@ const CartScreen = ({match, location, history}) => {
                                                     </tr>
                                                 ))}
                                 </tbody>
-                                
                             </Table>
                         </Col>
                     </Row>
@@ -335,9 +323,6 @@ const CartScreen = ({match, location, history}) => {
                                             </InputGroup>
                                          </Col>
                                      </Row>
-
- 
-
                                  </ListGroup.Item>            
                               </Col>
                          </Row>
@@ -372,9 +357,6 @@ const CartScreen = ({match, location, history}) => {
 
          </div>
         )
-
-   
-       
      }
      </div>
     )

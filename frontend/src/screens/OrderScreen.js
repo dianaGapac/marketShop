@@ -17,11 +17,8 @@ import { LinkContainer } from 'react-router-bootstrap'
 
 const OrderScreen = ({match,history}) => {
     const orderId = match.params.id
-    
     const [sdkReady,setSdkReady] = useState(false)
-
     const dispatch = useDispatch()
-
     const userLogin = (useSelector((state) => state.userLogin))
     const {userInfo} = userLogin
 
@@ -40,12 +37,10 @@ const OrderScreen = ({match,history}) => {
     const orderCreateReview = (useSelector((state) => state.orderCreateReview))
     const {order: orderReview ,loading: loadingReview, error:errorReview , success: successReview} = orderCreateReview
 
-    
     const [orderIsReceived, setOrderIsReceived] = useState(false)
     const [popUpRate, setPopUpRate] = useState(false)
 
    
-    
     const successPaymentHandler = (paymentResult)=>{
         console.log(paymentResult)
         dispatch(payOrder(orderId,paymentResult)) 
@@ -72,9 +67,9 @@ const OrderScreen = ({match,history}) => {
      }
 
 
-
     useEffect(()=>{
 
+        window.scrollTo(0, 0)
         if(!userInfo){
             history.push('/login')
         }
@@ -104,13 +99,11 @@ const OrderScreen = ({match,history}) => {
             }
         }
 
-   
     },[dispatch, orderId, successPay,successDeliver,order, history, userInfo])
      
     return loading? <Loader/>:error? <Message variant='danger'> {error} </Message>: !loading? (
     <>
     { loading && <Loader/> }
-
     <h5 className='mt-4'> <strong>  ORDER ID </strong>  </h5>
     <p> {order._id} </p>
 
@@ -366,8 +359,6 @@ const OrderScreen = ({match,history}) => {
             </Col>
         </Row>
         </div>
-
-        
     )}
         
     </> ): ''

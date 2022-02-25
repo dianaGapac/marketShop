@@ -7,7 +7,7 @@ import Loader from '../components/Loader'
 import { getUserDetails } from '../actions/userActions'
 import {listMyOrders, getOrderDetails} from '../actions/orderActions'
 
-const MyOrderScreen = ({history, location,}) => {
+const MyOrderScreen = ({history}) => {
 
       //local state
     const [name, setName] = useState('')
@@ -15,7 +15,6 @@ const MyOrderScreen = ({history, location,}) => {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [message,setMessage] = useState(null)
-
 
     const dispatch = useDispatch()
     //redux state
@@ -45,7 +44,7 @@ const MyOrderScreen = ({history, location,}) => {
     }
 
     useEffect (()=>{
-
+        window.scrollTo(0, 0)
         window.addEventListener("resize", updateMedia);
         window.removeEventListener("resize", updateMedia)
 
@@ -64,7 +63,7 @@ const MyOrderScreen = ({history, location,}) => {
                     }
             }
         }
-    , [dispatch, history,userInfo, user,orders, myOrderList])
+    , [dispatch, history,userInfo, user,orders])
 
     return (
         <div>
@@ -131,76 +130,77 @@ const MyOrderScreen = ({history, location,}) => {
                     ) : 
                     (
                         <div>
-                             {orders.length === 0 &&
-                             (<Message variant='primary' >
-                                 No ORDERS YET. CLICK<Link to='/'> here </Link> TO SHOP
-                            </Message>) }
-
-                             <h4 className='mt-2 '> MY ORDERS</h4>
-                                { loadingOrders ? <Loader/>:
-                                errorOrders? <Message variant='danger'> {errorOrders}</Message> :(
-                                <Row className='mx-auto'>
-                                   
-                                    {orders? (
-                                        orders.map(order=>(
-                                            <ListGroup  variant='flush' key={order._id}> 
-                                                <ListGroup.Item>
-                                                    <Row>
-                                                        <p>{order.orderItems[0]._id} </p>
-                                                    </Row>
-                                                <Row>
-                                                    <Col xs={3} sm={3} md={1}>
-                                                        <Image src={order.orderItems[0].image} alt={order.orderItems[0].name} fluid rounded />
-                                                    </Col>
-                                                    <Col>
-                                                        <Link to={`/product/${order.orderItems[0].product}`} >
-                                                            {order.orderItems[0].name}
-                                                        </Link>
-                                                        <p>x{order.orderItems[0].qty}</p>
-                                                    </Col>
+                            {orders?(
+                                <div> 
+                                {orders.length === 0?  (<Message variant='primary' >
+                                    No ORDERS YET. CLICK<Link to='/'> here </Link> TO SHOP
+                                </Message>): (
+                                    <div>
+                                        <h4 className='mt-2 '> MY ORDERS</h4>
+                                        { loadingOrders ? <Loader/>:
+                                            errorOrders? <Message variant='danger'> {errorOrders}</Message> :
+                                            (
+                                                <Row className='mx-auto'>
+                                                    {orders? (
+                                                        orders.map(order=>(
+                                                            <ListGroup  variant='flush' key={order._id}> 
+                                                                <ListGroup.Item>
+                                                                    <Row>
+                                                                        <p>{order.orderItems[0]._id} </p>
+                                                                    </Row>
+                                                                <Row>
+                                                                    <Col xs={3} sm={3} md={1}>
+                                                                        <Image src={order.orderItems[0].image} alt={order.orderItems[0].name} fluid rounded />
+                                                                    </Col>
+                                                                    <Col>
+                                                                        <Link to={`/product/${order.orderItems[0].product}`} >
+                                                                            {order.orderItems[0].name}
+                                                                        </Link>
+                                                                        <p>x{order.orderItems[0].qty}</p>
+                                                                    </Col>
+                                                                </Row>
+                                                            
+                                                                </ListGroup.Item>
+                
+                                                                <ListGroup.Item>
+                                                                    <Row>
+                                                                        <Col sm={8} xs={8} >
+                                                                            {order.orderItems.length>1 && (
+                                                                                <div>
+                                                                                    <p>{order.orderItems.length - 1} more product/s</p>
+                                                                                </div>
+                                                                            )}
+                                                                        </Col>
+                                                                        <Col sm={4} xs={4}>
+                                                                            <Button variant='dark'  onClick={(e)=> getOrderHandler(order._id)}>
+                                                                                    Details
+                                                                            </Button>
+                                                                        </Col>
+                                                                    </Row>
+                                                                </ListGroup.Item>
+                                                            </ListGroup>
+                
+                                                        ))
+                                                    )
+                                                    
+                                                    : ''}    
+                                                    
                                                 </Row>
-                                            
-                                                </ListGroup.Item>
+                                            )
+                                        }
 
-                                                <ListGroup.Item>
-                                                    <Row>
-                                                         <Col sm={8} xs={8} >
-                                                            {order.orderItems.length>1 && (
-                                                                <div>
-                                                                    <p>{order.orderItems.length - 1} more product/s</p>
-                                                                </div>
-                                                            )}
-                                                        </Col>
-                                                        <Col sm={4} xs={4}>
-                                                            <Button variant='dark'  onClick={(e)=> getOrderHandler(order._id)}>
-                                                                    Details
-                                                            </Button>
-                                                        </Col>
-                                                        
-                                                    </Row>
-
-                                                   
-                                                </ListGroup.Item>
-                                                <ListGroup.Item>
-
-                                                </ListGroup.Item>
-                                                
-                                            </ListGroup>
-
-                                        ))
-                                    )
+                                    </div>
                                     
-                                    : ''}    
-                                    
-                                </Row>
-                                )}
+                                ) }
+                                </div>
+                            ): '' }
                         </div>
-                 )
-                   }
-                </div>
- 
+                    )
+                 }
+
+              </div>
         </div>
-    )
-}
+    )}
+                                    
 
 export default MyOrderScreen

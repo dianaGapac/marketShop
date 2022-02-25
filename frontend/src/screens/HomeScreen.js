@@ -23,8 +23,10 @@ const HomeScreen = ({history}) => {
     const categoryHandler = (categ) =>{
         history.push(`/products/${categ}`)
     }
+    
     //fetch data from api in backend
     useEffect(()=>{
+        window.scrollTo(0, 0)
         dispatch(listProducts())
     },[dispatch])
     

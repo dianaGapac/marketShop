@@ -35,7 +35,7 @@ const ProductListScreen = ({history}) => {
         dispatch(createProduct())
     }
     useEffect(()=>{
-
+        window.scrollTo(0, 0)
         if( userInfo && userInfo.isAdmin === 'true') {
             dispatch(listProducts())
 

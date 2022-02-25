@@ -11,7 +11,6 @@ import {USER_UPDATE_RESET} from '../constants/userConstants'
 
 const UserEditScreen = ({match,history}) => {
     const userId = match.params.id
-    
     const userDetails = useSelector(state=> state.userDetails)
     const {loading, error, user} = userDetails
 
@@ -33,6 +32,7 @@ const UserEditScreen = ({match,history}) => {
 
     useEffect (()=>{
 
+        window.scrollTo(0, 0)
         if(successUpdate){
 
             dispatch({type: USER_UPDATE_RESET})
@@ -52,7 +52,6 @@ const UserEditScreen = ({match,history}) => {
                 setEmail(user.email)
                 setIsAdmin(user.isAdmin === 'true'? true: false) 
                 }
-
         }
 
 
@@ -99,10 +98,7 @@ const UserEditScreen = ({match,history}) => {
             )}
             
         </FormContainer>
-
         </>
-
-       
     )
 }
 

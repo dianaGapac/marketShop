@@ -15,8 +15,6 @@ const ProfileScreen = ({history, location}) => {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [message,setMessage] = useState(null)
-
-
     const dispatch = useDispatch()
     
     //redux state
@@ -52,6 +50,7 @@ const ProfileScreen = ({history, location}) => {
     }
 
     useEffect (()=>{
+        window.scrollTo(0, 0)
         if(!userInfo){
             history.push('/login') 
         }

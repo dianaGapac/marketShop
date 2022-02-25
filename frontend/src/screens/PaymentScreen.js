@@ -1,11 +1,9 @@
-import React, {useState } from 'react'
+import React, {useState, useEffect} from 'react'
 import {Form, Button, Row, Container} from 'react-bootstrap'
 import { useDispatch, useSelector} from 'react-redux'
 import FormContainer  from '../components/FormContainer'
 import CheckoutSteps from '../components/CheckoutSteps'
 import { savePaymentMethod} from '../actions/cartActions'
-
-
 
 const PaymentScreen = ({history}) => {
 
@@ -17,15 +15,16 @@ const PaymentScreen = ({history}) => {
         history.push('/shipping')
     }
     const [paymentMethod, setPaymentMethod] = useState('PayPal')
-    
-
     const submitHandler =(e)=>{ 
         e.preventDefault()
-       
         dispatch(savePaymentMethod(paymentMethod))
         history.push('/placeorder')
-   
+
     }
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+      }, [])
 
     return (
 
@@ -67,13 +66,9 @@ const PaymentScreen = ({history}) => {
                 <Button type= 'submit' variant='primary' className='my-3 mx-0'>
                  Continue
                 </Button>
-    
               </Form.Group>
-        
               </Form>
-
         </FormContainer>
-     
         </Container>
     )
 }

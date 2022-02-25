@@ -1,4 +1,4 @@
-import React from 'react'
+import React ,{useEffect}from 'react'
 import {useSelector} from 'react-redux'
 import { Col, Row } from 'react-bootstrap'
 import Loader from '../components/Loader'
@@ -7,9 +7,12 @@ import Product from '../components/Product'
 
 
 const WomenProductsScreen = () => {
-
     const productList = useSelector(state => state.productList)
     const {loading, error, products } = productList
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+      }, [])
  
     return (
         <div>

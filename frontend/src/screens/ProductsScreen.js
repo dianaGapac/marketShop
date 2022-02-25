@@ -15,7 +15,7 @@ const ProductsScreen = () => {
 
     //fetch data from api in backend
     useEffect(()=>{
-
+        window.scrollTo(0, 0)
         dispatch(listProducts())
         
     },[dispatch])

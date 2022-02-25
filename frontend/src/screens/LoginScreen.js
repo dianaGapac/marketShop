@@ -18,50 +18,32 @@ const LoginScreen = ({location, history}) => {
     //redux state
     const userLogin = useSelector(state => state.userLogin)
     const {loading, error, userInfo} = userLogin
-
-
-
-    
     const redirect = location.search? location.search.split('=')[1]: '/' 
 
     const submitHandler =(e)=>{
-
         e.preventDefault()
         //dispatch login 
         dispatch(logIn(email,password));
-
-    
-
     }
 
-
     useEffect (()=>{
+        window.scrollTo(0, 0)
+
         if(userInfo){
-            
             history.push('/')
             window.location.reload(false) }
-
-        
-       
         }, [history,userInfo, redirect] )
 
     return (
         <FormContainer >
-            
-
-           
            <h4 > <strong> LOG IN </strong></h4>
-          
-
             <Form onSubmit={submitHandler}>
-           
                 <Form.Group controlId='email'>
                     <Form.Label> Email Address</Form.Label>
                     <Form.Control type='email' placeholder='Enter Email' value= {email} onChange={(e) => setEmail(e.target.value)}>  
                     </Form.Control>
                 </Form.Group>
 
-              
                 <Form.Group controlId='password'>
                     <Form.Label> Password</Form.Label>
                     <Form.Control type='password' placeholder='Enter Password' value= {password} onChange={(e) => setPassword(e.target.value)}>  

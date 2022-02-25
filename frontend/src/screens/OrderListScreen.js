@@ -6,10 +6,7 @@ import Loader from '../components/Loader'
 import {listOrders,getOrderDetails} from '../actions/orderActions'
 
 const OrderListScreen = ({history, location}) => {
-
-
     const dispatch = useDispatch()
-
     const orderList = useSelector(state => state.orderList)
     const {loading: loadingOrders, error:errorOrders, orders} =  orderList
 
@@ -23,6 +20,8 @@ const OrderListScreen = ({history, location}) => {
     }
     useEffect (()=>{
 
+        window.scrollTo(0, 0)
+    
         if( userInfo && userInfo.isAdmin === 'true') {
             dispatch(listOrders())
      
@@ -36,7 +35,6 @@ const OrderListScreen = ({history, location}) => {
 
     return (
         <Row className= 'mt-4'> 
-          
             <Col md={9} lg={12}>
                 <h4>ORDERS</h4>
                 { loadingOrders ? <Loader/>:

@@ -16,8 +16,6 @@ const RegisterScreen = ({history, location}) => {
     const [confirmPassword, setConfirmPassword] = useState('')
     const [message,setMessage] = useState(null)
 
-
-
     const dispatch = useDispatch()
     
     //redux state
@@ -36,12 +34,12 @@ const RegisterScreen = ({history, location}) => {
         dispatch(register(name,email,password))
     
       }
-        
-      
 
     }
 
     useEffect (()=>{
+        window.scrollTo(0, 0)
+        
         if(userInfo){
             history.push(redirect)
     }}, [history,userInfo, redirect] )

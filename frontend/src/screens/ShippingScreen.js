@@ -1,4 +1,4 @@
-import React, {useState } from 'react'
+import React, {useState,useEffect} from 'react'
 import {Form, Button, Container } from 'react-bootstrap'
 import { useDispatch, useSelector} from 'react-redux'
 import FormContainer  from '../components/FormContainer'
@@ -25,13 +25,14 @@ const ShippingScreen = ({history}) => {
         history.push('/payment')
    
     }
+    useEffect(() => {
+        window.scrollTo(0, 0)
+      }, [])
 
 
     return (
         <Container  className='mt-5' > 
-          
             <CheckoutSteps  className='text-center' step1 step2/>
-            
             <FormContainer >
                    
                         <Form  onSubmit={submitHandler}> 

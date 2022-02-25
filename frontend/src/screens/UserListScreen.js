@@ -28,6 +28,8 @@ const UserListScreen = ({history}) => {
     }
 
     useEffect(()=>{
+
+        window.scrollTo(0, 0)
         if( userInfo && userInfo.isAdmin === 'true') {
             dispatch(listUsers())
         }
@@ -35,8 +37,6 @@ const UserListScreen = ({history}) => {
             history.push('/login')
             window.location.reload(false)
         }
-
-       
 
     }, [dispatch, history, userInfo, successDelete])
         return ( 

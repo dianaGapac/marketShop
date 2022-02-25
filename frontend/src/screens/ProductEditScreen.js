@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react'
-import xios from 'axios'
 import {Link} from 'react-router-dom'
 import {Form, Button} from 'react-bootstrap'
 import { useDispatch, useSelector} from 'react-redux'
@@ -11,11 +10,9 @@ import { PRODUCT_UPDATE_RESET } from '../constants/productConstants'
 import axios from 'axios'
 
 
-
 const ProductEditScreen = ({match,history}) => {
     const productId = match.params.id
     
-
       //local state
     const [name, setName] = useState('')
     const [price, setPrice] = useState(0)
@@ -25,17 +22,12 @@ const ProductEditScreen = ({match,history}) => {
     const [countInStock,setCountInStock] = useState(0)
     const [description,setDescription] = useState('')
     const [uploading,setUploading] = useState(false)
-    
 
     const productDetails  = useSelector(state=> state.productDetails)
     const {loading, error, product} = productDetails
 
     const productUpdate = useSelector(state=> state.productUpdate)
     const {loading: loadingUpdate, error: errorUpdate, success: successUpdate} = productUpdate
-
-   
-
-
 
     const dispatch = useDispatch()
 
@@ -80,7 +72,8 @@ const ProductEditScreen = ({match,history}) => {
     }
 
     useEffect (()=>{
-
+        
+        window.scrollTo(0, 0)
             if(successUpdate){
                 dispatch({type: PRODUCT_UPDATE_RESET})
                 history.push('/admin/productList')
@@ -146,12 +139,8 @@ const ProductEditScreen = ({match,history}) => {
 
                         <Form.File variant='dark' id='image-file'  custom onChange={uploadFileHandler}></Form.File>
                         {uploading && <Loader />}
-
-
                     </Form.Group>
 
-
-                    
                     <Form.Group controlId='brand'> 
                         <Form.Label> Brand</Form.Label>
                         <Form.Control type='text' placeholder={brand} value= {brand} onChange={(e) => setBrand(e.target.value)}>  

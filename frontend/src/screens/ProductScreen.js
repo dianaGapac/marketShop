@@ -17,6 +17,7 @@ const ProductScreen = ({match, history}) => {
     const [size, setSize] = useState ('')
 
     useEffect(() =>{
+    window.scrollTo(0, 0)
       dispatch( listProductDetails (match.params.id)) 
 
     },[dispatch,match])  
