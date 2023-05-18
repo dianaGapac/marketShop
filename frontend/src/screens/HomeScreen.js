@@ -9,6 +9,7 @@ import {listProducts} from '../actions/productActions'
 
 ///TODO CATEGORIES (When Clicked mareredirect) 
 /// Featured Product or LOWEST PRICE or NEW ARRIVAL
+// sample comment
 
 const HomeScreen = ({history}) => {
     const dispatch   = useDispatch()
