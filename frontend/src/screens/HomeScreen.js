@@ -5,7 +5,8 @@ import Loader from "../components/Loader";
 import Message from "../components/Message";
 import Product from "../components/Product";
 import Slider from "../components/Slider";
-import { listProducts } from "../actions/productActions";
+// import { listProducts } from "../actions/productActions";
+import { products } from "../../backend/data/products";
 
 ///TODO CATEGORIES (When Clicked mareredirect)
 /// Featured Product or LOWEST PRICE or NEW ARRIVAL
@@ -13,8 +14,8 @@ import { listProducts } from "../actions/productActions";
 
 const HomeScreen = ({ history }) => {
 	const dispatch = useDispatch();
-	const productList = useSelector((state) => state.productList);
-	const { loading, error, products } = productList;
+	// const productList = useSelector((state) => state.productList);
+	// const { loading, error, products } = productList;
 	const [searchTerm, setSearchTerm] = useState("");
 
 	const categ = ["Men", "Women", "Kids"];
@@ -26,7 +27,7 @@ const HomeScreen = ({ history }) => {
 	//fetch data from api in backend
 	useEffect(() => {
 		window.scrollTo(0, 0);
-		dispatch(listProducts());
+		// dispatch(listProducts());
 	}, [dispatch]);
 
 	return (
@@ -91,30 +92,30 @@ const HomeScreen = ({ history }) => {
 				</Col>
 			</Row>
 
-			{loading ? (
+			{/* {loading ? (
 				<Loader />
 			) : error ? (
 				<Message variant='danger'> {error} </Message>
-			) : (
-				<Row className='mx-0 px-0 no-gutters mt-3'>
-					{products &&
-						products
-							.filter((product) => {
-								if (searchTerm === "") {
-									return product;
-								} else if (
-									product.name.toLowerCase().includes(searchTerm.toLowerCase())
-								) {
-									return product;
-								}
-							})
-							.map((product) => (
-								<Col key={product._id} lg={4} xl={3} xs={12} sm={12} md={6}>
-									<Product product={product} />{" "}
-								</Col>
-							))}
-				</Row>
-			)}
+			) : ( */}
+			<Row className='mx-0 px-0 no-gutters mt-3'>
+				{products &&
+					products
+						.filter((product) => {
+							if (searchTerm === "") {
+								return product;
+							} else if (
+								product.name.toLowerCase().includes(searchTerm.toLowerCase())
+							) {
+								return product;
+							}
+						})
+						.map((product) => (
+							<Col key={product._id} lg={4} xl={3} xs={12} sm={12} md={6}>
+								<Product product={product} />{" "}
+							</Col>
+						))}
+			</Row>
+			{/* )} */}
 		</div>
 	);
 };

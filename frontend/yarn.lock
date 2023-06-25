@@ -6361,6 +6361,22 @@
   dependencies:
     "tmpl" "1.0.5"
 
+"marketshop@file:..":
+  "resolved" "file:.."
+  "version" "1.0.0"
+  dependencies:
+    "bcryptjs" "^2.4.3"
+    "dotenv" "^10.0.0"
+    "express" "^4.17.1"
+    "express-async-handler" "^1.1.4"
+    "heroku" "^8.1.9"
+    "jsonwebtoken" "^9.0.0"
+    "mongoose" "^5.13.1"
+    "morgan" "^1.10.0"
+    "multer" "^1.4.3"
+    "react-elastic-carousel" "^0.11.5"
+    "react-scripts" "^5.0.1"
+
 "mdn-data@2.0.14":
   "integrity" "sha512-dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow=="
   "resolved" "https://registry.npmjs.org/mdn-data/-/mdn-data-2.0.14.tgz"
