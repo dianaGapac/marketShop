@@ -6,7 +6,7 @@ import Message from "../components/Message";
 import Product from "../components/Product";
 import Slider from "../components/Slider";
 // import { listProducts } from "../actions/productActions";
-import { products } from "../../backend/data/products";
+import products from "../data/products.js";
 
 ///TODO CATEGORIES (When Clicked mareredirect)
 /// Featured Product or LOWEST PRICE or NEW ARRIVAL
