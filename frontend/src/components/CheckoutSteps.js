@@ -39,7 +39,7 @@ const CheckoutSteps = ({step1, step2, step3, step4}) => {
                             </LinkContainer>
                             ): 
                             <Nav.Link disabled>
-                                SIGN IN
+                                SIGN IN 
                             </Nav.Link>
                         }
                     </Nav.Item>
